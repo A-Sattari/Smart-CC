@@ -1,2 +1,2 @@
-# Legado
+# Smart CC
 The lit one
