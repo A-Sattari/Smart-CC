@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace Smart_Currency_Converter
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SmartConventerPage : ContentPage
+    public partial class SmartConverterPage : ContentPage
     {
-        public SmartConventerPage()
+        public SmartConverterPage()
         {
             InitializeComponent();
         }

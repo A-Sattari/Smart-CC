@@ -6,11 +6,15 @@ namespace Smart_Currency_Converter
 {
     public partial class App : Application
     {
+        public static NavigationPage NavigationObj;
+
         public App()
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            NavigationObj = new NavigationPage(new MainPage());
+            MainPage = NavigationObj;
+            //MainPage = new MainPage();
         }
 
         protected override void OnStart()

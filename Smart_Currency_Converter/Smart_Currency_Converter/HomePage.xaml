@@ -4,8 +4,14 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:local="clr-namespace:ViewModel.HomePage"
              x:Class="Smart_Currency_Converter.MainPage">
-
+    
+    <!-- ⬇ I want to bind the ViewModel code of "HomePage"with this XAML file ⬇ -->
+    <ContentPage.BindingContext>
+        <local:HomePageViewModel></local:HomePageViewModel>
+    </ContentPage.BindingContext>
+    
     <StackLayout>
 
         <Button
@@ -14,6 +20,7 @@
         />
 
         <Button
+            Command="{Binding OpenSmartConverterPage}"
             Text="Smart Converter"
             Margin="20, 40, 20, 30"
         />
