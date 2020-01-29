@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9104B2FF-0ED6-4593-B45D-7063E9D3D3B1}</ProjectGuid>
+    <ProjectGuid>{2CE18D62-8111-459D-BEFC-C98915B0AAA7}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{c9e5eea5-ca05-42a1-839b-61506e0a37df}</TemplateGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Smart_Currency_Converter.Droid</RootNamespace>
-    <AssemblyName>Smart Currency Converter.Android</AssemblyName>
+    <AssemblyName>Smart_Currency_Converter.Android</AssemblyName>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -88,9 +88,9 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Smart Currency Converter\Smart Currency Converter.csproj">
-      <Project>{5A77A28A-561E-4EAF-A3A3-7A696A12D54D}</Project>
-      <Name>Smart Currency Converter</Name>
+    <ProjectReference Include="..\Smart_Currency_Converter\Smart_Currency_Converter.csproj">
+      <Project>{C28FE658-480E-42F4-B76D-54CE53709551}</Project>
+      <Name>Smart_Currency_Converter</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
