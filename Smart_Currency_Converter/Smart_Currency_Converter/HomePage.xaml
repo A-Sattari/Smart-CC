@@ -15,6 +15,7 @@
     <StackLayout>
 
         <Button
+            Command="{Binding OpenManualConverterPage}"
             Text="Manual Converter"
             Margin="20, 40, 20, 30"
         />

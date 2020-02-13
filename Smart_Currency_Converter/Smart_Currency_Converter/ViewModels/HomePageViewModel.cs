@@ -12,13 +12,12 @@ namespace ViewModel.HomePage
 
         public HomePageViewModel()
         {
+            OpenManualConverterPage = new Command(OpenManualPage);
             OpenSmartConverterPage = new Command(OpenSmartPage);
         }
 
-        private void OpenManualPage()
-        {
-
-        }
+        private async void OpenManualPage() =>
+            await App.NavigationObj.PushAsync(new ManualConventerPage());
 
         private async void OpenSmartPage() =>
             await App.NavigationObj.PushAsync(new SmartConverterPage());
