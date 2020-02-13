@@ -10,5 +10,13 @@ namespace Smart_Currency_Converter
         {
             InitializeComponent();
         }
+
+        private async void CameraButton_Clicked(object sender, System.EventArgs e)
+        {
+            var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+
+            if (photo != null)
+                PhotoImage.Source = ImageSource.FromStream(() => { return photo.GetStream(); });
+        }
     }
 }

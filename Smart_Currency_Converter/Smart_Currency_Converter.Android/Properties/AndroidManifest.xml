@@ -1,6 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="Beta" package="com.companyname.smart_currency_converter" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="22" android:targetSdkVersion="29" />
-	<application android:label="Smart_Currency_Converter.Android"></application>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	
+  <application android:label="Smart_Currency_Converter.Android">
+    <provider android:name="android.support.v4.content.FileProvider"
+          android:authorities="${applicationId}.fileprovider"
+          android:exported="false"
+          android:grantUriPermissions="true">
+
+      <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                       android:resource="@xml/file_paths"></meta-data>
+    </provider>
+  </application>
+	
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.CAMERA" />
 </manifest>
+
+<!-- Regarding Camera & Storage permission: https://forums.xamarin.com/discussion/119942/mediaplugin-argument-exception-unable-to-get-file-location -->

@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Smart_Currency_Converter.SmartConverterPage">
-    
+    <!--
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Smart Page"
@@ -13,5 +13,22 @@
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </ContentPage.Content>
+    -->
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Image x:Name="PhotoImage" />
+        
+        <Button 
+            Clicked="CameraButton_Clicked"
+            x:Name="CameraButton" 
+            Text="Take Photo" Grid.Row="1" 
+        />
+        
+    </Grid>
 
 </ContentPage>
