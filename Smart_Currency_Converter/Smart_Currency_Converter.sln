@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart_Currency_Converter.An
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart_Currency_Converter.iOS", "Smart_Currency_Converter.iOS\Smart_Currency_Converter.iOS.csproj", "{94ACF825-515D-442C-BB3A-BE9BBDC10FB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart_Currency_Converter", "Smart_Currency_Converter\Smart_Currency_Converter.csproj", "{6B0172D8-D5B5-4CB0-BA57-8F68D63B176B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Smart_Currency_Converter", "Smart_Currency_Converter\Smart_Currency_Converter.csproj", "{6B0172D8-D5B5-4CB0-BA57-8F68D63B176B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart_Currency_Converter_Cloud", "Smart_Currency_Converter_Cloud\Smart_Currency_Converter_Cloud.csproj", "{763C0000-5821-4F95-B642-5CE9DDD6777E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,18 @@ Global
 		{6B0172D8-D5B5-4CB0-BA57-8F68D63B176B}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{6B0172D8-D5B5-4CB0-BA57-8F68D63B176B}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{6B0172D8-D5B5-4CB0-BA57-8F68D63B176B}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{763C0000-5821-4F95-B642-5CE9DDD6777E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{763C0000-5821-4F95-B642-5CE9DDD6777E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{763C0000-5821-4F95-B642-5CE9DDD6777E}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{763C0000-5821-4F95-B642-5CE9DDD6777E}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{763C0000-5821-4F95-B642-5CE9DDD6777E}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{763C0000-5821-4F95-B642-5CE9DDD6777E}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{763C0000-5821-4F95-B642-5CE9DDD6777E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{763C0000-5821-4F95-B642-5CE9DDD6777E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{763C0000-5821-4F95-B642-5CE9DDD6777E}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{763C0000-5821-4F95-B642-5CE9DDD6777E}.Release|iPhone.Build.0 = Release|Any CPU
+		{763C0000-5821-4F95-B642-5CE9DDD6777E}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{763C0000-5821-4F95-B642-5CE9DDD6777E}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

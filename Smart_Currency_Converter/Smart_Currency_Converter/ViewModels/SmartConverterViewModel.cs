@@ -9,14 +9,16 @@ namespace ViewModel.SmartConverter
         public event PropertyChangedEventHandler PropertyChanged;
         public Command TakePhoto { get; }
         private ImageSource image;
+        private string imagePath;
 
         public SmartConverterViewModel()
         {
             TakePhoto = new Command(CameraButtonClickedAsync);
         }
 
-        public ImageSource ImageDisplay {
-            get => image; 
+        public ImageSource ImageDisplay
+        {
+            get => image;
             set
             {
                 image = value;
@@ -27,6 +29,7 @@ namespace ViewModel.SmartConverter
         private async void CameraButtonClickedAsync()
         {
             var photo = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+            imagePath = photo.Path;
 
             ImageDisplay = ImageSource.FromStream(() => { return photo.GetStream(); });
         }
