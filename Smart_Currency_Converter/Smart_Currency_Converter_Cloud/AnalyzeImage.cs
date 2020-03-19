@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -14,23 +12,16 @@ namespace Smart_Currency_Converter_Cloud
 {
     public static class AnalyzeImage
     {
-        static string subscriptionKey = "2416c55d1d9342a5997a7c751cfc8b2f";
-        static string endpoint = "https://scc-computervision.cognitiveservices.azure.com/";
+        private const string subscriptionKey = "2416c55d1d9342a5997a7c751cfc8b2f";
+        private const string endpoint = "https://scc-computervision.cognitiveservices.azure.com/";
         private const string ANALYZE_URL_IMAGE = "https://moderatorsampleimages.blob.core.windows.net/samples/sample16.png";
 
         [FunctionName("AnalyzeImage")]
         public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req, ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
-            //string name = req.Query["name"];
-            //string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            //dynamic data = JsonConvert.DeserializeObject(requestBody);
-            //name = name ?? data?.name;
+            log.LogInformation($"{nameof(AnalyzeImage)} Function is triggered ...");
 
-            //string responseMessage = string.IsNullOrEmpty(name)
-            //    ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-            //    : $"Hello, {name}. This HTTP triggered function executed successfully.";
-            string responseMessage = "Called";
+            string responseMessage = null;
 
             List<VisualFeatureTypes> features = new List<VisualFeatureTypes>()
             {
@@ -41,11 +32,10 @@ namespace Smart_Currency_Converter_Cloud
                 VisualFeatureTypes.Objects
             };
 
-            ComputerVisionClient client = Authenticate(endpoint, subscriptionKey);
+            ComputerVisionClient visionClient = Authenticate(endpoint, subscriptionKey);
 
-            ImageAnalysis results = await client.AnalyzeImageAsync(ANALYZE_URL_IMAGE, features);
+            ImageAnalysis results = await visionClient.AnalyzeImageAsync(ANALYZE_URL_IMAGE, features);
 
-            log.LogInformation("Summary:");
             foreach (var caption in results.Description.Captions) {
                 responseMessage = $"{caption.Text} with confidence {caption.Confidence}";
             }
@@ -53,11 +43,9 @@ namespace Smart_Currency_Converter_Cloud
             return new OkObjectResult(responseMessage);
         }
 
-        public static ComputerVisionClient Authenticate(string endpoint, string key)
+        private static ComputerVisionClient Authenticate(string endpoint, string key)
         {
-            ComputerVisionClient client =
-              new ComputerVisionClient(new ApiKeyServiceClientCredentials(key))
-              { Endpoint = endpoint };
+            ComputerVisionClient client = new ComputerVisionClient(new ApiKeyServiceClientCredentials(key)) { Endpoint = endpoint };
             return client;
         }
     }
