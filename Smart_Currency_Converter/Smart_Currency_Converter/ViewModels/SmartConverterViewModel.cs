@@ -1,6 +1,8 @@
-﻿using Plugin.Media;
+﻿using System.IO;
+using Plugin.Media;
 using Xamarin.Forms;
 using System.ComponentModel;
+using Model.Smart_Currency_Converter;
 
 namespace ViewModel.SmartConverter
 {
@@ -9,7 +11,6 @@ namespace ViewModel.SmartConverter
         public event PropertyChangedEventHandler PropertyChanged;
         public Command TakePhoto { get; }
         private ImageSource image;
-        private string imagePath;
 
         public SmartConverterViewModel()
         {
@@ -29,9 +30,17 @@ namespace ViewModel.SmartConverter
         private async void CameraButtonClickedAsync()
         {
             var photo = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
-            imagePath = photo.Path;
 
-            ImageDisplay = ImageSource.FromStream(() => { return photo.GetStream(); });
+            ImageProcessingHelper imageProcessingHelper = new ImageProcessingHelper();
+            imageProcessingHelper.PostImageForAnalysis(photo);
+
+            byte[] imageByteArray = imageProcessingHelper.PhotoInByte;
+
+            //TODO: Setup proper exception
+            if (imageByteArray == null || imageByteArray.Length == 0)
+                throw new System.Exception();
+
+            ImageDisplay = ImageSource.FromStream(() => new MemoryStream(imageByteArray));
         }
     }
 }

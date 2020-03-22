@@ -1,6 +1,7 @@
 ﻿using Android.OS;
 using Android.App;
 using Android.Runtime;
+using Android.Content.PM;
 
 namespace Smart_Currency_Converter.Droid
 {
