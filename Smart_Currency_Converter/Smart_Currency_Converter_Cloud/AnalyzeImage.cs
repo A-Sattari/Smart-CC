@@ -1,7 +1,8 @@
+using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Microsoft.Azure.WebJobs.Extensions.Http;
@@ -14,14 +15,16 @@ namespace Smart_Currency_Converter_Cloud
     {
         private const string subscriptionKey = "2416c55d1d9342a5997a7c751cfc8b2f";
         private const string endpoint = "https://scc-computervision.cognitiveservices.azure.com/";
-        private const string ANALYZE_URL_IMAGE = "https://moderatorsampleimages.blob.core.windows.net/samples/sample16.png";
 
         [FunctionName("AnalyzeImage")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req, ILogger log)
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequestMessage req, ILogger log)
         {
             log.LogInformation($"{nameof(AnalyzeImage)} Function is triggered ...");
-
             string responseMessage = null;
+
+            MultipartMemoryStreamProvider inputData = await req.Content.ReadAsMultipartAsync();
+            Stream imageAsStream = await inputData.Contents[0].ReadAsStreamAsync();
+
 
             List<VisualFeatureTypes> features = new List<VisualFeatureTypes>()
             {
@@ -33,8 +36,7 @@ namespace Smart_Currency_Converter_Cloud
             };
 
             ComputerVisionClient visionClient = Authenticate(endpoint, subscriptionKey);
-
-            ImageAnalysis results = await visionClient.AnalyzeImageAsync(ANALYZE_URL_IMAGE, features);
+            ImageAnalysis results = await visionClient.AnalyzeImageInStreamAsync(imageAsStream, features);
 
             foreach (var caption in results.Description.Captions) {
                 responseMessage = $"{caption.Text} with confidence {caption.Confidence}";
@@ -42,6 +44,7 @@ namespace Smart_Currency_Converter_Cloud
 
             return new OkObjectResult(responseMessage);
         }
+
 
         private static ComputerVisionClient Authenticate(string endpoint, string key)
         {
