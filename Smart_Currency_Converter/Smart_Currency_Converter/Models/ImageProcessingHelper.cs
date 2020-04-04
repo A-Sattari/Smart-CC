@@ -1,34 +1,25 @@
-﻿using Plugin.Media.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Xamarin.Forms;
+﻿using System;
+using System.Net.Http;
 
 namespace Model.Smart_Currency_Converter
 {
     public class ImageProcessingHelper
     {
-        public byte[] PhotoInByte { get; private set; }
+        private readonly Uri azureFunctionUrl = new Uri("https://analyzeimage.azurewebsites.net/api/AnalyzeImage");
+        //private readonly string localUrl = "http://192.168.1.9:7071/api/AnalyzeImage";
 
-        public void PostImageForAnalysis(MediaFile photo)
+        public async void PostImageForAnalysis(byte[] imageByteArray)
         {
-            PhotoInByte = ConvertImageToByte(photo);
-        }
+            HttpContent content = new ByteArrayContent(imageByteArray);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
 
-        //TODO: Add try & catch
-        private byte[] ConvertImageToByte(MediaFile photo)
-        {
-            byte[] imageArray = null;
+            using var multipartFormData = new MultipartFormDataContent();
+            multipartFormData.Add(content);
 
-            using (MemoryStream memory = new MemoryStream()) {
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(azureFunctionUrl, multipartFormData);
 
-                Stream stream = photo.GetStream();
-                stream.CopyTo(memory);
-                imageArray = memory.ToArray();
-            }
-
-            return imageArray;
+            string imageContext = await response.Content.ReadAsStringAsync();
         }
     }
 }

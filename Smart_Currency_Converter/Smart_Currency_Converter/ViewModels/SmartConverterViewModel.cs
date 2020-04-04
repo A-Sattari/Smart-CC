@@ -2,6 +2,7 @@
 using Plugin.Media;
 using Xamarin.Forms;
 using System.ComponentModel;
+using Plugin.Media.Abstractions;
 using Model.Smart_Currency_Converter;
 
 namespace ViewModel.SmartConverter
@@ -9,11 +10,14 @@ namespace ViewModel.SmartConverter
     public class SmartConverterViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public Command TakePhoto { get; }
+        private readonly ImageProcessingHelper imageProcessing;
         private ImageSource image;
+        
+        public Command TakePhoto { get; }
 
         public SmartConverterViewModel()
         {
+            imageProcessing = new ImageProcessingHelper();
             TakePhoto = new Command(CameraButtonClickedAsync);
         }
 
@@ -29,18 +33,27 @@ namespace ViewModel.SmartConverter
 
         private async void CameraButtonClickedAsync()
         {
-            var photo = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
-
-            ImageProcessingHelper imageProcessingHelper = new ImageProcessingHelper();
-            imageProcessingHelper.PostImageForAnalysis(photo);
-
-            byte[] imageByteArray = imageProcessingHelper.PhotoInByte;
-
-            //TODO: Setup proper exception
-            if (imageByteArray == null || imageByteArray.Length == 0)
-                throw new System.Exception();
-
+            MediaFile photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions() { });
+            byte[] imageByteArray = ConvertImageToByte(photo);
             ImageDisplay = ImageSource.FromStream(() => new MemoryStream(imageByteArray));
+
+            imageProcessing.PostImageForAnalysis(imageByteArray);
+        }
+
+        //TODO: Add try & catch
+        // Check for stuff: if (imageByteArray == null || imageByteArray.Length == 0)
+        private byte[] ConvertImageToByte(MediaFile photo)
+        {
+            byte[] imageArray = null;
+
+            using (MemoryStream memory = new MemoryStream()) {
+
+                Stream stream = photo.GetStream();
+                stream.CopyTo(memory);
+                imageArray = memory.ToArray();
+            }
+
+            return imageArray;
         }
     }
 }

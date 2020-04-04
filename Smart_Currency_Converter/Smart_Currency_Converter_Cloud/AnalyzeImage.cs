@@ -21,8 +21,10 @@ namespace Smart_Currency_Converter_Cloud
         private const string SubscriptionSecretName = "Computer-Vision-SubscriptionKey";
         private const string EndpointSecretName = "Computer-Vision-Endpoint";
 
-        private static readonly string subscriptionKey = GetAzureKeyVaultValue(SubscriptionSecretName);
-        private static readonly string endpoint = GetAzureKeyVaultValue(EndpointSecretName);
+        private static readonly string subscriptionKey = "2416c55d1d9342a5997a7c751cfc8b2f";
+        //private static readonly string subscriptionKey = GetAzureKeyVaultValue(SubscriptionSecretName);
+        private static readonly string endpoint = "https://scc-computervision.cognitiveservices.azure.com/";
+        //private static readonly string endpoint = GetAzureKeyVaultValue(EndpointSecretName);
         private static readonly string uri = endpoint + "vision/v2.1/read/core/asyncBatchAnalyze";
 
         private static readonly HttpClient client = new HttpClient();
