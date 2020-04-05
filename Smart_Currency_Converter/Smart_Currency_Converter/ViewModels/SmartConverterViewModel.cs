@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Plugin.Media;
 using Xamarin.Forms;
 using System.ComponentModel;
@@ -40,18 +41,24 @@ namespace ViewModel.SmartConverter
             imageProcessing.PostImageForAnalysis(imageByteArray);
         }
 
-        //TODO: Add try & catch
-        // Check for stuff: if (imageByteArray == null || imageByteArray.Length == 0)
         private byte[] ConvertImageToByte(MediaFile photo)
         {
             byte[] imageArray = null;
 
-            using (MemoryStream memory = new MemoryStream()) {
+            try {
+                using (MemoryStream memory = new MemoryStream()) {
 
-                Stream stream = photo.GetStream();
-                stream.CopyTo(memory);
-                imageArray = memory.ToArray();
+                    Stream stream = photo.GetStream();
+                    stream.CopyTo(memory);
+                    imageArray = memory.ToArray();
+                }
+
+            } catch (OutOfMemoryException ex) {
+                Console.Error.WriteLine(ex);
             }
+
+            if (imageArray == null || imageArray.Length == 0)
+                throw new NullReferenceException(nameof(imageArray));
 
             return imageArray;
         }
