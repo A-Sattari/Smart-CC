@@ -9,7 +9,6 @@ using System;
 using Android.OS;
 using Android.App;
 using Android.Runtime;
-using Plugin.CurrentActivity;
 
 namespace CameraSample.Droid
 {
@@ -22,7 +21,6 @@ namespace CameraSample.Droid
         {
             base.OnCreate();
             RegisterActivityLifecycleCallbacks(this);
-            CrossCurrentActivity.Current.Init(this);
         }
 
         public override void OnTerminate()
@@ -33,7 +31,6 @@ namespace CameraSample.Droid
 
         public void OnActivityCreated(Activity activity, Bundle savedInstanceState)
         {
-            CrossCurrentActivity.Current.Activity = activity;
         }
 
         public void OnActivityDestroyed(Activity activity)
@@ -46,7 +43,6 @@ namespace CameraSample.Droid
 
         public void OnActivityResumed(Activity activity)
         {
-            CrossCurrentActivity.Current.Activity = activity;
         }
 
         public void OnActivitySaveInstanceState(Activity activity, Bundle outState)
@@ -55,7 +51,6 @@ namespace CameraSample.Droid
 
         public void OnActivityStarted(Activity activity)
         {
-            CrossCurrentActivity.Current.Activity = activity;
         }
 
         public void OnActivityStopped(Activity activity)
