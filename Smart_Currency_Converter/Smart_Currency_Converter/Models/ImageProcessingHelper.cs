@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using System.Net.Http;
 
 namespace Model.Smart_Currency_Converter
@@ -19,7 +20,12 @@ namespace Model.Smart_Currency_Converter
             using HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.PostAsync(azureFunctionUrl, multipartFormData);
 
-            string imageContext = await response.Content.ReadAsStringAsync();
+            string imageContent = await response.Content.ReadAsStringAsync();
+
+            ImageAnalysisResult result = ParseImageContent(imageContent);
         }
+
+        public ImageAnalysisResult ParseImageContent(string imageContent) =>
+            JsonConvert.DeserializeObject<ImageAnalysisResult>(imageContent);
     }
 }
