@@ -2,15 +2,15 @@
 
 namespace Model.Smart_Currency_Converter
 {
-    public sealed class ImageAnalysisResult
+    public sealed class ImageAnalysisResultObject
     {
         public string Status { get; set; }
-        public IList<RecognitionResults> RecognitionResults { get; set; }
+        public List<RecognitionResults> RecognitionResults { get; set; }
     }
 
     public sealed class RecognitionResults
     {
-        public IList<Lines> Lines { get; set; }
+        public List<Lines> Lines { get; set; }
     }
 
     public sealed class Lines
