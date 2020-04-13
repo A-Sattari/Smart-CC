@@ -34,58 +34,60 @@ namespace Model.Smart_Currency_Converter
             PurifyImageContent(itemsAndPrice);
         }
 
-        public ImageAnalysisResultObject ParseImageContent(string imageContent) =>
+    #region Private Methods
+
+        private ImageAnalysisResultObject ParseImageContent(string imageContent) =>
             JsonConvert.DeserializeObject<ImageAnalysisResultObject>(imageContent);
 
-        private void PurifyImageContent(List<Lines> itemsAndPrice)
+        private List<KeyValuePair<string, decimal>> PurifyImageContent(List<Lines> itemsAndPrice)
         {
+            var itemPricePair = new List<KeyValuePair<string, decimal>>();
+            StringBuilder item = new StringBuilder();
             Regex containsNumberRegEx = new Regex(@"\d+");
             Match regExMatcher;
-            StringBuilder output = new StringBuilder();
-            decimal price = decimal.Zero;
-            bool newItemFound = false; // Once we reach a number (price), we assume that's the end of that item in the list
-            var itemPricePair = new List<KeyValuePair<string, decimal>>();
 
             for (int x = 0; x < itemsAndPrice.Count; x++) {
 
-                string value = itemsAndPrice[x].Text;
-                regExMatcher = containsNumberRegEx.Match(value);
+                string rawValue = itemsAndPrice[x].Text;
+                regExMatcher = containsNumberRegEx.Match(rawValue);
 
                 // The string contains a number
                 if (regExMatcher.Success) {
 
-                    // The entire string is not a number
-                    if (regExMatcher.Index != 0) {
-
-                        int numberIndex = regExMatcher.Index;
-
-                        string text = value.Substring(0, numberIndex);
-                        string priceString = value.Substring(numberIndex);
-                        bool isNumber = decimal.TryParse(priceString, out price); //TODO: If can't convert -> Unknown error occurred
-
-                        output.Append(text + " ");
-                        Console.WriteLine($"\nPrice: {price}\n\n");
-                        newItemFound = true;
-                    
-                    } else { // We assume the entire string is a number
-
-                        bool isNumber = decimal.TryParse(value, out price); //TODO: If can't convert -> Unknown error occurred
-                        Console.WriteLine($"\nPrice: {price}\n\n");
-                        newItemFound = true;
-                    }
+                    var itemAndPrice = PurifyStringWithNumber(rawValue, item, regExMatcher);
+                    itemPricePair.Add(itemAndPrice);
+                    item.Clear(); // We assume that when a number is found, we have the entire item name
 
                 } else {
-                    output.Append(value + " ");
-                    Console.WriteLine(value);
-                }
-
-                if (newItemFound) {
-
-                    itemPricePair.Add(new KeyValuePair<string, decimal>(output.ToString(), price));
-                    output.Clear();
-                    newItemFound = false;
+                    item.Append(rawValue).Append(' ');
                 }
             }
+
+            return itemPricePair;
         }
+
+        private KeyValuePair<string, decimal> PurifyStringWithNumber(string rawValue, StringBuilder item, Match regExMatcher)
+        {
+            decimal price;
+
+            // The entire string is not a number
+            if (regExMatcher.Index != 0) {
+
+                int numberIndex = regExMatcher.Index;
+
+                string text = rawValue.Substring(0, numberIndex);
+                string priceString = rawValue.Substring(numberIndex);
+                bool isNumber = decimal.TryParse(priceString, out price); //TODO: If can't convert -> Unknown error occurred
+
+                item.Append(text).Append(' ');
+
+            } else {
+                bool isNumber = decimal.TryParse(rawValue, out price); //TODO: If can't convert -> Unknown error occurred
+            }
+
+            return new KeyValuePair<string, decimal>(item.ToString(), price);
+        }
+
+    #endregion
     }
 }
