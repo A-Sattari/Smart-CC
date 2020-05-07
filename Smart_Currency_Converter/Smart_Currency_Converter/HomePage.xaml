@@ -6,12 +6,12 @@
              mc:Ignorable="d"
              xmlns:local="clr-namespace:ViewModel.HomePage"
              x:Class="Smart_Currency_Converter.MainPage">
-    
+
     <!-- ⬇ I want to bind the ViewModel code of "HomePage"with this XAML file ⬇ -->
     <ContentPage.BindingContext>
         <local:HomePageViewModel></local:HomePageViewModel>
     </ContentPage.BindingContext>
-    
+
     <StackLayout>
 
         <Button
