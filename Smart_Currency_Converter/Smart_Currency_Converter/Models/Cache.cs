@@ -4,12 +4,17 @@ using System.Collections.Generic;
 
 namespace Model.Smart_Currency_Converter
 {
-    // TODO: Make this singleton
-    public class Cache
+    public sealed class Cache
     {
+        private static readonly Cache instance = new Cache();
         private const string DIC_KEY = "CurrenciesRateDicKey";
         private const string VERSION_KEY = "RatesDate";
         private const short THIRTY_DAYS = 30;
+
+        public static Cache Instance
+        {
+            get => instance;
+        }
 
         // TODO: Handle Parameters
         public void InsertData(Dictionary<string, decimal> rates, string entryDate)
