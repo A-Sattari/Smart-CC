@@ -5,7 +5,7 @@
         public Converter()
         {
             CurrencyInfo currencyInfo = new CurrencyInfo();
-            currencyInfo.GetCurrenciesRateAsync();
+            //currencyInfo.GetCurrenciesRateAsync();
         }
 
         public decimal Convert(decimal amount, decimal conversionRate)

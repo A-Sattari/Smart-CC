@@ -13,6 +13,8 @@ namespace Smart_Currency_Converter
         {
             InitializeComponent();
 
+            MonkeyCache.SQLite.Barrel.ApplicationId = "SCC_Cache";
+
             NavigationObj = new NavigationPage(new MainPage());
             MainPage = NavigationObj;
         }
