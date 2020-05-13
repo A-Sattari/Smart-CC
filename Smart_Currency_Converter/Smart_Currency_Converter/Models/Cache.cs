@@ -16,6 +16,11 @@ namespace Model.Smart_Currency_Converter
             get => instance;
         }
 
+        private Cache()
+        {
+            Barrel.Current.EmptyExpired();
+        }
+
         // TODO: Handle Parameters
         public void InsertData(Dictionary<string, decimal> rates, string entryDate)
         {
@@ -28,7 +33,7 @@ namespace Model.Smart_Currency_Converter
 
         public Dictionary<string, decimal> GetData()
         {
-            if (Barrel.Current.IsExpired(DIC_KEY) || Barrel.Current.IsExpired(VERSION_KEY))
+            if (Barrel.Current.Exists(DIC_KEY) || Barrel.Current.Exists(VERSION_KEY))
                 return null;
 
             return Barrel.Current.Get<Dictionary<string, decimal>>(DIC_KEY);
@@ -41,5 +46,7 @@ namespace Model.Smart_Currency_Converter
 
             return Barrel.Current.Get<string>(VERSION_KEY);
         }
+
+        public bool IsEmpty() => !Barrel.Current.Exists(DIC_KEY) && !Barrel.Current.Exists(VERSION_KEY);
     }
 }

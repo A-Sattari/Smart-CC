@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -8,13 +9,42 @@ namespace Model.Smart_Currency_Converter
     public class CurrencyInfo
     {
         private const string CURRENCY_RATE_URL = "https://api.exchangeratesapi.io/latest";
+        private bool cacheIsUpToDate = false;
 
-        public async void GetCurrenciesRateAsync()
+        public CurrencyInfo()
         {
-            JObject currencies = await GetAllCurrenciesRate();
-            string latestDate = currencies.GetValue("date").ToString();
-            JToken currencyAcronym = currencies.GetValue("rates");
-            Dictionary<string, decimal> currencyRatePair = currencyAcronym.ToObject<Dictionary<string, decimal>>();
+            if (Cache.Instance.IsEmpty())
+                CacheDataAsync();
+
+            DateTime cacheDate = DateTime.Parse(Cache.Instance.GetDataVersion());
+
+            // If Cache date is older than today
+            if (DateTime.Compare(cacheDate, DateTime.Today) < 0)
+                CacheDataAsync();
+        }
+
+        public async Task<decimal> GetCurrencyRate(string currencyAcronym)
+        {
+            if (string.IsNullOrEmpty(currencyAcronym))
+                throw new ArgumentNullException();
+
+            decimal rate = decimal.Zero;
+
+            if (cacheIsUpToDate)
+            {
+                Dictionary<string, decimal> currenciesDic = Cache.Instance.GetData();
+                
+                if (!currenciesDic.TryGetValue(currencyAcronym, out rate))
+                    throw new ArgumentNullException(nameof(currencyAcronym));
+            
+            } else {
+                CacheDataAsync();
+                JObject responseObject = await GetSpecificCurrencyRate(currencyAcronym);
+                JToken currencies = responseObject.GetValue("rates");
+                //rate = currencies.Value<decimal>(currencyAcronym);
+            }
+
+            return rate;
         }
 
 
@@ -26,12 +56,9 @@ namespace Model.Smart_Currency_Converter
             return GetCurrencyRateAsync(parameter);
         }
 
-        private Task<JObject> GetSpecificCurrencyRate(string baseCurrency, string toCurrency)
+        private Task<JObject> GetSpecificCurrencyRate(string currencyAcronym)
         {
-            if (string.IsNullOrEmpty(baseCurrency) || string.IsNullOrEmpty(toCurrency))
-                throw new System.ArgumentNullException();
-
-            string parameters = $"base={baseCurrency}&symbols={toCurrency}";
+            string parameters = $"base=CAD&symbols={currencyAcronym}";
             return GetCurrencyRateAsync(parameters);
         }
 
@@ -48,6 +75,18 @@ namespace Model.Smart_Currency_Converter
             }
 
             return JObject.Parse(result);
+        }
+
+        private async void CacheDataAsync()
+        {
+            JObject responseObject = await GetAllCurrenciesRate();
+
+            JToken currencies = responseObject.GetValue("rates");
+            Dictionary<string, decimal> currencyRatePair = currencies.ToObject<Dictionary<string, decimal>>();
+            string date = responseObject.GetValue("date").ToString();
+
+            Cache.Instance.InsertData(currencyRatePair, date);
+            cacheIsUpToDate = true;
         }
 
     #endregion

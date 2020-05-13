@@ -15,6 +15,7 @@ namespace ViewModel.Result
         private void TempMethod()
         {
             Converter converter = new Converter();
+            converter.Convert(10, "", "");
         }
     }
 }
