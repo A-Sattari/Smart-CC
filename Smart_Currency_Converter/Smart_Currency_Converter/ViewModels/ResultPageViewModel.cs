@@ -12,10 +12,13 @@ namespace ViewModel.Result
             Convert = new Command(TempMethod);
         }
 
-        private void TempMethod()
+        private async void TempMethod()
         {
+            string baseCurrency = "EUR";
+            string targetCurrency = "USD";
+
             Converter converter = new Converter();
-            converter.Convert(10, "", "");
+            decimal r = await converter.Convert(10, baseCurrency, targetCurrency);
         }
     }
 }

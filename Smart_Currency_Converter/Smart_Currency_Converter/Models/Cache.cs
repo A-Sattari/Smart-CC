@@ -1,5 +1,6 @@
 ﻿using System;
 using MonkeyCache.SQLite;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace Model.Smart_Currency_Converter
@@ -8,38 +9,80 @@ namespace Model.Smart_Currency_Converter
     {
         private static readonly Cache instance = new Cache();
         private const string DIC_KEY = "CurrenciesRateDicKey";
-        private const string VERSION_KEY = "RatesDate";
-        private const short THIRTY_DAYS = 30;
-
-        public static Cache Instance
+        private const string VERSION_KEY = "RatesDateKey";
+        private const string UPDATE_KEY = "DataUpToDateKey";
+        private const short TWENTY_DAYS = 20;
+        
+        public static Cache Instance { get => instance; }
+        
+        public bool CacheIsUpToDate
         {
-            get => instance;
+            get => Barrel.Current.Get<bool>(UPDATE_KEY);
         }
 
         private Cache()
         {
+            //Barrel.Current.EmptyAll();
             Barrel.Current.EmptyExpired();
+
+            if (!IsEmpty())
+            {
+                DateTime cacheDate = DateTime.Parse(GetContentDate());
+
+                // If Cache date is older than today
+                if (DateTime.Compare(cacheDate, DateTime.Today) < 0)
+                    Barrel.Current.Add(UPDATE_KEY, false, expireIn: TimeSpan.FromDays(TWENTY_DAYS));
+            }
         }
 
-        // TODO: Handle Parameters
-        public void InsertData(Dictionary<string, decimal> rates, string entryDate)
+        public void UpdateCacheData()
         {
-            if (!string.Equals(Barrel.Current.Get<string>(VERSION_KEY), entryDate))
-            {
-                Barrel.Current.Add(DIC_KEY, rates, expireIn: TimeSpan.FromDays(THIRTY_DAYS));
-                Barrel.Current.Add(VERSION_KEY, entryDate, expireIn: TimeSpan.FromDays(THIRTY_DAYS));
-            }
+            if (IsEmpty() || !CacheIsUpToDate)
+                CacheDataAsync();
         }
 
         public Dictionary<string, decimal> GetData()
         {
-            if (Barrel.Current.Exists(DIC_KEY) || Barrel.Current.Exists(VERSION_KEY))
-                return null;
+            if (IsEmpty())
+                throw new InvalidOperationException("Cache Is Empty");
 
             return Barrel.Current.Get<Dictionary<string, decimal>>(DIC_KEY);
         }
 
-        public string GetDataVersion()
+
+    #region Private Methods
+
+        private bool IsEmpty() =>
+            !Barrel.Current.Exists(DIC_KEY) && !Barrel.Current.Exists(VERSION_KEY) && !Barrel.Current.Exists(UPDATE_KEY);
+
+        private async void CacheDataAsync()
+        {
+            JObject responseObject = await CurrencyInfo.Instance.GetAllCurrenciesRate();
+
+            JToken currencies = responseObject.GetValue("rates");
+            Dictionary<string, decimal> currencyRatePair = currencies.ToObject<Dictionary<string, decimal>>();
+            string date = responseObject.GetValue("date").ToString();
+
+            InsertData(currencyRatePair, date);
+        }
+
+        private void InsertData(Dictionary<string, decimal> rates, string entryDate)
+        {
+            if (rates == null || rates.Count == 0)
+                throw new ArgumentNullException(nameof(rates));
+
+            if (string.IsNullOrEmpty(entryDate))
+                throw new ArgumentNullException(nameof(entryDate));
+
+            if (!string.Equals(Barrel.Current.Get<string>(VERSION_KEY), entryDate))
+            {
+                Barrel.Current.Add(DIC_KEY, rates, expireIn: TimeSpan.FromDays(TWENTY_DAYS));
+                Barrel.Current.Add(VERSION_KEY, entryDate, expireIn: TimeSpan.FromDays(TWENTY_DAYS));
+                Barrel.Current.Add(UPDATE_KEY, true, expireIn: TimeSpan.FromDays(TWENTY_DAYS));
+            }
+        }
+
+        private string GetContentDate()
         {
             if (!Barrel.Current.Exists(VERSION_KEY))
                 return null;
@@ -47,6 +90,6 @@ namespace Model.Smart_Currency_Converter
             return Barrel.Current.Get<string>(VERSION_KEY);
         }
 
-        public bool IsEmpty() => !Barrel.Current.Exists(DIC_KEY) && !Barrel.Current.Exists(VERSION_KEY);
+    #endregion
     }
 }
