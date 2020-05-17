@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Smart_Currency_Converter
@@ -15,6 +9,7 @@ namespace Smart_Currency_Converter
         public ManualConventerPage()
         {
             InitializeComponent();
+            //TODO: When the ViewModel file of this page added, add the EnsureCacheIsUpToDate() method
         }
     }
 }

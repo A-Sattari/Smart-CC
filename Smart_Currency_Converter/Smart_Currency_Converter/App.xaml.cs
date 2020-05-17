@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 using Microsoft.AppCenter;
 using System.Threading.Tasks;
 using Microsoft.AppCenter.Crashes;
@@ -26,8 +27,12 @@ namespace Smart_Currency_Converter
         {
             AppCenterConfiguration();
 
-            Action updateCacheData = Cache.Instance.UpdateCacheData;
-            await Task.Run(updateCacheData);
+            // Internet is available
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                Action updateCacheData = Cache.Instance.UpdateCacheData;
+                await Task.Run(updateCacheData);
+            }
         }
 
         protected override void OnSleep()

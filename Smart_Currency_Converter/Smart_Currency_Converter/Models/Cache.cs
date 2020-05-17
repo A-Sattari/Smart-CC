@@ -22,7 +22,7 @@ namespace Model.Smart_Currency_Converter
 
         private Cache()
         {
-            //Barrel.Current.EmptyAll();
+            Barrel.Current.EmptyAll();
             Barrel.Current.EmptyExpired();
 
             if (!IsEmpty())
