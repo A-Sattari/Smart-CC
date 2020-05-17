@@ -14,11 +14,12 @@ namespace ViewModel.Result
 
         private async void TempMethod()
         {
-            string baseCurrency = "EUR";
-            string targetCurrency = "USD";
+            CurrencyAcronymEnum a = new CurrencyAcronymEnum();
+            //string baseCurrency = "EUR";
+            //string targetCurrency = "USD";
 
-            Converter converter = new Converter();
-            decimal r = await converter.Convert(10, baseCurrency, targetCurrency);
+            //Converter converter = new Converter();
+            //decimal r = await converter.Convert(10, baseCurrency, targetCurrency);
         }
     }
 }
