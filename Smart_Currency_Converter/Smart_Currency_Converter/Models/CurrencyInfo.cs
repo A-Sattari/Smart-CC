@@ -10,10 +10,10 @@ namespace Model.Smart_Currency_Converter
     {
         private static readonly CurrencyInfo instance = new CurrencyInfo();
         private const string CURRENCY_RATE_URL = "https://api.exchangeratesapi.io/latest";
+        
+        public static CurrencyInfo Instance { get => instance; }
 
         private CurrencyInfo() { }
-
-        public static CurrencyInfo Instance { get => instance; }
 
         public async Task<decimal> GetCurrencyRateAsync(string currencyAcronym)
         {

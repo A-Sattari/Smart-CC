@@ -11,6 +11,7 @@ namespace Model.Smart_Currency_Converter
         private const string DIC_KEY = "CurrenciesRateDicKey";
         private const string VERSION_KEY = "RatesDateKey";
         private const string UPDATE_KEY = "DataUpToDateKey";
+        private const string Acronyms_Key = "CurrenciesAcronymKey";
         private const short TWENTY_DAYS = 20;
         
         public static Cache Instance { get => instance; }
@@ -49,24 +50,21 @@ namespace Model.Smart_Currency_Converter
             return Barrel.Current.Get<Dictionary<string, decimal>>(DIC_KEY);
         }
 
+        public HashSet<string> GetAcronyms()
+        {
+            if (!Barrel.Current.Exists(Acronyms_Key))
+                return null;
+
+            return Barrel.Current.Get<HashSet<string>>(Acronyms_Key);
+        }
+
 
     #region Private Methods
 
         private bool IsEmpty() =>
             !Barrel.Current.Exists(DIC_KEY) && !Barrel.Current.Exists(VERSION_KEY) && !Barrel.Current.Exists(UPDATE_KEY);
 
-        private async void CacheDataAsync()
-        {
-            JObject responseObject = await CurrencyInfo.Instance.GetAllCurrenciesRate();
-
-            JToken currencies = responseObject.GetValue("rates");
-            Dictionary<string, decimal> currencyRatePair = currencies.ToObject<Dictionary<string, decimal>>();
-            string date = responseObject.GetValue("date").ToString();
-
-            InsertData(currencyRatePair, date);
-        }
-
-        private void InsertData(Dictionary<string, decimal> rates, string entryDate)
+        private void InsertData(Dictionary<string, decimal> rates, HashSet<string> currenciesAcronym, string entryDate)
         {
             if (rates == null || rates.Count == 0)
                 throw new ArgumentNullException(nameof(rates));
@@ -74,11 +72,18 @@ namespace Model.Smart_Currency_Converter
             if (string.IsNullOrEmpty(entryDate))
                 throw new ArgumentNullException(nameof(entryDate));
 
+            if (currenciesAcronym.Count == 0)
+                throw new ArgumentNullException(nameof(currenciesAcronym));
+
+
             if (!string.Equals(Barrel.Current.Get<string>(VERSION_KEY), entryDate))
             {
-                Barrel.Current.Add(DIC_KEY, rates, expireIn: TimeSpan.FromDays(TWENTY_DAYS));
-                Barrel.Current.Add(VERSION_KEY, entryDate, expireIn: TimeSpan.FromDays(TWENTY_DAYS));
-                Barrel.Current.Add(UPDATE_KEY, true, expireIn: TimeSpan.FromDays(TWENTY_DAYS));
+                Barrel.Current.Add(DIC_KEY,     rates,      expireIn: TimeSpan.FromDays(TWENTY_DAYS));
+                Barrel.Current.Add(VERSION_KEY, entryDate,  expireIn: TimeSpan.FromDays(TWENTY_DAYS));
+                Barrel.Current.Add(UPDATE_KEY,  true,       expireIn: TimeSpan.FromDays(TWENTY_DAYS));
+
+                if (GetAcronyms() == null || GetAcronyms().Count != currenciesAcronym.Count)
+                    Barrel.Current.Add(Acronyms_Key, currenciesAcronym, expireIn: TimeSpan.FromDays(TWENTY_DAYS));
             }
         }
 
@@ -88,6 +93,19 @@ namespace Model.Smart_Currency_Converter
                 return null;
 
             return Barrel.Current.Get<string>(VERSION_KEY);
+        }
+
+        private async void CacheDataAsync()
+        {
+            JObject responseObject = await CurrencyInfo.Instance.GetAllCurrenciesRate();
+
+            JToken currencies = responseObject.GetValue("rates");
+
+            Dictionary<string, decimal> currencyRatePair = currencies.ToObject<Dictionary<string, decimal>>();
+            HashSet<string> currenciesAcronym = new HashSet<string>(currencyRatePair.Keys);
+            string date = responseObject.GetValue("date").ToString();
+
+            InsertData(currencyRatePair, currenciesAcronym, date);
         }
 
     #endregion

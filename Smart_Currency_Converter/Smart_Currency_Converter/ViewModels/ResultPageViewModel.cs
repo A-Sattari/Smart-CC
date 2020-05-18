@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using System.Collections.Generic;
 using Model.Smart_Currency_Converter;
 
 namespace ViewModel.Result
@@ -14,12 +15,13 @@ namespace ViewModel.Result
 
         private async void TempMethod()
         {
-            CurrencyAcronymEnum a = new CurrencyAcronymEnum();
-            //string baseCurrency = "EUR";
-            //string targetCurrency = "USD";
+            HashSet<string> set = Cache.Instance.GetAcronyms();
 
-            //Converter converter = new Converter();
-            //decimal r = await converter.Convert(10, baseCurrency, targetCurrency);
+            string baseCurrency = "AUD";
+            string targetCurrency = "USD";
+
+            Converter converter = new Converter();
+            decimal r = await converter.Convert(25.45M, baseCurrency, targetCurrency);
         }
     }
 }

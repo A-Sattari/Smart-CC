@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-// Dynamic Enum :
-// https://docs.microsoft.com/en-us/dotnet/api/system.reflection.emit.enumbuilder?view=netcore-3.1
-// https://stackoverflow.com/questions/725043/automatically-create-an-enum-based-on-values-in-a-database-lookup-table/792332#792332
 
 namespace Model.Smart_Currency_Converter
 {
@@ -25,7 +22,7 @@ namespace Model.Smart_Currency_Converter
             if (baseRatePerCAD.Equals(0))
                 throw new DivideByZeroException(nameof(baseRatePerCAD));
 
-            return targetRatePerCAD / baseRatePerCAD;  // Base Rate based on Target
+            return targetRatePerCAD / baseRatePerCAD;
         }
     
     #endregion
