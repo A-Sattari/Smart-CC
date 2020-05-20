@@ -38,7 +38,7 @@ namespace ViewModel.SmartConverter
             byte[] imageByteArray = ConvertImageToByte(photo);
             ImageDisplay = ImageSource.FromStream(() => new MemoryStream(imageByteArray));
 
-            imageProcessing.PostImageForAnalysis(imageByteArray);
+            imageProcessing.AnalyzeTakenPhoto(imageByteArray);
         }
 
         private byte[] ConvertImageToByte(MediaFile photo)
