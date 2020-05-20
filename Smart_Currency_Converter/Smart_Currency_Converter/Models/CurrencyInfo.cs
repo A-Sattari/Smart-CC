@@ -42,7 +42,7 @@ namespace Model.Smart_Currency_Converter
             return rate;
         }
 
-        public async Task<JObject> GetAllCurrenciesRate(string baseCurrency = "CAD")
+        public async Task<JObject> GetAllCurrenciesRateAsync(string baseCurrency = "CAD")
         {
             string parameter = $"base={baseCurrency}";
             return await GetRatesAsync(parameter);

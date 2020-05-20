@@ -11,9 +11,6 @@ namespace Model.Smart_Currency_Converter
             return amount * baseRate;
         }
 
-
-    #region Private Methods
-
         private async Task<decimal> GetCurrencyRate(string baseCurrency, string targetCurrency)
         {
             decimal baseRatePerCAD = await CurrencyInfo.Instance.GetCurrencyRateAsync(baseCurrency);
@@ -24,7 +21,5 @@ namespace Model.Smart_Currency_Converter
 
             return targetRatePerCAD / baseRatePerCAD;
         }
-    
-    #endregion
     }
 }

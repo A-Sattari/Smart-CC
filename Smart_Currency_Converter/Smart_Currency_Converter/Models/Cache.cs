@@ -23,7 +23,6 @@ namespace Model.Smart_Currency_Converter
 
         private Cache()
         {
-            Barrel.Current.EmptyAll();
             Barrel.Current.EmptyExpired();
 
             if (!IsEmpty())
@@ -97,7 +96,7 @@ namespace Model.Smart_Currency_Converter
 
         private async void CacheDataAsync()
         {
-            JObject responseObject = await CurrencyInfo.Instance.GetAllCurrenciesRate();
+            JObject responseObject = await CurrencyInfo.Instance.GetAllCurrenciesRateAsync();
 
             JToken currencies = responseObject.GetValue("rates");
 
