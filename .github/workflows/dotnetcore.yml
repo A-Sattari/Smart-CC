@@ -26,8 +26,7 @@ jobs:
         dotnet-version: 3.1.101
 
     - name: Install dependencies
-      working-directory: ${{env.working-directory}}
-      run: dotnet restore
+      run: dotnet ./Smart_Currency_Converter.UnitTests restore
 
     - name: Build
       run: dotnet ./build Smart_Currency_Converter.UnitTests --configuration Release --no-restore
