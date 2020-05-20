@@ -59,15 +59,24 @@ namespace Model.Smart_Currency_Converter
 
         private async Task<JObject> GetRatesAsync(string parameters)
         {
-            string result = null;
+            string result;
+            short retryCounter = 0;
             using HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync($"{CURRENCY_RATE_URL}?{parameters}");
+            HttpResponseMessage response;
 
-            // TODO: Handle of response is not successful
-            if (response.IsSuccessStatusCode)
+            do
             {
-                result = await response.Content.ReadAsStringAsync();
-            }
+                response = await client.GetAsync($"{CURRENCY_RATE_URL}?{parameters}");
+                retryCounter++;
+                System.Threading.Thread.Sleep(400);
+
+            } while (!response.IsSuccessStatusCode && retryCounter != 10);
+
+
+            if (!response.IsSuccessStatusCode)
+                throw new HttpRequestException(response.StatusCode.ToString());
+
+            result = await response.Content.ReadAsStringAsync();
 
             return JObject.Parse(result);
         }
