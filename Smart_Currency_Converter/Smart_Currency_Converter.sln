@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Smart_Currency_Converter", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Smart_Currency_Converter_Cloud", "Smart_Currency_Converter_Cloud\Smart_Currency_Converter_Cloud.csproj", "{09370815-D49D-4644-A8EF-9EB10CF5564A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart_Currency_Converter.UnitTests", "Smart_Currency_Converter.UnitTests\Smart_Currency_Converter.UnitTests.csproj", "{C25F7420-E71B-4E55-B69A-DC62A4C3F664}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,18 @@ Global
 		{09370815-D49D-4644-A8EF-9EB10CF5564A}.Release|iPhone.Build.0 = Release|Any CPU
 		{09370815-D49D-4644-A8EF-9EB10CF5564A}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{09370815-D49D-4644-A8EF-9EB10CF5564A}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{C25F7420-E71B-4E55-B69A-DC62A4C3F664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C25F7420-E71B-4E55-B69A-DC62A4C3F664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C25F7420-E71B-4E55-B69A-DC62A4C3F664}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{C25F7420-E71B-4E55-B69A-DC62A4C3F664}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{C25F7420-E71B-4E55-B69A-DC62A4C3F664}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{C25F7420-E71B-4E55-B69A-DC62A4C3F664}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{C25F7420-E71B-4E55-B69A-DC62A4C3F664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C25F7420-E71B-4E55-B69A-DC62A4C3F664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C25F7420-E71B-4E55-B69A-DC62A4C3F664}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{C25F7420-E71B-4E55-B69A-DC62A4C3F664}.Release|iPhone.Build.0 = Release|Any CPU
+		{C25F7420-E71B-4E55-B69A-DC62A4C3F664}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{C25F7420-E71B-4E55-B69A-DC62A4C3F664}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
