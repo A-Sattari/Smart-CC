@@ -22,9 +22,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
+
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build Smart_Currency_Converter.UnitTests --configuration Release --no-restore
+      
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test Smart_Currency_Converter.UnitTests --no-restore --verbosity normal
