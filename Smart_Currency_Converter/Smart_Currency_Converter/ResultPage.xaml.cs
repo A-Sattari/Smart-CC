@@ -4,12 +4,11 @@ using Xamarin.Forms.Xaml;
 namespace Smart_Currency_Converter
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ManualConventerPage : ContentPage
+    public partial class ResultPage : ContentPage
     {
-        public ManualConventerPage()
+        public ResultPage()
         {
             InitializeComponent();
-            //TODO: When the ViewModel file of this page added, add the EnsureCacheIsUpToDate() method
         }
     }
 }

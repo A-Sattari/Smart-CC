@@ -2,7 +2,9 @@
 using System.IO;
 using Plugin.Media;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Plugin.Media.Abstractions;
 using Model.Smart_Currency_Converter;
 
@@ -20,6 +22,8 @@ namespace ViewModel.SmartConverter
         {
             imageProcessing = new ImageProcessingHelper();
             TakePhoto = new Command(CameraButtonClickedAsync);
+
+            EnsureCacheIsUpToDate();
         }
 
         public ImageSource ImageDisplay
@@ -38,7 +42,7 @@ namespace ViewModel.SmartConverter
             byte[] imageByteArray = ConvertImageToByte(photo);
             ImageDisplay = ImageSource.FromStream(() => new MemoryStream(imageByteArray));
 
-            imageProcessing.PostImageForAnalysis(imageByteArray);
+            imageProcessing.AnalyzeTakenPhoto(imageByteArray);
         }
 
         private byte[] ConvertImageToByte(MediaFile photo)
@@ -61,6 +65,15 @@ namespace ViewModel.SmartConverter
                 throw new NullReferenceException(nameof(imageArray));
 
             return imageArray;
+        }
+
+        private async void EnsureCacheIsUpToDate()
+        {
+            if (!Cache.Instance.CacheIsUpToDate && Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                Action updateCacheData = Cache.Instance.UpdateCacheData;
+                await Task.Run(updateCacheData);
+            }
         }
     }
 }
