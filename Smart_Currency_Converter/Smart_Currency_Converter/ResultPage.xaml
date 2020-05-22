@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:local="clr-namespace:ViewModel.Result"
-             x:Class="Smart_Currency_Converter.ResultPage">
+             x:Class="Smart_Currency_Converter.ResultPage"
+             Visual="Material">
 
     <!-- ⬇ I want to bind the ViewModel code of "ResultPage" with this XAML file ⬇ -->
     <ContentPage.BindingContext>
@@ -25,6 +26,39 @@
                 Text="Convert"
                 Margin="20, 40, 20, 30"
             />
+            
+            <Grid BackgroundColor="#CE3C3C">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+                <Button
+                    Text="View Image"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="10 5 10 10"
+                />
+                
+                <Button
+                    Text="Share"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="10 5 10 10"
+                />
+
+                <Button
+                    Text="Save"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="10 10 10 10"
+                />
+
+            </Grid>
             
         </StackLayout>
     </ContentPage.Content>
