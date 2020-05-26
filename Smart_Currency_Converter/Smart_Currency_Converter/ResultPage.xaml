@@ -13,15 +13,31 @@
         <local:ResultPageViewModel></local:ResultPageViewModel>
     </ContentPage.BindingContext>
 
+    <!-- Static Custom Style -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="HeaderStyle" TargetType="Label">
+                <Setter Property="TextColor"    Value="Black"/>
+                <Setter Property="FontSize"     Value="Large"/>
+                <Setter Property="FontFamily"   Value="MontSemiBold"/>
+                <Setter Property="VerticalTextAlignment"    Value="Center"/>
+                <Setter Property="HorizontalTextAlignment"  Value="Center"/>
+            </Style>
+            
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+
     <ContentPage.Content>
         <StackLayout>
 
             <!-- Table Header -->
-            <Grid VerticalOptions="StartAndExpand">
+            <Grid VerticalOptions="StartAndExpand" Margin="5,0">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75*"/>
-                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="70*"/>
+                    <ColumnDefinition Width="30*"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
@@ -30,30 +46,22 @@
 
                 <Label
                     Text="Item"
-                    TextColor="Black"
-                    FontSize="Large"
-                    FontFamily="MontSemiBold"
-                    HorizontalTextAlignment="Center"
-                    VerticalTextAlignment="Center"
                     Grid.Column="0"
+                    Style="{StaticResource HeaderStyle}"
                 />
 
                 <Label 
                     Text="Price"
-                    TextColor="Black"
-                    FontSize="Large"
-                    FontFamily="MontSemiBold"
-                    HorizontalTextAlignment="Center"
-                    VerticalTextAlignment="Center"
                     Grid.Column="1"
+                    Style="{StaticResource HeaderStyle}"
                 />
 
                 <!-- Separator -->
                 <BoxView 
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
                     HeightRequest="1"
                     BackgroundColor="Black"
-                    Grid.ColumnSpan="2"
-                    Grid.Row="0"
                     VerticalOptions="End"
                 />
             </Grid>
@@ -67,20 +75,20 @@
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout 
                         Orientation="Vertical"
-                        VerticalItemSpacing="2"
+                        VerticalItemSpacing="3"
                     />
                 </CollectionView.ItemsLayout>
 
-                <!-- ⬇ This section defines the appearance of each item in Collection View ⬇ -->
+                <!-- ⬇ This section defines the appearance of each row in Collection View ⬇ -->
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid BackgroundColor="#F8BEBE">
 
                             <Grid.ColumnDefinitions>
                                 <!-- First column -->
-                                <ColumnDefinition Width="75*"/>
+                                <ColumnDefinition Width="70*"/>
                                 <!-- Second column -->
-                                <ColumnDefinition  Width="25*"/>
+                                <ColumnDefinition  Width="30*"/>
                             </Grid.ColumnDefinitions>
 
                             <Label 
