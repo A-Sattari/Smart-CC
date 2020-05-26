@@ -48,7 +48,7 @@ namespace ViewModel.Result
             {
                 new Product()
                 {
-                    ProductName = "One",
+                    ProductName = "One One One One One One One One One One One One One One One One One One One One One One One One One One One One One One One One One One One One",
                     RandomName = "1"
                 },
                 new Product()
@@ -58,7 +58,7 @@ namespace ViewModel.Result
                 },
                 new Product()
                 {
-                    ProductName = "three",
+                    ProductName = "three three three three three three three three three three three three three three three three three three three three three three three three three",
                     RandomName = "3"
                 },
                 new Product()
