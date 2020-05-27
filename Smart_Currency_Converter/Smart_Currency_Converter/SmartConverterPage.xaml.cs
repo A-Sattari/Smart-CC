@@ -9,6 +9,7 @@ namespace Smart_Currency_Converter
         public SmartConverterPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
     }
 }

@@ -59,7 +59,7 @@ namespace ViewModel.Result
                 new Product()
                 {
                     ProductName = "three three three three three three three three three three three three three three three three three three three three three three three three three",
-                    RandomName = "3"
+                    RandomName = "30000000000000000000000000000.95"
                 },
                 new Product()
                 {
@@ -69,7 +69,7 @@ namespace ViewModel.Result
                 new Product()
                 {
                     ProductName = "five",
-                    RandomName = "5"
+                    RandomName = "54.70"
                 }
                 ,
                 new Product()
