@@ -7,5 +7,11 @@
              x:Class="Smart_Currency_Converter.App">
     <Application.Resources>
 
+        <ResourceDictionary>
+            <Color x:Key="Mint">#9FDB9F</Color>
+            <Color x:Key="Mango">#fcba03</Color>
+            <Color x:Key="Orchid">#D6C4E0</Color>
+        </ResourceDictionary>
+        
     </Application.Resources>
 </Application>

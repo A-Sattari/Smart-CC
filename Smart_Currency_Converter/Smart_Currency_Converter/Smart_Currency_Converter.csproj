@@ -16,6 +16,9 @@
     <None Remove="Resources\Fonts\Montserrat-Medium.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Regular.ttf" />
     <None Remove="Resources\Fonts\Montserrat-SemiBold.ttf" />
+    <None Remove="Resources\Images\image-icon.png" />
+    <None Remove="Resources\Images\redo-icon.png" />
+    <None Remove="Resources\Images\save-icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +27,9 @@
     <EmbeddedResource Include="Resources\Fonts\Montserrat-Regular.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-SemiBold.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-BoldItalic.ttf" />
+    <EmbeddedResource Include="Resources\Images\redo-icon.png" />
+    <EmbeddedResource Include="Resources\Images\save-icon.png" />
+    <EmbeddedResource Include="Resources\Images\image-icon.png" />
   </ItemGroup>
 
   <ItemGroup>
