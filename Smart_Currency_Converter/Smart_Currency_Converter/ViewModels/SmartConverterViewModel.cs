@@ -5,8 +5,10 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Smart_Currency_Converter;
 using Plugin.Media.Abstractions;
 using Model.Smart_Currency_Converter;
+using System.Collections.Generic;
 
 namespace ViewModel.SmartConverter
 {
@@ -42,8 +44,16 @@ namespace ViewModel.SmartConverter
             byte[] imageByteArray = ConvertImageToByte(photo);
             ImageDisplay = ImageSource.FromStream(() => new MemoryStream(imageByteArray));
 
-            imageProcessing.AnalyzeTakenPhoto(imageByteArray);
+            List<KeyValuePair<string, decimal>> itemPricePairs = await imageProcessing.AnalyzeTakenPhotoAsync(imageByteArray);
+            
+            Converter converter = new Converter();
+            itemPricePairs = await converter.Convert(itemPricePairs, "CAD", "EUR");
+            
+            OpenResultPage(itemPricePairs);
         }
+
+        private void OpenResultPage(List<KeyValuePair<string, decimal>> itemPricePairs) =>
+                App.NavigationObj.PushAsync(new ResultPage(itemPricePairs));
 
         private byte[] ConvertImageToByte(MediaFile photo)
         {

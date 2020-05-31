@@ -27,12 +27,5 @@
             Margin="20, 40, 20, 30"
         />
 
-        <Button
-            Command="{Binding OpenResult}"
-            Text="Access to Result Page"
-            Margin="20, 40, 20, 30"
-        />
-
     </StackLayout>
-
 </ContentPage>

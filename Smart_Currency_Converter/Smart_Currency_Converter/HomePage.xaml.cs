@@ -8,8 +8,8 @@ namespace Smart_Currency_Converter
     {
         public MainPage()
         {
-            InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+            InitializeComponent();
         }
     }
 }

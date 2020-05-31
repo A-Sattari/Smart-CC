@@ -18,11 +18,11 @@
         <ResourceDictionary>
 
             <Style x:Key="HeaderStyle" TargetType="Label">
-                <Setter Property="TextColor"    Value="Black"/>
-                <Setter Property="FontSize"     Value="Large"/>
-                <Setter Property="FontFamily"   Value="MontSemiBold"/>
-                <Setter Property="VerticalTextAlignment"    Value="Center"/>
-                <Setter Property="HorizontalTextAlignment"  Value="Center"/>
+                <Setter Property="TextColor"  Value="Black"/>
+                <Setter Property="FontSize"   Value="Large"/>
+                <Setter Property="FontFamily" Value="MontSemiBold"/>
+                <Setter Property="VerticalTextAlignment"   Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
             </Style>
 
             <Style x:Key="ButtonStyle" TargetType="Button">
@@ -31,7 +31,7 @@
                 <Setter Property="FontSize"     Value="12" />
                 <Setter Property="FontFamily"   Value="MontSemiBold" />
                 <Setter Property="Margin"       Value="0,10" />
-                <Setter Property="BackgroundColor"   Value="{StaticResource Mango}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource Mango}" />
             </Style>
 
         </ResourceDictionary>
@@ -78,7 +78,7 @@
 
             <!-- Table -->
             <CollectionView
-                ItemsSource="{Binding Productsss}" 
+                ItemsSource="{Binding Source={x:Static local:ResultPageViewModel.ItemPricePairs}}" 
                 VerticalScrollBarVisibility="Always"
                 Margin="11,0">
 
@@ -102,7 +102,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Label 
-                                Text="{Binding ProductName}"
+                                Text="{Binding Key}"
                                 Grid.Column="0"
                                 TextColor="Black"
                                 FontSize="16"
@@ -112,7 +112,7 @@
                             />
                             
                             <Label 
-                                Text="{Binding RandomName}"
+                                Text="{Binding Value}"
                                 Grid.Column="1"
                                 TextColor="Black"
                                 FontSize="16"
