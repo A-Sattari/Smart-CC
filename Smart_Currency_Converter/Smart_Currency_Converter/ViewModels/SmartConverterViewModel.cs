@@ -41,19 +41,24 @@ namespace ViewModel.SmartConverter
         private async void CameraButtonClickedAsync()
         {
             MediaFile photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions() { });
+
+            OpenLoadingPage();
+
             byte[] imageByteArray = ConvertImageToByte(photo);
-            ImageDisplay = ImageSource.FromStream(() => new MemoryStream(imageByteArray));
+            //ImageDisplay = ImageSource.FromStream(() => new MemoryStream(imageByteArray));
 
             List<KeyValuePair<string, decimal>> itemPricePairs = await imageProcessing.AnalyzeTakenPhotoAsync(imageByteArray);
             
             Converter converter = new Converter();
             itemPricePairs = await converter.Convert(itemPricePairs, "CAD", "EUR");
-            
+
             OpenResultPage(itemPricePairs);
         }
 
         private void OpenResultPage(List<KeyValuePair<string, decimal>> itemPricePairs) =>
                 App.NavigationObj.PushAsync(new ResultPage(itemPricePairs));
+
+        private void OpenLoadingPage() => App.NavigationObj.PushAsync(new LoadingPage());
 
         private byte[] ConvertImageToByte(MediaFile photo)
         {

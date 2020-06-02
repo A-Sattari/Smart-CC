@@ -17,7 +17,7 @@ namespace ViewModel.HomePage
         }
 
         private async void OpenManualPage() =>
-            await App.NavigationObj.PushAsync(new ManualConventerPage());
+            await App.NavigationObj.PushAsync(new LoadingPage());
 
         private async void OpenSmartPage() =>
             await App.NavigationObj.PushAsync(new SmartConverterPage());
