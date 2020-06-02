@@ -10,17 +10,19 @@
     <ContentPage.Content>
         <StackLayout>
 
-            <forms:AnimationView 
-	            x:Name="animationView" 
-	            Animation="search.json" 
+            <forms:AnimationView
+	            x:Name="LoadingAnimationView"
 	            Loop="True"
 	            AutoPlay="True"
 	            VerticalOptions="FillAndExpand" 
-	            HorizontalOptions="FillAndExpand" />
+	            HorizontalOptions="FillAndExpand"
+            />
 
             <Label Text="Loading Page"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand"
+            />
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
