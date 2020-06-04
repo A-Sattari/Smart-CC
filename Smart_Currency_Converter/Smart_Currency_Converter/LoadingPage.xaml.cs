@@ -14,13 +14,16 @@ namespace Smart_Currency_Converter
         {
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
+
             LoadingAnimationView.Animation = PROCESSSING_ANIMATION;
+            LoadingStatus.Text = "Processing ...";
             Device.StartTimer(TimeSpan.FromSeconds(3), ChangeAnimation);
         }
 
         private bool ChangeAnimation()
         {
             LoadingAnimationView.Animation = ANALYZING_ANIMATION;
+            LoadingStatus.Text = "Analyzing Image";
             return false;
         }
     }

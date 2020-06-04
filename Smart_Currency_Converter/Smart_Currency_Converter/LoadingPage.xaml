@@ -18,9 +18,14 @@
 	            HorizontalOptions="FillAndExpand"
             />
 
-            <Label Text="Loading Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"
+            <Label
+                x:Name="LoadingStatus"
+                FontSize="19"
+                FontFamily="MontBoldItalic"
+                TextColor="{StaticResource DarkBlue}"
+                Margin="0,-130,0,150"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" 
             />
             
         </StackLayout>
