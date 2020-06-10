@@ -15,24 +15,11 @@
 
     <StackLayout>
 
-        <Image
-            Source="{Binding ImageDisplay}"
-            VerticalOptions="FillAndExpand"
-            HorizontalOptions="FillAndExpand"
-        />
-
         <Button
             Command="{Binding TakePhoto}"
             Text="Take Photo"
             VerticalOptions="End"
         />
 
-        <!--
-        <RelativeLayout 
-            BackgroundColor="BlueViolet"
-            Margin="0,400,0,0">
-                Placeholder for currency units drop-down and other setups
-        </RelativeLayout>
-        -->
     </StackLayout>
 </ContentPage>
