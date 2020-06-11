@@ -12,8 +12,10 @@
             <Image
                 x:Name="TakenImage"
                 Source="{Binding }"
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                AbsoluteLayout.LayoutFlags="All"
+                AbsoluteLayout.LayoutBounds="1,1,1,1"
             />
 
         </AbsoluteLayout>

@@ -13,8 +13,9 @@ namespace Smart_Currency_Converter
             ResultPageViewModel.ItemPricePairs = itemPricePairs;
             ResultPageViewModel.ModalNavigation = Navigation;
             ResultPageViewModel.Image = imageSource;
-            
+
             NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
         }
     }
