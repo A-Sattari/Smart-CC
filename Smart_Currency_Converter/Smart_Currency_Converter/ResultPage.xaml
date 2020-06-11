@@ -142,15 +142,10 @@
                 Padding="10,0"
                 BackgroundColor="{StaticResource Mint}" 
                 VerticalOptions="EndAndExpand">
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="65"/>
                 </Grid.RowDefinitions>
-
 
                 <Button
                     Text="Photo"
@@ -169,15 +164,6 @@
                     Grid.Column="1"
                     Padding="-5,0,0,0"
                     ImageSource="{local:ImageResource Smart_Currency_Converter.Resources.Images.redo-icon.png}"
-                    Style="{StaticResource ButtonStyle}"
-                />
-
-                <Button
-                    Text="Save"
-                    Grid.Row="0"
-                    Grid.Column="2"
-                    Padding="-10,0,0,0"
-                    ImageSource="{local:ImageResource Smart_Currency_Converter.Resources.Images.save-icon.png}"
                     Style="{StaticResource ButtonStyle}"
                 />
 
