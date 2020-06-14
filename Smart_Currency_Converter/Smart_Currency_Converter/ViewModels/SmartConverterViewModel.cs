@@ -38,24 +38,31 @@ namespace ViewModel.SmartConverter
                 Name = $"Smart-CC_{DateTime.Now:yy-MMdd-Hmms}",
                 SaveToAlbum = true
             });
+
             OpenLoadingPage();
 
             byte[] imageByteArray = ConvertImageToByte(photo);
-            
-            List<KeyValuePair<string, decimal>> itemPricePairs = await imageProcessing.AnalyzeTakenPhotoAsync(imageByteArray);            
-            itemPricePairs = await new Converter().Convert(itemPricePairs, "CAD", "EUR");
 
-            ImageSource image = ImageSource.FromStream(() => new MemoryStream(imageByteArray));
-            OpenResultPageAsync(itemPricePairs, image);
+            List<KeyValuePair<string, string>> convertedPairs = await PerformConversionAsync(imageByteArray, null, null);
+
+            OpenResultPageAsync(convertedPairs, GetImageSourceObj(imageByteArray));
 
             File.Delete(photo.Path);
         }
 
-        private async void OpenResultPageAsync(List<KeyValuePair<string, decimal>> itemPricePairs, ImageSource image)
+        private async Task<List<KeyValuePair<string, string>>> PerformConversionAsync(byte[] imageByteArray, string baseCurrency, string targetCurrnecy)
+        {
+            List<KeyValuePair<string, decimal>> itemPricePairs = await imageProcessing.AnalyzeTakenPhotoAsync(imageByteArray);
+            return (await new Converter().Convert(itemPricePairs, "CAD", "EUR"));
+        }
+
+        private async void OpenResultPageAsync(List<KeyValuePair<string, string>> itemPricePairs, ImageSource image)
         {
             await App.NavigationObj.PushAsync(new ResultPage(itemPricePairs, image));
             CloseLoadingPage();
         }
+
+        private ImageSource GetImageSourceObj(byte[] imageArray) => ImageSource.FromStream(() => new MemoryStream(imageArray));
 
         private async void OpenLoadingPage() => await ModalNavigation.PushModalAsync(new LoadingPage());
 

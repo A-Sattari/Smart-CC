@@ -11,7 +11,7 @@ namespace ViewModel.Result
     {
         public static INavigation ModalNavigation;
         public static ImageSource Image;
-        public static List<KeyValuePair<string, decimal>> ItemPricePairs { get; set; }
+        public static List<KeyValuePair<string, string>> ItemPricePairs { get; set; }
 
         public Command ShowTakenPhoto { get; }
         public Command RetakePhoto { get; }
@@ -22,11 +22,9 @@ namespace ViewModel.Result
             RetakePhoto = new Command(OpenSmartConverterPage);
         }
 
-        private async void DisplayTakenPhoto() =>
-            await ModalNavigation.PushModalAsync(new ImagePopUp(Image));
+        private async void DisplayTakenPhoto() => await ModalNavigation.PushModalAsync(new ImagePopUp(Image));
 
-        private async void OpenSmartConverterPage() =>
-            await App.NavigationObj.PushAsync(new SmartConverterPage());
+        private async void OpenSmartConverterPage() => await App.NavigationObj.PopAsync();
     }
 
 

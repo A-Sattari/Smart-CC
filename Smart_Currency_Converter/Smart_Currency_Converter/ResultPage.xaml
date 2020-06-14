@@ -18,7 +18,7 @@
         <ResourceDictionary>
 
             <Style x:Key="HeaderStyle" TargetType="Label">
-                <Setter Property="TextColor"  Value="Black"/>
+                <Setter Property="TextColor"  Value="{StaticResource DarkBlue}"/>
                 <Setter Property="FontSize"   Value="Large"/>
                 <Setter Property="FontFamily" Value="MontSemiBold"/>
                 <Setter Property="VerticalTextAlignment"   Value="Center"/>
@@ -56,13 +56,14 @@
                 <Label
                     Text="Item"
                     Grid.Column="0"
-                    Padding="-15,0,0,0"
+                    Padding="-16,0,0,0"
                     Style="{StaticResource HeaderStyle}"
                 />
 
                 <Label 
                     Text="Price"
                     Grid.Column="1"
+                    Padding="-15,0,0,0"
                     Style="{StaticResource HeaderStyle}"
                 />
 
