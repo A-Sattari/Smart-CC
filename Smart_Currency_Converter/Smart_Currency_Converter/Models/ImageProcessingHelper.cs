@@ -10,19 +10,17 @@ namespace Model.Smart_Currency_Converter
 {
     public class ImageProcessingHelper
     {
-        List<KeyValuePair<string, decimal>> itemPricePairs;
-
-        public async void AnalyzeTakenPhoto(byte[] imageByteArray)
+        public async Task<List<KeyValuePair<string, decimal>>> AnalyzeTakenPhotoAsync(byte[] imageByteArray)
         {
             string imageContent = await PostImageContentAsync(imageByteArray);
 
             ImageAnalysisResultObject result = ParseImageContent(imageContent);
             
             if (!result.Status.Equals("Succeeded"))
-                throw new Exception("Not successful");
+                throw new JsonException("De-serialization Failed");
 
             List<Lines> itemsAndPrices = result.RecognitionResults[0].Lines;
-            itemPricePairs = PurifyImageContent(itemsAndPrices);
+            return PurifyImageContent(itemsAndPrices);
         }
 
 
@@ -83,6 +81,7 @@ namespace Model.Smart_Currency_Converter
 
                 decimal price = Convert.ToDecimal(priceString);
                 string item = rawValue.Substring(headIndex, subStringLength);
+                
                 if (text.ToString() != null) {
                     item = text.ToString() + rawValue.Substring(headIndex, subStringLength);
                     text.Clear();

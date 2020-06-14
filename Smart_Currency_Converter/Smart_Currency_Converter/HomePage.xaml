@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:local="clr-namespace:ViewModel.HomePage"
-             x:Class="Smart_Currency_Converter.MainPage">
+             x:Class="Smart_Currency_Converter.MainPage"
+             Visual="Material">
 
     <!-- ⬇ I want to bind the ViewModel code of "HomePage" with this XAML file ⬇ -->
     <ContentPage.BindingContext>
@@ -26,12 +27,5 @@
             Margin="20, 40, 20, 30"
         />
 
-        <Button
-            Command="{Binding OpenResult}"
-            Text="Access to Result Page"
-            Margin="20, 40, 20, 30"
-        />
-
     </StackLayout>
-
 </ContentPage>

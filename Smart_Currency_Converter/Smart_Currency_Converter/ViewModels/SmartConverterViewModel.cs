@@ -5,7 +5,9 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Smart_Currency_Converter;
 using Plugin.Media.Abstractions;
+using System.Collections.Generic;
 using Model.Smart_Currency_Converter;
 
 namespace ViewModel.SmartConverter
@@ -13,8 +15,8 @@ namespace ViewModel.SmartConverter
     public class SmartConverterViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public static INavigation ModalNavigation;
         private readonly ImageProcessingHelper imageProcessing;
-        private ImageSource image;
         
         public Command TakePhoto { get; }
 
@@ -26,24 +28,45 @@ namespace ViewModel.SmartConverter
             EnsureCacheIsUpToDate();
         }
 
-        public ImageSource ImageDisplay
-        {
-            get => image;
-            set
-            {
-                image = value;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ImageDisplay)));
-            }
-        }
-
         private async void CameraButtonClickedAsync()
         {
-            MediaFile photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions() { });
-            byte[] imageByteArray = ConvertImageToByte(photo);
-            ImageDisplay = ImageSource.FromStream(() => new MemoryStream(imageByteArray));
+            if (!CrossMedia.Current.IsCameraAvailable)
+                throw new Exception("Camera Unavailable");
 
-            imageProcessing.AnalyzeTakenPhoto(imageByteArray);
+            MediaFile photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
+            {
+                Name = $"Smart-CC_{DateTime.Now:yy-MMdd-Hmms}",
+                SaveToAlbum = true
+            });
+
+            OpenLoadingPage();
+
+            byte[] imageByteArray = ConvertImageToByte(photo);
+
+            List<KeyValuePair<string, string>> convertedPairs = await PerformConversionAsync(imageByteArray, null, null);
+
+            OpenResultPageAsync(convertedPairs, GetImageSourceObj(imageByteArray));
+
+            File.Delete(photo.Path);
         }
+
+        private async Task<List<KeyValuePair<string, string>>> PerformConversionAsync(byte[] imageByteArray, string baseCurrency, string targetCurrnecy)
+        {
+            List<KeyValuePair<string, decimal>> itemPricePairs = await imageProcessing.AnalyzeTakenPhotoAsync(imageByteArray);
+            return (await new Converter().Convert(itemPricePairs, "CAD", "EUR"));
+        }
+
+        private async void OpenResultPageAsync(List<KeyValuePair<string, string>> itemPricePairs, ImageSource image)
+        {
+            await App.NavigationObj.PushAsync(new ResultPage(itemPricePairs, image));
+            CloseLoadingPage();
+        }
+
+        private ImageSource GetImageSourceObj(byte[] imageArray) => ImageSource.FromStream(() => new MemoryStream(imageArray));
+
+        private async void OpenLoadingPage() => await ModalNavigation.PushModalAsync(new LoadingPage());
+
+        private async void CloseLoadingPage() => await ModalNavigation.PopModalAsync();
 
         private byte[] ConvertImageToByte(MediaFile photo)
         {

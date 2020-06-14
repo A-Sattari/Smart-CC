@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             Visual="Material"
              xmlns:local="clr-namespace:ViewModel.Result"
              x:Class="Smart_Currency_Converter.ResultPage">
 
@@ -12,20 +13,162 @@
         <local:ResultPageViewModel></local:ResultPageViewModel>
     </ContentPage.BindingContext>
 
+    <!-- Static Custom Style -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="HeaderStyle" TargetType="Label">
+                <Setter Property="TextColor"  Value="{StaticResource DarkBlue}"/>
+                <Setter Property="FontSize"   Value="Large"/>
+                <Setter Property="FontFamily" Value="MontSemiBold"/>
+                <Setter Property="VerticalTextAlignment"   Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="TextColor"    Value="Black" />
+                <Setter Property="FontSize"     Value="12" />
+                <Setter Property="FontFamily"   Value="MontSemiBold" />
+                <Setter Property="Margin"       Value="0,10" />
+                <Setter Property="BackgroundColor" Value="{StaticResource Mango}" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
-        <StackLayout>
-            
-            <Label Text="Result Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"
-            />
-            
-            <Button
-                Command="{Binding Convert}"
-                Text="Convert"
-                Margin="20, 40, 20, 30"
-            />
-            
+    
+        <StackLayout IsVisible="{Binding DisplayResultLayer}">
+
+            <!-- Table Header -->
+            <Grid VerticalOptions="StartAndExpand" Margin="5,0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70*"/>
+                    <ColumnDefinition Width="30*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    Text="Item"
+                    Grid.Column="0"
+                    Padding="-16,0,0,0"
+                    Style="{StaticResource HeaderStyle}"
+                />
+
+                <Label 
+                    Text="Price"
+                    Grid.Column="1"
+                    Padding="-15,0,0,0"
+                    Style="{StaticResource HeaderStyle}"
+                />
+
+                <!-- Separator -->
+                <BoxView 
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    HeightRequest="1"
+                    BackgroundColor="Black"
+                    VerticalOptions="End"
+                />
+            </Grid>
+
+            <!-- Table -->
+            <CollectionView
+                ItemsSource="{Binding Source={x:Static local:ResultPageViewModel.ItemPricePairs}}" 
+                VerticalScrollBarVisibility="Always"
+                Margin="11,0">
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout 
+                        Orientation="Vertical"
+                        VerticalItemSpacing="3"
+                    />
+                </CollectionView.ItemsLayout>
+
+                <!-- ⬇ This section defines the appearance of each row in Collection View ⬇ -->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <!-- First column -->
+                                <ColumnDefinition Width="70*"/>
+                                <!-- Second column -->
+                                <ColumnDefinition  Width="30*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label 
+                                Text="{Binding Key}"
+                                Grid.Column="0"
+                                TextColor="Black"
+                                FontSize="16"
+                                FontFamily="MontMedium"
+                                Margin="7,0,0,0"
+                                Padding="0,5"
+                            />
+                            
+                            <Label 
+                                Text="{Binding Value}"
+                                Grid.Column="1"
+                                TextColor="Black"
+                                FontSize="16"
+                                FontFamily="MontRegular"
+                                Margin="0,0,7,0"
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center"
+                            />
+
+                            <!-- Separator -->
+                            <BoxView 
+                                Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                HeightRequest="0.3"
+                                BackgroundColor="#C4C4C4"
+                                VerticalOptions="End"
+                            />
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                
+            </CollectionView>
+
+            <!-- Footer Bar -->
+            <Grid
+                Padding="10,0"
+                BackgroundColor="{StaticResource Mint}" 
+                VerticalOptions="EndAndExpand">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65"/>
+                </Grid.RowDefinitions>
+
+                <Button
+                    Text="Photo"
+                    Command="{Binding ShowTakenPhoto}"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Padding="-5,0,0,0"
+                    ImageSource="{local:ImageResource Smart_Currency_Converter.Resources.Images.image-icon.png}"
+                    Style="{StaticResource ButtonStyle}"
+                />
+                
+                <Button
+                    Text="Retake"
+                    Command="{Binding RetakePhoto}"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Padding="-5,0,0,0"
+                    ImageSource="{local:ImageResource Smart_Currency_Converter.Resources.Images.redo-icon.png}"
+                    Style="{StaticResource ButtonStyle}"
+                />
+
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

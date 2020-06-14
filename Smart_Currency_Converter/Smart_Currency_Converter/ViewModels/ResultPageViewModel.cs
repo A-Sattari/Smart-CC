@@ -1,27 +1,49 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
+using System.Reflection;
+using Xamarin.Forms.Xaml;
+using Smart_Currency_Converter;
 using System.Collections.Generic;
-using Model.Smart_Currency_Converter;
 
 namespace ViewModel.Result
 {
     public class ResultPageViewModel
     {
-        public Command Convert { get; }
+        public static INavigation ModalNavigation;
+        public static ImageSource Image;
+        public static List<KeyValuePair<string, string>> ItemPricePairs { get; set; }
+
+        public Command ShowTakenPhoto { get; }
+        public Command RetakePhoto { get; }
 
         public ResultPageViewModel()
         {
-            Convert = new Command(TempMethod);
+            ShowTakenPhoto = new Command(DisplayTakenPhoto);
+            RetakePhoto = new Command(OpenSmartConverterPage);
         }
 
-        private async void TempMethod()
+        private async void DisplayTakenPhoto() => await ModalNavigation.PushModalAsync(new ImagePopUp(Image));
+
+        private async void OpenSmartConverterPage() => await App.NavigationObj.PopAsync();
+    }
+
+
+    /// <summary>
+    /// This class enables the XAML components in ResultPage.xaml to use embedded images that are common for all platforms.
+    /// </summary>
+    [ContentProperty(nameof(Source))]
+    public class ImageResourceExtension : IMarkupExtension
+    {
+        public string Source { get; set; }
+
+        public object ProvideValue(IServiceProvider serviceProvider)
         {
-            HashSet<string> set = Cache.Instance.GetAcronyms();
+            if (Source == null)
+                return null;
 
-            string baseCurrency = "AUD";
-            string targetCurrency = "USD";
+            ImageSource imageSource = ImageSource.FromResource(Source, typeof(ImageResourceExtension).GetTypeInfo().Assembly);
 
-            Converter converter = new Converter();
-            decimal r = await converter.Convert(25.45M, baseCurrency, targetCurrency);
+            return imageSource;
         }
     }
 }

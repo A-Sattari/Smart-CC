@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿using UIKit;
 using Foundation;
-using UIKit;
 
 namespace Smart_Currency_Converter.iOS
 {
@@ -22,7 +18,8 @@ namespace Smart_Currency_Converter.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            global::Xamarin.Forms.Forms.Init();
+            Xamarin.Forms.Forms.Init();
+            Xamarin.Forms.FormsMaterial.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

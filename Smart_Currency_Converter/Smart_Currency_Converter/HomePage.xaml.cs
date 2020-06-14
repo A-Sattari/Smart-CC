@@ -1,5 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using System.ComponentModel;
 
 namespace Smart_Currency_Converter
@@ -9,12 +8,8 @@ namespace Smart_Currency_Converter
     {
         public MainPage()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
-        }
-
-        async void Click(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new SmartConverterPage());
         }
     }
 }
