@@ -4,7 +4,6 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:ViewModel.SmartConverter"
-             xmlns:customRender="clr-namespace:Smart_Currency_Converter"
              mc:Ignorable="d"
              x:Class="Smart_Currency_Converter.SmartConverterPage">
 
@@ -12,14 +11,16 @@
     <ContentPage.BindingContext>
         <local:SmartConverterViewModel></local:SmartConverterViewModel>
     </ContentPage.BindingContext>
-
-    <StackLayout>
-
-        <Button
-            Command="{Binding TakePhoto}"
-            Text="Take Photo"
-            VerticalOptions="End"
-        />
-
-    </StackLayout>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            
+            <Button
+                Command="{Binding TakePhoto}"
+                Text="Take Photo"
+                VerticalOptions="End"
+            />
+        
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
