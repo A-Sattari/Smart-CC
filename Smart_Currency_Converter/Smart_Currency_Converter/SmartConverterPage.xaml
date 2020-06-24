@@ -14,7 +14,89 @@
     
     <ContentPage.Content>
         <StackLayout>
-            
+
+            <Frame
+                HeightRequest="55"
+                HasShadow="True"
+                CornerRadius="13"
+                VerticalOptions="CenterAndExpand"
+                BackgroundColor="{StaticResource Mint}" Margin="15,0" Padding="20,6">
+
+                <RelativeLayout>
+                    <Frame
+                        HasShadow="False"
+                        CornerRadius="5"
+                        Padding="0"
+                        Margin="0,3"
+                        WidthRequest="75">
+
+                        <Image 
+                            Source="https://images-na.ssl-images-amazon.com/images/I/614JLqsvMoL._AC_SX679_.jpg" 
+                            Aspect="AspectFill"
+                        />
+                    </Frame>
+
+                    <Label
+                        x:Name="curr"
+                        Text="Currency Name"
+                        FontSize="20"
+                        TextColor="Black"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.4, Constant= 0}"  
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor= 0.04, Constant= 0}"
+                    />
+
+                    <Label
+                        Text="(EUR)"
+                        FontSize="15"
+                        TextColor="Black"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.55, Constant= 0}"  
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=curr ,Property=Height, Factor= 1, Constant= 5}"
+                    />
+                </RelativeLayout>
+
+            </Frame>
+
+            <Frame
+                HeightRequest="55"
+                HasShadow="True"
+                CornerRadius="13"
+                VerticalOptions="CenterAndExpand"
+                BackgroundColor="{StaticResource Mint}" Margin="15,0" Padding="20,6">
+
+                <RelativeLayout>
+                    <Frame
+                        HasShadow="False"
+                        CornerRadius="5"
+                        Padding="0"
+                        Margin="0,3"
+                        WidthRequest="75">
+
+                        <Image
+                            Source="https://images-na.ssl-images-amazon.com/images/I/51j6eebed6L._AC_SX679_.jpg" 
+                            Aspect="AspectFill"
+                        />
+                    </Frame>
+
+                    <Label
+                        x:Name="curr2"
+                        Text="Currency Name"
+                        FontSize="20"
+                        TextColor="Black"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.4, Constant= 0}"  
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor= 0.04, Constant= 0}"
+                    />
+
+                    <Label
+                        Text="(EUR)"
+                        FontSize="15"
+                        TextColor="Black"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.55, Constant= 0}"  
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=curr2 ,Property=Height, Factor= 1, Constant= 5}"
+                    />
+                </RelativeLayout>
+
+            </Frame>
+
             <Button
                 Command="{Binding TakePhoto}"
                 Text="Take Photo"
