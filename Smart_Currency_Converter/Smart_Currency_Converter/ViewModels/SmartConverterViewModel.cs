@@ -9,6 +9,7 @@ using Smart_Currency_Converter;
 using Plugin.Media.Abstractions;
 using System.Collections.Generic;
 using Model.Smart_Currency_Converter;
+using ModalPages.Smart_Currency_Converter;
 
 namespace ViewModel.SmartConverter
 {
@@ -17,15 +18,23 @@ namespace ViewModel.SmartConverter
         public event PropertyChangedEventHandler PropertyChanged;
         public static INavigation ModalNavigation;
         private readonly ImageProcessingHelper imageProcessing;
+
         
+        public Command CardClicked { get; }
         public Command TakePhoto { get; }
 
         public SmartConverterViewModel()
         {
             imageProcessing = new ImageProcessingHelper();
+            CardClicked = new Command(OpenCurrenciesModalAsync);
             TakePhoto = new Command(CameraButtonClickedAsync);
 
             EnsureCacheIsUpToDate();
+        }
+
+        private async void OpenCurrenciesModalAsync()
+        {
+            await ModalNavigation.PushModalAsync(new CurrencyListModalPage());
         }
 
         private async void CameraButtonClickedAsync()

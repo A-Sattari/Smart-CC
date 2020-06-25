@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:ViewModel.CurrencyListModal"
+             mc:Ignorable="d"
+             x:Class="ModalPages.Smart_Currency_Converter.CurrencyListModalPage">
+
+    <!-- ⬇ I want to bind the ViewModel code of "SmartPage"with this XAML file ⬇ -->
+    <ContentPage.BindingContext>
+        <local:CurrencyListPageViewModel></local:CurrencyListPageViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        
+        <StackLayout>
+
+            <CollectionView
+                ItemsSource="{Binding CurrenciesName}}" 
+                VerticalScrollBarVisibility="Always"
+                Margin="11,0">
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout 
+                        Orientation="Vertical"
+                        VerticalItemSpacing="10"
+                    />
+                </CollectionView.ItemsLayout>
+
+                <!-- ⬇ This section defines the appearance of each row in Collection View ⬇ -->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <!-- First column -->
+                                <ColumnDefinition Width="20*"/>
+                                <!-- Second column -->
+                                <ColumnDefinition  Width="80*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Frame
+                                HasShadow="False"
+                                CornerRadius="5"
+                                Padding="0"
+                                Margin="0,3"
+                                Grid.Column="0"
+                                WidthRequest="75">
+
+                                <Image 
+                                   Source="https://images-na.ssl-images-amazon.com/images/I/614JLqsvMoL._AC_SX679_.jpg" 
+                                    Aspect="AspectFill"
+                                />
+                            </Frame>
+
+                            <Label 
+                                Text="{Binding}"
+                                VerticalTextAlignment="Center"
+                                HorizontalTextAlignment="Start"
+                                Grid.Column="1"
+                                TextColor="Black"
+                                FontSize="16"
+                                FontFamily="MontMedium"
+                                Margin="7,0,0,0"
+                                Padding="0,5"
+                            />
+                            
+                            <!-- Separator -->
+                            <BoxView 
+                                Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                HeightRequest="3"
+                                BackgroundColor="#C4C4C4"
+                                VerticalOptions="End"
+                            />
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

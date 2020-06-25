@@ -39,7 +39,7 @@
     
     <ContentPage.Content>
     
-        <StackLayout IsVisible="{Binding DisplayResultLayer}">
+        <StackLayout>
 
             <!-- Table Header -->
             <Grid VerticalOptions="StartAndExpand" Margin="5,0">

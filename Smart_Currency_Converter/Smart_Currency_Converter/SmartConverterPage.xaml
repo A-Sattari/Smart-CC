@@ -21,7 +21,10 @@
                 CornerRadius="13"
                 VerticalOptions="CenterAndExpand"
                 BackgroundColor="{StaticResource Mint}" Margin="15,0" Padding="20,6">
-
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CardClicked}" />
+                </Frame.GestureRecognizers>
+                
                 <RelativeLayout>
                     <Frame
                         HasShadow="False"
@@ -62,7 +65,10 @@
                 CornerRadius="13"
                 VerticalOptions="CenterAndExpand"
                 BackgroundColor="{StaticResource Mint}" Margin="15,0" Padding="20,6">
-
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CardClicked}" />
+                </Frame.GestureRecognizers>
+                
                 <RelativeLayout>
                     <Frame
                         HasShadow="False"
