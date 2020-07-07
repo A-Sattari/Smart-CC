@@ -19,22 +19,16 @@ namespace ViewModel.SmartConverter
         public static INavigation ModalNavigation;
         private readonly ImageProcessingHelper imageProcessing;
 
-        
         public Command CardClicked { get; }
         public Command TakePhoto { get; }
 
         public SmartConverterViewModel()
         {
             imageProcessing = new ImageProcessingHelper();
-            CardClicked = new Command(OpenCurrenciesModalAsync);
+            CardClicked = new Command(OpenCurrencyListPageAsync);
             TakePhoto = new Command(CameraButtonClickedAsync);
 
             EnsureCacheIsUpToDate();
-        }
-
-        private async void OpenCurrenciesModalAsync()
-        {
-            await ModalNavigation.PushModalAsync(new CurrencyListModalPage());
         }
 
         private async void CameraButtonClickedAsync()
@@ -48,7 +42,7 @@ namespace ViewModel.SmartConverter
                 SaveToAlbum = true
             });
 
-            OpenLoadingPage();
+            OpenLoadingPageAsync();
 
             byte[] imageByteArray = ConvertImageToByte(photo);
 
@@ -65,17 +59,7 @@ namespace ViewModel.SmartConverter
             return (await new Converter().Convert(itemPricePairs, "CAD", "EUR"));
         }
 
-        private async void OpenResultPageAsync(List<KeyValuePair<string, string>> itemPricePairs, ImageSource image)
-        {
-            await App.NavigationObj.PushAsync(new ResultPage(itemPricePairs, image));
-            CloseLoadingPage();
-        }
-
         private ImageSource GetImageSourceObj(byte[] imageArray) => ImageSource.FromStream(() => new MemoryStream(imageArray));
-
-        private async void OpenLoadingPage() => await ModalNavigation.PushModalAsync(new LoadingPage());
-
-        private async void CloseLoadingPage() => await ModalNavigation.PopModalAsync();
 
         private byte[] ConvertImageToByte(MediaFile photo)
         {
@@ -107,5 +91,21 @@ namespace ViewModel.SmartConverter
                 await Task.Run(updateCacheData);
             }
         }
+
+        #region Interacting With Pages
+
+        private async void OpenCurrencyListPageAsync() => await ModalNavigation.PushModalAsync(new CurrencyListModalPage());
+
+        private async void OpenLoadingPageAsync() => await ModalNavigation.PushModalAsync(new LoadingPage());
+        
+        private async void CloseLoadingPageAsync() => await ModalNavigation.PopModalAsync();
+
+        private async void OpenResultPageAsync(List<KeyValuePair<string, string>> itemPricePairs, ImageSource image)
+        {
+            await App.NavigationObj.PushAsync(new ResultPage(itemPricePairs, image));
+            CloseLoadingPageAsync();
+        }
+
+        #endregion
     }
 }

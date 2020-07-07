@@ -1,6 +1,6 @@
-﻿using System;
+﻿using System.ComponentModel;
 using System.Collections.Generic;
-using System.ComponentModel;
+using Model.Smart_Currency_Converter;
 
 namespace ViewModel.CurrencyListModal
 {
@@ -8,23 +8,29 @@ namespace ViewModel.CurrencyListModal
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public List<string> CurrenciesName { get; set; }
+        private readonly CurrencySymbolMapper symbolMapper;
+
+        public Dictionary<string, string> AcronymFlagPair { get; private set; } = new Dictionary<string, string>();
 
         public CurrencyListPageViewModel()
         {
-            CurrenciesName = new List<string>()
+            symbolMapper = new CurrencySymbolMapper();
+
+            SetUpList();
+        }
+
+        private void SetUpList()
+        {
+            HashSet<string> acronyms = Cache.Instance.GetAcronyms();
+
+            if (AcronymFlagPair.Count != acronyms.Count)
             {
-                "Currency 1",
-                "Currency 2",
-                "Currency 3",
-                "Currency 4",
-                "Currency 5",
-                "Currency 6",
-                "Currency 7",
-                "Currency 9",
-                "Currency 10",
-                "Currency 11"
-            };
+                foreach (string acronym in acronyms)
+                {
+                    string currencyName = symbolMapper.GetCurrencyNameInEnglish(acronym);
+                    AcronymFlagPair.Add($"{currencyName}  ({acronym})", "https://images-na.ssl-images-amazon.com/images/I/614JLqsvMoL._AC_SX679_.jpg");
+                }
+            }
         }
     }
 }
