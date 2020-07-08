@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using ViewModel.CurrencyListModal;
 
 namespace ModalPages.Smart_Currency_Converter
 {
@@ -8,6 +9,7 @@ namespace ModalPages.Smart_Currency_Converter
     {
         public CurrencyListModalPage()
         {
+            CurrencyListPageViewModel.ModalNavigation = Navigation;
             InitializeComponent();
         }
     }

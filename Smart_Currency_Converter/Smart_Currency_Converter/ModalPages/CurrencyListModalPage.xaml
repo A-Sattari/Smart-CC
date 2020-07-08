@@ -17,7 +17,11 @@
         <StackLayout>
 
             <CollectionView
-                ItemsSource="{Binding AcronymFlagPair}" 
+                x:Name="CurrenciesList"
+                SelectionMode="Single"
+                ItemsSource="{Binding CurrenciesList}"
+                SelectionChangedCommand="{Binding SelectedCurrencyChanged}"
+                SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference CurrenciesList}}"
                 VerticalScrollBarVisibility="Always"
                 Margin="11,0">
 
@@ -49,13 +53,13 @@
                                 WidthRequest="75">
 
                                 <Image 
-                                   Source="{Binding Value}" 
+                                    Source="{Binding Symbol}" 
                                     Aspect="AspectFill"
                                 />
                             </Frame>
 
-                            <Label 
-                                Text="{Binding Key}"
+                            <Label
+                                Text="{Binding Name}"
                                 VerticalTextAlignment="Center"
                                 HorizontalTextAlignment="Start"
                                 Grid.Column="1"

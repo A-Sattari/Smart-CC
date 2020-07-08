@@ -10,6 +10,7 @@ using Plugin.Media.Abstractions;
 using System.Collections.Generic;
 using Model.Smart_Currency_Converter;
 using ModalPages.Smart_Currency_Converter;
+using Smart_Currency_Converter.Models;
 
 namespace ViewModel.SmartConverter
 {
@@ -18,6 +19,9 @@ namespace ViewModel.SmartConverter
         public event PropertyChangedEventHandler PropertyChanged;
         public static INavigation ModalNavigation;
         private readonly ImageProcessingHelper imageProcessing;
+
+        public static CurrencyObject FirstCard { get; set; } = new CurrencyObject();
+        public static CurrencyObject SecondCard { get; set; } = new CurrencyObject();
 
         public Command CardClicked { get; }
         public Command TakePhoto { get; }
