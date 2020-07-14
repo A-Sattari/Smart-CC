@@ -3,14 +3,15 @@ using System.IO;
 using Plugin.Media;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using System.Windows.Input;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Smart_Currency_Converter;
 using Plugin.Media.Abstractions;
 using System.Collections.Generic;
 using Model.Smart_Currency_Converter;
-using ModalPages.Smart_Currency_Converter;
 using Smart_Currency_Converter.Models;
+using ModalPages.Smart_Currency_Converter;
 
 namespace ViewModel.SmartConverter
 {
@@ -19,18 +20,52 @@ namespace ViewModel.SmartConverter
         public event PropertyChangedEventHandler PropertyChanged;
         public static INavigation ModalNavigation;
         private readonly ImageProcessingHelper imageProcessing;
+        public bool isFirstCardSelected = false;
+        private CurrencyObject card1currency;
+        private CurrencyObject card2currency;
 
-        public static CurrencyObject FirstCard { get; set; } = new CurrencyObject();
-        public static CurrencyObject SecondCard { get; set; } = new CurrencyObject();
+        public CurrencyObject FirstCard
+        { 
+            get => card1currency;
+            set 
+            {
+                card1currency = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(FirstCard)));
+            }
+        }
+        
+        public CurrencyObject SecondCard
+        {
+            get => card2currency;
+            set 
+            {
+                card2currency = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(SecondCard)));
+            }
+        }
 
-        public Command CardClicked { get; }
-        public Command TakePhoto { get; }
+        public ICommand CardClicked { get; }
+        public ICommand TakePhoto { get; }
 
         public SmartConverterViewModel()
         {
             imageProcessing = new ImageProcessingHelper();
-            CardClicked = new Command(OpenCurrencyListPageAsync);
+            CardClicked = new Command<string>(OpenCurrencyListPageAsync);
             TakePhoto = new Command(CameraButtonClickedAsync);
+
+            card1currency = new CurrencyObject()
+            {
+                Name = "Canadian Dollar",
+                Accronym = "CAD",
+                Symbol = "https://images-na.ssl-images-amazon.com/images/I/614JLqsvMoL._AC_SX679_.jpg"
+            };
+
+            card2currency = new CurrencyObject()
+            {
+                Name = "Yen",
+                Accronym = "JPY",
+                Symbol = "https://images-na.ssl-images-amazon.com/images/I/614JLqsvMoL._AC_SX679_.jpg"
+            };
 
             EnsureCacheIsUpToDate();
         }
@@ -50,17 +85,17 @@ namespace ViewModel.SmartConverter
 
             byte[] imageByteArray = ConvertImageToByte(photo);
 
-            List<KeyValuePair<string, string>> convertedPairs = await PerformConversionAsync(imageByteArray, null, null);
+            List<KeyValuePair<string, string>> convertedPairs = await PerformConversionAsync(imageByteArray);
 
             OpenResultPageAsync(convertedPairs, GetImageSourceObj(imageByteArray));
 
             File.Delete(photo.Path);
         }
 
-        private async Task<List<KeyValuePair<string, string>>> PerformConversionAsync(byte[] imageByteArray, string baseCurrency, string targetCurrnecy)
+        private async Task<List<KeyValuePair<string, string>>> PerformConversionAsync(byte[] imageByteArray)
         {
             List<KeyValuePair<string, decimal>> itemPricePairs = await imageProcessing.AnalyzeTakenPhotoAsync(imageByteArray);
-            return (await new Converter().Convert(itemPricePairs, "CAD", "EUR"));
+            return (await new Converter().Convert(itemPricePairs, baseCurrency: card1currency.Accronym, targetCurrency: card2currency.Accronym));
         }
 
         private ImageSource GetImageSourceObj(byte[] imageArray) => ImageSource.FromStream(() => new MemoryStream(imageArray));
@@ -98,7 +133,19 @@ namespace ViewModel.SmartConverter
 
         #region Interacting With Pages
 
-        private async void OpenCurrencyListPageAsync() => await ModalNavigation.PushModalAsync(new CurrencyListModalPage());
+        private async void OpenCurrencyListPageAsync(string selectedCard)
+        {
+            // This should match the Frame name in SmartConverterPage.xaml
+            if (selectedCard == "FrameOne")
+            {
+                isFirstCardSelected = true;
+            } else 
+            {
+                isFirstCardSelected = false;
+            }
+
+            await ModalNavigation.PushModalAsync(new CurrencyListModalPage(this));
+        }
 
         private async void OpenLoadingPageAsync() => await ModalNavigation.PushModalAsync(new LoadingPage());
         

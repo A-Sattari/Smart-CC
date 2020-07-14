@@ -21,8 +21,12 @@
                 CornerRadius="13"
                 VerticalOptions="CenterAndExpand"
                 BackgroundColor="{StaticResource Mint}" Margin="15,0" Padding="20,6">
+                
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding CardClicked}" />
+                    <TapGestureRecognizer
+                        Command="{Binding CardClicked}" 
+                        CommandParameter="FrameOne"    
+                    />
                 </Frame.GestureRecognizers>
                 
                 <RelativeLayout>
@@ -34,14 +38,16 @@
                         WidthRequest="75">
 
                         <Image 
-                            Source="https://images-na.ssl-images-amazon.com/images/I/614JLqsvMoL._AC_SX679_.jpg" 
+                            Source="{Binding Symbol}" 
+                            BindingContext="{Binding FirstCard}"
                             Aspect="AspectFill"
                         />
                     </Frame>
 
                     <Label
-                        x:Name="curr"
-                        Text="Currency Name"
+                        x:Name="currencyNameLable1"
+                        Text="{Binding Name}"
+                        BindingContext="{Binding FirstCard}"
                         FontSize="20"
                         TextColor="Black"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.4, Constant= 0}"  
@@ -49,11 +55,12 @@
                     />
 
                     <Label
-                        Text="(EUR)"
+                        Text="{Binding Accronym, StringFormat='\({0:N}\)'}"
+                        BindingContext="{Binding FirstCard}"
                         FontSize="15"
                         TextColor="Black"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.55, Constant= 0}"  
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=curr ,Property=Height, Factor= 1, Constant= 5}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=currencyNameLable1 ,Property=Height, Factor= 1, Constant= 5}"
                     />
                 </RelativeLayout>
 
@@ -65,8 +72,12 @@
                 CornerRadius="13"
                 VerticalOptions="CenterAndExpand"
                 BackgroundColor="{StaticResource Mint}" Margin="15,0" Padding="20,6">
+                
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding CardClicked}" />
+                    <TapGestureRecognizer
+                        Command="{Binding CardClicked}"
+                        CommandParameter="FrameTwo"
+                    />
                 </Frame.GestureRecognizers>
                 
                 <RelativeLayout>
@@ -78,14 +89,16 @@
                         WidthRequest="75">
 
                         <Image
-                            Source="https://images-na.ssl-images-amazon.com/images/I/51j6eebed6L._AC_SX679_.jpg" 
+                            Source="{Binding Symbol}" 
+                            BindingContext="{Binding FirstCard}"
                             Aspect="AspectFill"
                         />
                     </Frame>
 
                     <Label
-                        x:Name="curr2"
-                        Text="Currency Name"
+                        x:Name="currencyNameLable2"
+                        Text="{Binding Name}"
+                        BindingContext="{Binding SecondCard}"
                         FontSize="20"
                         TextColor="Black"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.4, Constant= 0}"  
@@ -93,11 +106,12 @@
                     />
 
                     <Label
-                        Text="(EUR)"
+                        Text="{Binding Accronym, StringFormat='\({0:N}\)'}"
+                        BindingContext="{Binding SecondCard}"
                         FontSize="15"
                         TextColor="Black"
                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.55, Constant= 0}"  
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=curr2 ,Property=Height, Factor= 1, Constant= 5}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=currencyNameLable2 ,Property=Height, Factor= 1, Constant= 5}"
                     />
                 </RelativeLayout>
 

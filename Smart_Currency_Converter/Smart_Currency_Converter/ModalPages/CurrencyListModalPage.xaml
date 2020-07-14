@@ -23,7 +23,7 @@
                 SelectionChangedCommand="{Binding SelectedCurrencyChanged}"
                 SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference CurrenciesList}}"
                 VerticalScrollBarVisibility="Always"
-                Margin="11,0">
+                Margin="11,10">
 
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout 
@@ -41,7 +41,9 @@
                                 <!-- First column -->
                                 <ColumnDefinition Width="20*"/>
                                 <!-- Second column -->
-                                <ColumnDefinition  Width="80*"/>
+                                <ColumnDefinition  Width="60*"/>
+                                <!-- Second column -->
+                                <ColumnDefinition  Width="20*"/>
                             </Grid.ColumnDefinitions>
 
                             <Frame
@@ -69,11 +71,22 @@
                                 Margin="7,0,0,0"
                                 Padding="0,5"
                             />
-                            
+
+                            <Label
+                                Text="{Binding Accronym, StringFormat='\({0:N}\)'}"
+                                VerticalTextAlignment="Center"
+                                HorizontalTextAlignment="End"
+                                Grid.Column="2"
+                                TextColor="Black"
+                                FontSize="16"
+                                FontFamily="MontMedium"
+                                Padding="0,0,10,0"
+                            />
+
                             <!-- Separator -->
                             <BoxView 
                                 Grid.Row="0"
-                                Grid.ColumnSpan="2"
+                                Grid.ColumnSpan="3"
                                 HeightRequest="3"
                                 BackgroundColor="#C4C4C4"
                                 VerticalOptions="End"

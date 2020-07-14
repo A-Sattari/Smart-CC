@@ -26,6 +26,7 @@ namespace Model.Smart_Currency_Converter
         {
             RegionInfo regionInfo = currencyAcr switch
             {
+                "USD" => new RegionInfo("US"),
                 "CAD" => new RegionInfo("en-CA"),
                 "HKD" => new RegionInfo("zh-HK"),
                 "ISK" => new RegionInfo("is-IS"),

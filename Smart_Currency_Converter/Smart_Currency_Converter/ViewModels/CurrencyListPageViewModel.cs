@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
+﻿using Xamarin.Forms;
+using System.Windows.Input;
+using System.ComponentModel;
+using ViewModel.SmartConverter;
 using System.Collections.Generic;
 using Model.Smart_Currency_Converter;
-using Xamarin.Forms;
-using System.Windows.Input;
-using ViewModel.SmartConverter;
 using Smart_Currency_Converter.Models;
 
 namespace ViewModel.CurrencyListModal
@@ -13,8 +13,9 @@ namespace ViewModel.CurrencyListModal
         public event PropertyChangedEventHandler PropertyChanged;
         private readonly CurrencySymbolMapper symbolMapper;
         public static INavigation ModalNavigation;
-        public ICommand SelectedCurrencyChanged { get; }
 
+        public ICommand SelectedCurrencyChanged { get; }
+        public static SmartConverterViewModel SmartPageVideModel { private get; set; }
         public List<CurrencyObject> CurrenciesList { get; set; } = new List<CurrencyObject>();
 
         public CurrencyListPageViewModel()
@@ -27,12 +28,25 @@ namespace ViewModel.CurrencyListModal
 
         private void SelectCurrency(CurrencyObject selectedItem)
         {
-            // Send the selected to Smart page [Determine which card is selected]
-            SmartConverterViewModel.FirstCard.Name = selectedItem.Name;
-            SmartConverterViewModel.FirstCard.Accronym = selectedItem.Accronym;
-            SmartConverterViewModel.FirstCard.Symbol = selectedItem.Symbol;
+            if (SmartPageVideModel.isFirstCardSelected)
+            {
+                SmartPageVideModel.FirstCard = new CurrencyObject()
+                {
+                    Name = selectedItem.Name,
+                    Accronym = selectedItem.Accronym,
+                    Symbol = selectedItem.Symbol
+                };
+            } 
+            else
+            {
+                SmartPageVideModel.SecondCard = new CurrencyObject()
+                {
+                    Name = selectedItem.Name,
+                    Accronym = selectedItem.Accronym,
+                    Symbol = selectedItem.Symbol
+                };
+            }
 
-            // Close the modal
             CloseCurrencyListPageAsync();
         }
 
@@ -44,16 +58,19 @@ namespace ViewModel.CurrencyListModal
             {
                 foreach (string acronym in acronyms)
                 {
-                    string currencyName = symbolMapper.GetCurrencyNameInEnglish(acronym);
-
-                    CurrencyObject currency = new CurrencyObject
+                    if (SmartPageVideModel.FirstCard.Accronym != acronym && SmartPageVideModel.SecondCard.Accronym != acronym)
                     {
-                        Name = $"{currencyName}  ({acronym})",
-                        Accronym = "(ACR)",
-                        Symbol = "https://images-na.ssl-images-amazon.com/images/I/614JLqsvMoL._AC_SX679_.jpg"
-                    };
+                        string currencyName = symbolMapper.GetCurrencyNameInEnglish(acronym);
 
-                    CurrenciesList.Add(currency);
+                        CurrencyObject currency = new CurrencyObject
+                        {
+                            Name = currencyName,
+                            Accronym = acronym,
+                            Symbol = "https://images-na.ssl-images-amazon.com/images/I/614JLqsvMoL._AC_SX679_.jpg"
+                        };
+
+                        CurrenciesList.Add(currency);
+                    }
                 }
             }
         }
