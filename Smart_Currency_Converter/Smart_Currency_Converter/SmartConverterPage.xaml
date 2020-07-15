@@ -55,7 +55,7 @@
                     />
 
                     <Label
-                        Text="{Binding Accronym, StringFormat='\({0:N}\)'}"
+                        Text="{Binding Acronym, StringFormat='\({0:N}\)'}"
                         BindingContext="{Binding FirstCard}"
                         FontSize="15"
                         TextColor="Black"
@@ -90,7 +90,7 @@
 
                         <Image
                             Source="{Binding Symbol}" 
-                            BindingContext="{Binding FirstCard}"
+                            BindingContext="{Binding SecondCard}"
                             Aspect="AspectFill"
                         />
                     </Frame>
@@ -106,7 +106,7 @@
                     />
 
                     <Label
-                        Text="{Binding Accronym, StringFormat='\({0:N}\)'}"
+                        Text="{Binding Acronym, StringFormat='\({0:N}\)'}"
                         BindingContext="{Binding SecondCard}"
                         FontSize="15"
                         TextColor="Black"

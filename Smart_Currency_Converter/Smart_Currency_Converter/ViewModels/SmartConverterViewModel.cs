@@ -52,19 +52,20 @@ namespace ViewModel.SmartConverter
             imageProcessing = new ImageProcessingHelper();
             CardClicked = new Command<string>(OpenCurrencyListPageAsync);
             TakePhoto = new Command(CameraButtonClickedAsync);
+            CurrencySymbolMapper symbolMapper = new CurrencySymbolMapper();
 
             card1currency = new CurrencyObject()
             {
-                Name = "Canadian Dollar",
-                Accronym = "CAD",
-                Symbol = "https://images-na.ssl-images-amazon.com/images/I/614JLqsvMoL._AC_SX679_.jpg"
+                Name = symbolMapper.GetCurrencyNameInEnglish("CAD"),
+                Acronym = "CAD",
+                Symbol = symbolMapper.GetCurrencyCountryFlag("CAD")
             };
 
             card2currency = new CurrencyObject()
             {
-                Name = "Yen",
-                Accronym = "JPY",
-                Symbol = "https://images-na.ssl-images-amazon.com/images/I/614JLqsvMoL._AC_SX679_.jpg"
+                Name = symbolMapper.GetCurrencyNameInEnglish("JPY"),
+                Acronym = "JPY",
+                Symbol = symbolMapper.GetCurrencyCountryFlag("JPY")
             };
 
             EnsureCacheIsUpToDate();
@@ -95,7 +96,7 @@ namespace ViewModel.SmartConverter
         private async Task<List<KeyValuePair<string, string>>> PerformConversionAsync(byte[] imageByteArray)
         {
             List<KeyValuePair<string, decimal>> itemPricePairs = await imageProcessing.AnalyzeTakenPhotoAsync(imageByteArray);
-            return (await new Converter().Convert(itemPricePairs, baseCurrency: card1currency.Accronym, targetCurrency: card2currency.Accronym));
+            return (await new Converter().Convert(itemPricePairs, baseCurrency: card1currency.Acronym, targetCurrency: card2currency.Acronym));
         }
 
         private ImageSource GetImageSourceObj(byte[] imageArray) => ImageSource.FromStream(() => new MemoryStream(imageArray));

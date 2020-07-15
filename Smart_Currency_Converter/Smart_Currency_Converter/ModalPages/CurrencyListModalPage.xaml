@@ -19,7 +19,7 @@
             <CollectionView
                 x:Name="CurrenciesList"
                 SelectionMode="Single"
-                ItemsSource="{Binding CurrenciesList}"
+                ItemsSource="{Binding Source={x:Static local:CurrencyListPageViewModel.CurrenciesList}}"
                 SelectionChangedCommand="{Binding SelectedCurrencyChanged}"
                 SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference CurrenciesList}}"
                 VerticalScrollBarVisibility="Always"
@@ -73,7 +73,7 @@
                             />
 
                             <Label
-                                Text="{Binding Accronym, StringFormat='\({0:N}\)'}"
+                                Text="{Binding Acronym, StringFormat='\({0:N}\)'}"
                                 VerticalTextAlignment="Center"
                                 HorizontalTextAlignment="End"
                                 Grid.Column="2"
