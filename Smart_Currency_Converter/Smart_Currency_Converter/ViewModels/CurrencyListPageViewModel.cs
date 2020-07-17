@@ -15,7 +15,7 @@ namespace ViewModel.CurrencyListModal
 
         public ICommand SelectedCurrencyChanged { get; }
         public static SmartConverterViewModel SmartPageVideModel { private get; set; }
-        public static List<CurrencyObject> CurrenciesList { get; private set; } = new List<CurrencyObject>();
+        public List<CurrencyObject> CurrenciesList { get; private set; } = new List<CurrencyObject>();
 
         public CurrencyListPageViewModel()
         {
@@ -29,24 +29,21 @@ namespace ViewModel.CurrencyListModal
         {
             HashSet<string> acronyms = Cache.Instance.GetAcronyms();
 
-            if (CurrenciesList.Count != acronyms.Count - 2)
+            foreach (string acronym in acronyms)
             {
-                foreach (string acronym in acronyms)
+                if (SmartPageVideModel.FirstCard.Acronym != acronym && SmartPageVideModel.SecondCard.Acronym != acronym)
                 {
-                    if (SmartPageVideModel.FirstCard.Acronym != acronym && SmartPageVideModel.SecondCard.Acronym != acronym)
+                    CurrencyObject currency = new CurrencyObject
                     {
-                        CurrencyObject currency = new CurrencyObject
-                        {
-                            Name = symbolMapper.GetCurrencyNameInEnglish(acronym),
-                            Acronym = acronym,
-                            Symbol = symbolMapper.GetCurrencyCountryFlag(acronym)
-                        };
+                        Name = symbolMapper.GetCurrencyNameInEnglish(acronym),
+                        Acronym = acronym,
+                        Symbol = symbolMapper.GetCurrencyCountryFlag(acronym)
+                    };
 
-                        CurrenciesList.Add(currency);
-                    }
+                    CurrenciesList.Add(currency);
                 }
-                CurrenciesList = CurrenciesList.OrderBy(c => c.Name).ToList();
             }
+            CurrenciesList = CurrenciesList.OrderBy(c => c.Name).ToList();
         }
 
         private void SelectCurrency(CurrencyObject selectedItem)

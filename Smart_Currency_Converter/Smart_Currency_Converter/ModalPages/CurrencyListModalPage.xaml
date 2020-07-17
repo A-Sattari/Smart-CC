@@ -19,40 +19,39 @@
             <CollectionView
                 x:Name="CurrenciesList"
                 SelectionMode="Single"
-                ItemsSource="{Binding Source={x:Static local:CurrencyListPageViewModel.CurrenciesList}}"
+                ItemsSource="{Binding CurrenciesList}"
                 SelectionChangedCommand="{Binding SelectedCurrencyChanged}"
                 SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference CurrenciesList}}"
                 VerticalScrollBarVisibility="Always"
-                Margin="11,10">
+                Margin="10,5">
 
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout 
                         Orientation="Vertical"
-                        VerticalItemSpacing="10"
+                        VerticalItemSpacing="5"
                     />
                 </CollectionView.ItemsLayout>
 
                 <!-- ⬇ This section defines the appearance of each row in Collection View ⬇ -->
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid BackgroundColor="#f0f0f0" Padding="5">
 
                             <Grid.ColumnDefinitions>
                                 <!-- First column -->
-                                <ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="23*"/>
                                 <!-- Second column -->
-                                <ColumnDefinition  Width="60*"/>
+                                <ColumnDefinition  Width="52*"/>
                                 <!-- Second column -->
                                 <ColumnDefinition  Width="20*"/>
                             </Grid.ColumnDefinitions>
 
                             <Frame
+                                Grid.Column="0"
                                 HasShadow="False"
                                 CornerRadius="5"
                                 Padding="0"
-                                Margin="0,3"
-                                Grid.Column="0"
-                                WidthRequest="75">
+                                HeightRequest="50">
 
                                 <Image 
                                     Source="{Binding Symbol}" 
@@ -62,34 +61,25 @@
 
                             <Label
                                 Text="{Binding Name}"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Start"
-                                Grid.Column="1"
                                 TextColor="Black"
                                 FontSize="16"
                                 FontFamily="MontMedium"
+                                VerticalTextAlignment="Center"
+                                HorizontalTextAlignment="Start"
+                                Grid.Column="1"
                                 Margin="7,0,0,0"
                                 Padding="0,5"
                             />
 
                             <Label
                                 Text="{Binding Acronym, StringFormat='\({0:N}\)'}"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="End"
-                                Grid.Column="2"
                                 TextColor="Black"
                                 FontSize="16"
                                 FontFamily="MontMedium"
-                                Padding="0,0,10,0"
-                            />
-
-                            <!-- Separator -->
-                            <BoxView 
-                                Grid.Row="0"
-                                Grid.ColumnSpan="3"
-                                HeightRequest="3"
-                                BackgroundColor="#C4C4C4"
-                                VerticalOptions="End"
+                                VerticalTextAlignment="Center"
+                                HorizontalTextAlignment="End"
+                                Grid.Column="2"
+                                Padding="0,0,5,0"
                             />
 
                         </Grid>
