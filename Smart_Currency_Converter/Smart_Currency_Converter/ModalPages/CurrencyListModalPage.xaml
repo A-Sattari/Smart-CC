@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:ViewModel.CurrencyListModal"
              mc:Ignorable="d"
+             Visual="Material"
              x:Class="ModalPages.Smart_Currency_Converter.CurrencyListModalPage">
 
     <!-- ⬇ I want to bind the ViewModel code of "SmartPage"with this XAML file ⬇ -->

@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:ViewModel.SmartConverter"
              mc:Ignorable="d"
+             Visual="Material"
              x:Class="Smart_Currency_Converter.SmartConverterPage">
 
     <!-- ⬇ I want to bind the ViewModel code of "SmartPage"with this XAML file ⬇ -->
@@ -14,7 +15,10 @@
     
     <ContentPage.Content>
         <StackLayout>
-
+            
+            <Label Text="From:" />
+            
+            <!-- First Card -->
             <Frame
                 HasShadow="True"
                 CornerRadius="13"
@@ -73,6 +77,20 @@
 
             </Frame>
 
+            <Button
+                Command="{Binding SwapCards}"
+                WidthRequest      ="65"
+                HeightRequest     ="65"
+                CornerRadius      ="40"
+                VerticalOptions   ="Center"
+                HorizontalOptions ="Center"
+                BackgroundColor   ="{StaticResource Mango}"
+                ImageSource="{local:ImageResource Smart_Currency_Converter.Resources.Images.swap-icon.png}"
+            />
+            
+            <Label Text="To:" />
+            
+            <!-- Second Card -->
             <Frame
                 HasShadow="True"
                 CornerRadius="13"

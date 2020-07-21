@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using Model.Smart_Currency_Converter;
 using Smart_Currency_Converter.Models;
 using ModalPages.Smart_Currency_Converter;
+using Xamarin.Forms.Xaml;
+using System.Reflection;
 
 namespace ViewModel.SmartConverter
 {
@@ -45,12 +47,14 @@ namespace ViewModel.SmartConverter
         }
 
         public ICommand CardClicked { get; }
+        public ICommand SwapCards { get; }
         public ICommand TakePhoto { get; }
 
         public SmartConverterViewModel()
         {
             imageProcessing = new ImageProcessingHelper();
             CardClicked = new Command<string>(OpenCurrencyListPageAsync);
+            SwapCards = new Command(SwapCard);
             TakePhoto = new Command(CameraButtonClickedAsync);
             CurrencySymbolMapper symbolMapper = new CurrencySymbolMapper();
 
@@ -91,6 +95,14 @@ namespace ViewModel.SmartConverter
             OpenResultPageAsync(convertedPairs, GetImageSourceObj(imageByteArray));
 
             File.Delete(photo.Path);
+        }
+
+        private void SwapCard()
+        {
+            CurrencyObject tmpCard = SecondCard;
+            
+            SecondCard = FirstCard;
+            FirstCard = tmpCard;
         }
 
         private async Task<List<KeyValuePair<string, string>>> PerformConversionAsync(byte[] imageByteArray)
@@ -159,5 +171,25 @@ namespace ViewModel.SmartConverter
         }
 
         #endregion
+    }
+
+
+    /// <summary>
+    /// This class enables the XAML components in ResultPage.xaml to use embedded images that are common for all platforms.
+    /// </summary>
+    [ContentProperty(nameof(Source))]
+    public class ImageResourceExtension : IMarkupExtension
+    {
+        public string Source { get; set; }
+
+        public object ProvideValue(IServiceProvider serviceProvider)
+        {
+            if (Source == null)
+                return null;
+
+            ImageSource imageSource = ImageSource.FromResource(Source, typeof(ImageResourceExtension).GetTypeInfo().Assembly);
+
+            return imageSource;
+        }
     }
 }
