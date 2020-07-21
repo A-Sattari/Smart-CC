@@ -16,11 +16,13 @@
         <StackLayout>
 
             <Frame
-                HeightRequest="55"
                 HasShadow="True"
                 CornerRadius="13"
+                HeightRequest="55"
+                Margin="15,0"
+                Padding="0,6"
                 VerticalOptions="CenterAndExpand"
-                BackgroundColor="{StaticResource Mint}" Margin="15,0" Padding="20,6">
+                BackgroundColor="{StaticResource Mint}">
                 
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer
@@ -30,11 +32,13 @@
                 </Frame.GestureRecognizers>
                 
                 <RelativeLayout>
+
                     <Frame
                         HasShadow="False"
                         CornerRadius="5"
                         Padding="0"
-                        Margin="0,3"
+                        Margin="15,3,0,3"
+                        HeightRequest="50"
                         WidthRequest="75">
 
                         <Image 
@@ -50,7 +54,9 @@
                         BindingContext="{Binding FirstCard}"
                         FontSize="20"
                         TextColor="Black"
-                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.4, Constant= 0}"  
+                        HorizontalTextAlignment="Center"
+                        WidthRequest="220"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.3, Constant= 0}"  
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor= 0.04, Constant= 0}"
                     />
 
@@ -59,7 +65,8 @@
                         BindingContext="{Binding FirstCard}"
                         FontSize="15"
                         TextColor="Black"
-                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.55, Constant= 0}"  
+                        HorizontalTextAlignment="Center"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.5, Constant= 25}"  
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=currencyNameLable1 ,Property=Height, Factor= 1, Constant= 5}"
                     />
                 </RelativeLayout>
@@ -67,11 +74,13 @@
             </Frame>
 
             <Frame
-                HeightRequest="55"
                 HasShadow="True"
                 CornerRadius="13"
+                HeightRequest="55"
+                Margin="15,0"
+                Padding="0,6"
                 VerticalOptions="CenterAndExpand"
-                BackgroundColor="{StaticResource Mint}" Margin="15,0" Padding="20,6">
+                BackgroundColor="{StaticResource Mint}">
                 
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer
@@ -85,7 +94,8 @@
                         HasShadow="False"
                         CornerRadius="5"
                         Padding="0"
-                        Margin="0,3"
+                        Margin="15,3,0,3"
+                        HeightRequest="50"
                         WidthRequest="75">
 
                         <Image
@@ -101,7 +111,9 @@
                         BindingContext="{Binding SecondCard}"
                         FontSize="20"
                         TextColor="Black"
-                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.4, Constant= 0}"  
+                        HorizontalTextAlignment="Center"
+                        WidthRequest="220"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.3, Constant= 0}"  
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor= 0.04, Constant= 0}"
                     />
 
@@ -110,7 +122,8 @@
                         BindingContext="{Binding SecondCard}"
                         FontSize="15"
                         TextColor="Black"
-                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.55, Constant= 0}"  
+                        HorizontalTextAlignment="Center"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.5, Constant= 25}"  
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=currencyNameLable2 ,Property=Height, Factor= 1, Constant= 5}"
                     />
                 </RelativeLayout>

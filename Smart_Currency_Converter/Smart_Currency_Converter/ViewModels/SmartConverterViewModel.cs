@@ -63,9 +63,9 @@ namespace ViewModel.SmartConverter
 
             card2currency = new CurrencyObject()
             {
-                Name = symbolMapper.GetCurrencyNameInEnglish("JPY"),
-                Acronym = "JPY",
-                Symbol = symbolMapper.GetCurrencyCountryFlag("JPY")
+                Name = symbolMapper.GetCurrencyNameInEnglish("MXN"),
+                Acronym = "MXN",
+                Symbol = symbolMapper.GetCurrencyCountryFlag("MXN")
             };
 
             EnsureCacheIsUpToDate();
