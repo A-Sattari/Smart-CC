@@ -15,8 +15,15 @@
     
     <ContentPage.Content>
         <StackLayout>
-            
-            <Label Text="From:" />
+
+            <Label 
+                Text="From:"
+                TextColor="{StaticResource DarkBlue}"
+                FontSize="18"
+                FontAttributes="Bold"
+                Margin="16,100,0,0"
+                HorizontalOptions="Start" 
+            />
             
             <!-- First Card -->
             <Frame
@@ -25,8 +32,8 @@
                 HeightRequest="55"
                 Margin="15,0"
                 Padding="0,6"
-                VerticalOptions="CenterAndExpand"
-                BackgroundColor="{StaticResource Mint}">
+                VerticalOptions="Center"
+                BackgroundColor="{StaticResource LightOrchid}">
                 
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer
@@ -56,7 +63,8 @@
                         x:Name="currencyNameLable1"
                         Text="{Binding Name}"
                         BindingContext="{Binding FirstCard}"
-                        FontSize="20"
+                        FontSize="21"
+                        FontAttributes="Bold"
                         TextColor="Black"
                         HorizontalTextAlignment="Center"
                         WidthRequest="220"
@@ -70,7 +78,7 @@
                         FontSize="15"
                         TextColor="Black"
                         HorizontalTextAlignment="Center"
-                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.5, Constant= 25}"  
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.49, Constant= 25}"  
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=currencyNameLable1 ,Property=Height, Factor= 1, Constant= 5}"
                     />
                 </RelativeLayout>
@@ -82,13 +90,20 @@
                 WidthRequest      ="65"
                 HeightRequest     ="65"
                 CornerRadius      ="40"
-                VerticalOptions   ="Center"
                 HorizontalOptions ="Center"
+                Margin            ="0,50,0,0"
                 BackgroundColor   ="{StaticResource Mango}"
                 ImageSource="{local:ImageResource Smart_Currency_Converter.Resources.Images.swap-icon.png}"
             />
-            
-            <Label Text="To:" />
+
+            <Label 
+                Text="To:"
+                TextColor="{StaticResource DarkBlue}"
+                FontSize="18"
+                FontAttributes="Bold"
+                Margin="16,25,0,0"
+                HorizontalOptions="Start" 
+            />
             
             <!-- Second Card -->
             <Frame
@@ -97,8 +112,7 @@
                 HeightRequest="55"
                 Margin="15,0"
                 Padding="0,6"
-                VerticalOptions="CenterAndExpand"
-                BackgroundColor="{StaticResource Mint}">
+                BackgroundColor="{StaticResource LightOrchid}">
                 
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer
@@ -126,8 +140,9 @@
                     <Label
                         x:Name="currencyNameLable2"
                         Text="{Binding Name}"
+                        FontAttributes="Bold"
                         BindingContext="{Binding SecondCard}"
-                        FontSize="20"
+                        FontSize="21"
                         TextColor="Black"
                         HorizontalTextAlignment="Center"
                         WidthRequest="220"
@@ -141,17 +156,34 @@
                         FontSize="15"
                         TextColor="Black"
                         HorizontalTextAlignment="Center"
-                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.5, Constant= 25}"  
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.49, Constant= 25}"  
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=currencyNameLable2 ,Property=Height, Factor= 1, Constant= 5}"
                     />
                 </RelativeLayout>
 
             </Frame>
 
+            <Label 
+                Text="1 CAD = 0.32 MXN"
+                TextColor="{StaticResource DarkBlue}"
+                FontSize="15"
+                Margin="0,110,0,0"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center"
+            />
+
             <Button
                 Command="{Binding TakePhoto}"
                 Text="Take Photo"
+                TextColor="Black"
+                FontSize="18"
+                FontFamily="MontSemiBold"
+                WidthRequest="230"
+                HeightRequest="50"
+                CornerRadius="10"
+                BackgroundColor="{StaticResource Mango}"
                 VerticalOptions="End"
+                HorizontalOptions="Center" Margin="0,5,0,0"
             />
         
         </StackLayout>

@@ -141,7 +141,7 @@
             <!-- Footer Bar -->
             <Grid
                 Padding="10,0"
-                BackgroundColor="{StaticResource Mint}" 
+                BackgroundColor="{StaticResource LightOrchid}" 
                 VerticalOptions="EndAndExpand">
 
                 <Grid.RowDefinitions>
