@@ -11,7 +11,8 @@ namespace ViewModel.Result
     {
         public static INavigation ModalNavigation;
         public static ImageSource Image;
-        public static List<KeyValuePair<string, string>> ItemPricePairs { get; set; }
+        public static string TargetSymbol;
+        public static List<KeyValuePair<string, decimal>> ItemPricePairs { get; set; }
 
         public Command ShowTakenPhoto { get; }
         public Command RetakePhoto { get; }

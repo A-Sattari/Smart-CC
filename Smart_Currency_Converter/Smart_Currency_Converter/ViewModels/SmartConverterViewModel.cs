@@ -23,26 +23,26 @@ namespace ViewModel.SmartConverter
         public static INavigation ModalNavigation;
         private readonly ImageProcessingHelper imageProcessing;
         public bool isFirstCardSelected = false;
-        private CurrencyObject card1currency;
-        private CurrencyObject card2currency;
+        private Currency baseCurrency;
+        private Currency targetCurrency;
 
-        public CurrencyObject FirstCard
+        public Currency BaseCurrency
         { 
-            get => card1currency;
+            get => baseCurrency;
             set 
             {
-                card1currency = value;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(FirstCard)));
+                baseCurrency = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(BaseCurrency)));
             }
         }
         
-        public CurrencyObject SecondCard
+        public Currency TargetCurrency
         {
-            get => card2currency;
+            get => targetCurrency;
             set 
             {
-                card2currency = value;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(SecondCard)));
+                targetCurrency = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(TargetCurrency)));
             }
         }
 
@@ -58,18 +58,20 @@ namespace ViewModel.SmartConverter
             TakePhoto = new Command(CameraButtonClickedAsync);
             CurrencySymbolMapper symbolMapper = new CurrencySymbolMapper();
 
-            card1currency = new CurrencyObject()
+            baseCurrency = new Currency()
             {
                 Name = symbolMapper.GetCurrencyNameInEnglish("CAD"),
                 Acronym = "CAD",
-                Symbol = symbolMapper.GetCurrencyCountryFlag("CAD")
+                Symbol = symbolMapper.GetCurrencySymbol("CAD"),
+                Flag = symbolMapper.GetCurrencyCountryFlag("CAD")
             };
 
-            card2currency = new CurrencyObject()
+            targetCurrency = new Currency()
             {
                 Name = symbolMapper.GetCurrencyNameInEnglish("MXN"),
                 Acronym = "MXN",
-                Symbol = symbolMapper.GetCurrencyCountryFlag("MXN")
+                Symbol = symbolMapper.GetCurrencySymbol("MXN"),
+                Flag = symbolMapper.GetCurrencyCountryFlag("MXN")
             };
 
             EnsureCacheIsUpToDate();
@@ -90,7 +92,7 @@ namespace ViewModel.SmartConverter
 
             byte[] imageByteArray = ConvertImageToByte(photo);
 
-            List<KeyValuePair<string, string>> convertedPairs = await PerformConversionAsync(imageByteArray);
+            List<KeyValuePair<string, decimal>> convertedPairs = await PerformConversionAsync(imageByteArray);
 
             OpenResultPageAsync(convertedPairs, GetImageSourceObj(imageByteArray));
 
@@ -99,16 +101,16 @@ namespace ViewModel.SmartConverter
 
         private void SwapCard()
         {
-            CurrencyObject tmpCard = SecondCard;
+            Currency tmpCard = TargetCurrency;
             
-            SecondCard = FirstCard;
-            FirstCard = tmpCard;
+            TargetCurrency = BaseCurrency;
+            BaseCurrency = tmpCard;
         }
 
-        private async Task<List<KeyValuePair<string, string>>> PerformConversionAsync(byte[] imageByteArray)
+        private async Task<List<KeyValuePair<string, decimal>>> PerformConversionAsync(byte[] imageByteArray)
         {
             List<KeyValuePair<string, decimal>> itemPricePairs = await imageProcessing.AnalyzeTakenPhotoAsync(imageByteArray);
-            return (await new Converter().Convert(itemPricePairs, baseCurrency: card1currency.Acronym, targetCurrency: card2currency.Acronym));
+            return await new Converter().Convert(itemPricePairs, baseCurrency, targetCurrency);
         }
 
         private ImageSource GetImageSourceObj(byte[] imageArray) => ImageSource.FromStream(() => new MemoryStream(imageArray));
@@ -144,7 +146,7 @@ namespace ViewModel.SmartConverter
             }
         }
 
-        #region Interacting With Pages
+    #region Interacting With Pages
 
         private async void OpenCurrencyListPageAsync(string selectedCard)
         {
@@ -164,13 +166,13 @@ namespace ViewModel.SmartConverter
         
         private async void CloseLoadingPageAsync() => await ModalNavigation.PopModalAsync();
 
-        private async void OpenResultPageAsync(List<KeyValuePair<string, string>> itemPricePairs, ImageSource image)
+        private async void OpenResultPageAsync(List<KeyValuePair<string, decimal>> itemPricePairs, ImageSource image)
         {
-            await App.NavigationObj.PushAsync(new ResultPage(itemPricePairs, image));
+            await App.NavigationObj.PushAsync(new ResultPage(itemPricePairs, targetCurrency.Symbol, image));
             CloseLoadingPageAsync();
         }
 
-        #endregion
+    #endregion
     }
 
 

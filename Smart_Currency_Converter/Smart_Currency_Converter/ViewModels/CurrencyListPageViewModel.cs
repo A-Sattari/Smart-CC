@@ -15,11 +15,11 @@ namespace ViewModel.CurrencyListModal
 
         public ICommand SelectedCurrencyChanged { get; }
         public static SmartConverterViewModel SmartPageVideModel { private get; set; }
-        public List<CurrencyObject> CurrenciesList { get; private set; } = new List<CurrencyObject>();
+        public List<Currency> CurrenciesList { get; private set; } = new List<Currency>();
 
         public CurrencyListPageViewModel()
         {
-            SelectedCurrencyChanged = new Command<CurrencyObject>(SelectCurrency);
+            SelectedCurrencyChanged = new Command<Currency>(SelectCurrency);
             symbolMapper = new CurrencySymbolMapper();
 
             SetUpList();
@@ -31,13 +31,14 @@ namespace ViewModel.CurrencyListModal
 
             foreach (string acronym in acronyms)
             {
-                if (SmartPageVideModel.FirstCard.Acronym != acronym && SmartPageVideModel.SecondCard.Acronym != acronym)
+                if (SmartPageVideModel.BaseCurrency.Acronym != acronym && SmartPageVideModel.TargetCurrency.Acronym != acronym)
                 {
-                    CurrencyObject currency = new CurrencyObject
+                    Currency currency = new Currency
                     {
                         Name = symbolMapper.GetCurrencyNameInEnglish(acronym),
                         Acronym = acronym,
-                        Symbol = symbolMapper.GetCurrencyCountryFlag(acronym)
+                        Symbol = symbolMapper.GetCurrencySymbol(acronym),
+                        Flag = symbolMapper.GetCurrencyCountryFlag(acronym)
                     };
 
                     CurrenciesList.Add(currency);
@@ -46,23 +47,25 @@ namespace ViewModel.CurrencyListModal
             CurrenciesList = CurrenciesList.OrderBy(c => c.Name).ToList();
         }
 
-        private void SelectCurrency(CurrencyObject selectedItem)
+        private void SelectCurrency(Currency selectedItem)
         {
             if (SmartPageVideModel.isFirstCardSelected)
             {
-                SmartPageVideModel.FirstCard = new CurrencyObject()
+                SmartPageVideModel.BaseCurrency = new Currency()
                 {
                     Name = selectedItem.Name,
                     Acronym = selectedItem.Acronym,
-                    Symbol = selectedItem.Symbol
+                    Symbol = selectedItem.Symbol,
+                    Flag = selectedItem.Flag
                 };
             } else
             {
-                SmartPageVideModel.SecondCard = new CurrencyObject()
+                SmartPageVideModel.TargetCurrency = new Currency()
                 {
                     Name = selectedItem.Name,
                     Acronym = selectedItem.Acronym,
-                    Symbol = selectedItem.Symbol
+                    Symbol = selectedItem.Symbol,
+                    Flag = selectedItem.Flag
                 };
             }
 

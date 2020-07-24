@@ -19,7 +19,7 @@
 
             <Style x:Key="HeaderStyle" TargetType="Label">
                 <Setter Property="TextColor"  Value="{StaticResource DarkBlue}"/>
-                <Setter Property="FontSize"   Value="Large"/>
+                <Setter Property="FontSize"   Value="25"/>
                 <Setter Property="FontFamily" Value="MontSemiBold"/>
                 <Setter Property="VerticalTextAlignment"   Value="Center"/>
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
@@ -63,7 +63,7 @@
                 <Label 
                     Text="Price"
                     Grid.Column="1"
-                    Padding="-15,0,0,0"
+                    HorizontalTextAlignment="Start"
                     Style="{StaticResource HeaderStyle}"
                 />
 
@@ -72,7 +72,7 @@
                     Grid.Row="0"
                     Grid.ColumnSpan="2"
                     HeightRequest="1"
-                    BackgroundColor="Black"
+                    BackgroundColor="{StaticResource DarkBlue}"
                     VerticalOptions="End"
                 />
             </Grid>
@@ -97,9 +97,11 @@
 
                             <Grid.ColumnDefinitions>
                                 <!-- First column -->
-                                <ColumnDefinition Width="70*"/>
+                                <ColumnDefinition Width="69*"/>
                                 <!-- Second column -->
-                                <ColumnDefinition  Width="30*"/>
+                                <ColumnDefinition  Width="7*"/>
+                                <!-- Third column -->
+                                <ColumnDefinition  Width="24*"/>
                             </Grid.ColumnDefinitions>
 
                             <Label 
@@ -111,24 +113,34 @@
                                 Margin="7,0,0,0"
                                 Padding="0,5"
                             />
-                            
+
                             <Label 
-                                Text="{Binding Value}"
+                                Text="{Binding Source={x:Static local:ResultPageViewModel.TargetSymbol}}"
                                 Grid.Column="1"
                                 TextColor="Black"
-                                FontSize="16"
-                                FontFamily="MontRegular"
-                                Margin="0,0,7,0"
-                                HorizontalTextAlignment="Center"
+                                FontSize="15"
+                                FontFamily="MontSemiBold"
+                                HorizontalTextAlignment="End"
+                                VerticalTextAlignment="Center"
+                            />
+
+                            <Label 
+                                Text="{Binding Value}"
+                                Grid.Column="2"
+                                TextColor="Black"
+                                FontSize="17"
+                                FontFamily="MontSemiBold"
+                                Margin="0,0,5,0"
+                                HorizontalTextAlignment="Start"
                                 VerticalTextAlignment="Center"
                             />
 
                             <!-- Separator -->
                             <BoxView 
                                 Grid.Row="0"
-                                Grid.ColumnSpan="2"
+                                Grid.ColumnSpan="3"
                                 HeightRequest="0.3"
-                                BackgroundColor="#C4C4C4"
+                                BackgroundColor="#bfbfbf"
                                 VerticalOptions="End"
                             />
 

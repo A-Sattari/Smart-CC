@@ -12,6 +12,7 @@ namespace Model.Smart_Currency_Converter
             RegionInfo regionInfo = GetRegionInfo(currencyAcr);
             if (regionInfo == null)
                 return string.Empty;
+            System.Console.WriteLine("\n ----> " + regionInfo.CurrencyEnglishName + ": " + regionInfo.CurrencySymbol);
 
             return regionInfo.CurrencySymbol;
         }

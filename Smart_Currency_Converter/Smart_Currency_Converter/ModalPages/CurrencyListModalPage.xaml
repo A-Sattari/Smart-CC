@@ -55,7 +55,7 @@
                                 HeightRequest="50">
 
                                 <Image 
-                                    Source="{Binding Symbol}" 
+                                    Source="{Binding Flag}" 
                                     Aspect="AspectFill"
                                 />
                             </Frame>
