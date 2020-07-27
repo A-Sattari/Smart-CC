@@ -2,6 +2,8 @@
 using System.IO;
 using Plugin.Media;
 using Xamarin.Forms;
+using System.Reflection;
+using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
 using System.Windows.Input;
 using System.ComponentModel;
@@ -12,8 +14,6 @@ using System.Collections.Generic;
 using Model.Smart_Currency_Converter;
 using Smart_Currency_Converter.Models;
 using ModalPages.Smart_Currency_Converter;
-using Xamarin.Forms.Xaml;
-using System.Reflection;
 
 namespace ViewModel.SmartConverter
 {

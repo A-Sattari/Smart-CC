@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Linq.Expressions;
 using System.Reflection;
 using Xamarin.Forms;
 
@@ -12,7 +11,6 @@ namespace Model.Smart_Currency_Converter
             RegionInfo regionInfo = GetRegionInfo(currencyAcr);
             if (regionInfo == null)
                 return string.Empty;
-            System.Console.WriteLine("\n ----> " + regionInfo.CurrencyEnglishName + ": " + regionInfo.CurrencySymbol);
 
             return regionInfo.CurrencySymbol;
         }
