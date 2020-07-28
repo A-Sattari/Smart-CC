@@ -101,8 +101,7 @@ namespace ViewModel.SmartConverter
 
             MediaFile photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
             {
-                Name = $"Smart-CC_{DateTime.Now:yy-MMdd-Hmms}",
-                SaveToAlbum = true
+                Name = $"Smart-CC_{DateTime.Now:yy-MMdd-Hmms}"
             });
 
             OpenLoadingPageAsync();
