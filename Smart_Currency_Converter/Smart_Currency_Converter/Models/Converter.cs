@@ -23,9 +23,9 @@ namespace Model.Smart_Currency_Converter
             return convertedPairs;
         }
 
-        public async Task<decimal> Convert(decimal amount, string baseCurrency, string targetCurrency)
+        public async Task<decimal> Convert(decimal amount, Currency baseCurrency, Currency targetCurrency)
         {
-            decimal baseRate = await GetCurrencyRate(baseCurrency, targetCurrency);
+            decimal baseRate = await GetCurrencyRate(baseCurrency.Acronym, targetCurrency.Acronym);
             return Math.Round(amount * baseRate, 2);
         }
 

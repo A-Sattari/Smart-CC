@@ -164,7 +164,7 @@
             </Frame>
 
             <Label 
-                Text="1 CAD = 0.32 MXN"
+                Text="{Binding ExchangeRate}"
                 TextColor="{StaticResource DarkBlue}"
                 FontSize="15"
                 Margin="0,110,0,0"

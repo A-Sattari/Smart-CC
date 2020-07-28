@@ -22,9 +22,11 @@ namespace ViewModel.SmartConverter
         public event PropertyChangedEventHandler PropertyChanged;
         public static INavigation ModalNavigation;
         private readonly ImageProcessingHelper imageProcessing;
+        private readonly Converter converter;
         public bool isFirstCardSelected = false;
         private Currency baseCurrency;
         private Currency targetCurrency;
+        private string exchangeRateMessage;
 
         public Currency BaseCurrency
         { 
@@ -32,6 +34,7 @@ namespace ViewModel.SmartConverter
             set 
             {
                 baseCurrency = value;
+                GenerateExchangeRateMessage();
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(BaseCurrency)));
             }
         }
@@ -42,7 +45,18 @@ namespace ViewModel.SmartConverter
             set 
             {
                 targetCurrency = value;
+                GenerateExchangeRateMessage();
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(TargetCurrency)));
+            }
+        }
+
+        public string ExchangeRate
+        { 
+            get => exchangeRateMessage;
+            private set 
+            { 
+                exchangeRateMessage = value; 
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ExchangeRate)));
             }
         }
 
@@ -52,11 +66,13 @@ namespace ViewModel.SmartConverter
 
         public SmartConverterViewModel()
         {
+            CurrencySymbolMapper symbolMapper = new CurrencySymbolMapper();
             imageProcessing = new ImageProcessingHelper();
+            converter = new Converter();
+
             CardClicked = new Command<string>(OpenCurrencyListPageAsync);
             SwapCards = new Command(SwapCard);
             TakePhoto = new Command(CameraButtonClickedAsync);
-            CurrencySymbolMapper symbolMapper = new CurrencySymbolMapper();
 
             baseCurrency = new Currency()
             {
@@ -75,6 +91,7 @@ namespace ViewModel.SmartConverter
             };
 
             EnsureCacheIsUpToDate();
+            GenerateExchangeRateMessage();
         }
 
         private async void CameraButtonClickedAsync()
@@ -107,10 +124,21 @@ namespace ViewModel.SmartConverter
             BaseCurrency = tmpCard;
         }
 
+        private async void GenerateExchangeRateMessage()
+        {
+            decimal rate = await converter.Convert(decimal.One, baseCurrency, targetCurrency);
+            string message = $"1 {baseCurrency.Acronym} ≈ {rate} {targetCurrency.Acronym}";
+
+            if (string.IsNullOrEmpty(exchangeRateMessage))
+                exchangeRateMessage = message;
+            else
+                ExchangeRate = message;
+        }
+
         private async Task<List<KeyValuePair<string, decimal>>> PerformConversionAsync(byte[] imageByteArray)
         {
             List<KeyValuePair<string, decimal>> itemPricePairs = await imageProcessing.AnalyzeTakenPhotoAsync(imageByteArray);
-            return await new Converter().Convert(itemPricePairs, baseCurrency, targetCurrency);
+            return await converter.Convert(itemPricePairs, baseCurrency, targetCurrency);
         }
 
         private ImageSource GetImageSourceObj(byte[] imageArray) => ImageSource.FromStream(() => new MemoryStream(imageArray));
