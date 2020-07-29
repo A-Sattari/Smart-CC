@@ -1,11 +1,11 @@
 ﻿using Android.OS;
 using Android.App;
-using Android.Runtime;
 using Android.Content.PM;
 
 namespace Smart_Currency_Converter.Droid
 {
-    [Activity(Label = "Smart_Currency_Converter", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Smart CC", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true,
+              ScreenOrientation = ScreenOrientation.Portrait, ConfigurationChanges = ConfigChanges.ScreenSize)]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -20,13 +20,6 @@ namespace Smart_Currency_Converter.Droid
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
 
             LoadApplication(new App());
-        }
-
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
-        {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

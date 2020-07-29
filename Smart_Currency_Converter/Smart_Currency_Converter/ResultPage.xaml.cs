@@ -8,11 +8,12 @@ namespace Smart_Currency_Converter
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ResultPage : ContentPage
     {
-        public ResultPage(List<KeyValuePair<string, string>> itemPricePairs, ImageSource imageSource)
+        public ResultPage(List<KeyValuePair<string, decimal>> itemPricePairs, string targetCurrencySymbol, ImageSource imageSource)
         {
             ResultPageViewModel.ItemPricePairs = itemPricePairs;
-            ResultPageViewModel.ModalNavigation = Navigation;
+            ResultPageViewModel.TargetSymbol = targetCurrencySymbol;
             ResultPageViewModel.Image = imageSource;
+            ResultPageViewModel.ModalNavigation = Navigation;
 
             NavigationPage.SetHasNavigationBar(this, false);
             NavigationPage.SetHasBackButton(this, false);

@@ -1,4 +1,6 @@
 ﻿using System.Globalization;
+using System.Reflection;
+using Xamarin.Forms;
 
 namespace Model.Smart_Currency_Converter
 {
@@ -22,10 +24,63 @@ namespace Model.Smart_Currency_Converter
             return regionInfo.CurrencyEnglishName;
         }
 
+        public readonly ImageSource GetCurrencyCountryFlag(string currencyAcr)
+        {
+            string directory = $"{Assembly.GetCallingAssembly().GetName().Name}.Resources.Images.CountryFlags";
+
+            string image = currencyAcr switch
+            {
+                "USD" => "usa-flag.png",
+                "CAD" => "canada-flag.png",
+                "HKD" => "hong_kong-flag.png",
+                "ISK" => "iceland-flag.png",
+                "PHP" => "philippines-flag.png",
+                "DKK" => "denmark-flag.png",
+                "HUF" => "hungary-flag.png",
+                "CZK" => "czech-flag.png",
+                "AUD" => "australia-flag.png",
+                "RON" => "romania-flag.png",
+                "SEK" => "sweden-flag.png",
+                "IDR" => "indonesia-flag.png",
+                "INR" => "india-flag.png",
+                "BRL" => "brazil-flag.png",
+                "RUB" => "russia-flag.png",
+                "HRK" => "croatia-flag.png",
+                "JPY" => "japan-flag.png",
+                "THB" => "thailand-flag.png",
+                "CHF" => "switzerland-flag.png",
+                "SGD" => "singapore-flag.png",
+                "PLN" => "poland-flag.png",
+                "BGN" => "bulgaria-flag.png",
+                "TRY" => "turkey-flag.png",
+                "CNY" => "china-flag.png",
+                "NOK" => "norway-flag.png",
+                "NZD" => "new_zealand-flag.png",
+                "ZAR" => "south_africa-flag.png",
+                "MXN" => "mexico-flag.png",
+                "ILS" => "israel-flag.png",
+                "GBP" => "uk-flag.png",
+                "KRW" => "south_korea-flag.png",
+                "MYR" => "malaysia-flag.png",
+                "EUR" => "euro-flag.png",
+                "IRR" => "iran-flag.png",
+                "SAR" => "saudi-flag.png",
+                "AED" => "emirates-flag.png",
+                "QAR" => "qatar-flag.png",
+                "IQD" => "iraq-flag.png",
+                "MAD" => "morocco-flag.png",
+                "EGP" => "egypt-flag.png",
+                _ => "unknown.png"   // Default case
+            };
+            
+            return ImageSource.FromResource($"{directory}.{image}");
+        }
+
         private readonly RegionInfo GetRegionInfo(string currencyAcr)
         {
             RegionInfo regionInfo = currencyAcr switch
             {
+                "USD" => new RegionInfo("US"),
                 "CAD" => new RegionInfo("en-CA"),
                 "HKD" => new RegionInfo("zh-HK"),
                 "ISK" => new RegionInfo("is-IS"),

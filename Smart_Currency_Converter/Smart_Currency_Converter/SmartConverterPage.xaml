@@ -4,22 +4,188 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:ViewModel.SmartConverter"
-             xmlns:customRender="clr-namespace:Smart_Currency_Converter"
              mc:Ignorable="d"
+             Visual="Material"
              x:Class="Smart_Currency_Converter.SmartConverterPage">
 
     <!-- ⬇ I want to bind the ViewModel code of "SmartPage"with this XAML file ⬇ -->
     <ContentPage.BindingContext>
         <local:SmartConverterViewModel></local:SmartConverterViewModel>
     </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
 
-    <StackLayout>
+            <Label 
+                Text="From:"
+                TextColor="{StaticResource DarkBlue}"
+                FontSize="18"
+                FontAttributes="Bold"
+                Margin="16,100,0,0"
+                HorizontalOptions="Start" 
+            />
+            
+            <!-- First Card -->
+            <Frame
+                HasShadow="True"
+                CornerRadius="13"
+                HeightRequest="55"
+                Margin="15,0"
+                Padding="0,6"
+                VerticalOptions="Center"
+                BackgroundColor="{StaticResource LightOrchid}">
+                
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding CardClicked}" 
+                        CommandParameter="FrameOne"    
+                    />
+                </Frame.GestureRecognizers>
+                
+                <RelativeLayout>
 
-        <Button
-            Command="{Binding TakePhoto}"
-            Text="Take Photo"
-            VerticalOptions="End"
-        />
+                    <Frame
+                        HasShadow="False"
+                        CornerRadius="5"
+                        Padding="0"
+                        Margin="15,3,0,3"
+                        HeightRequest="50"
+                        WidthRequest="75">
 
-    </StackLayout>
+                        <Image 
+                            Source="{Binding Flag}" 
+                            BindingContext="{Binding BaseCurrency}"
+                            Aspect="AspectFill"
+                        />
+                    </Frame>
+
+                    <Label
+                        x:Name="currencyNameLable1"
+                        Text="{Binding Name}"
+                        BindingContext="{Binding BaseCurrency}"
+                        FontSize="21"
+                        FontAttributes="Bold"
+                        TextColor="Black"
+                        HorizontalTextAlignment="Center"
+                        WidthRequest="220"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.3, Constant= 0}"  
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor= 0.04, Constant= 0}"
+                    />
+
+                    <Label
+                        Text="{Binding Acronym, StringFormat='\({0:N}\)'}"
+                        BindingContext="{Binding BaseCurrency}"
+                        FontSize="15"
+                        TextColor="Black"
+                        HorizontalTextAlignment="Center"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.49, Constant= 25}"  
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=currencyNameLable1 ,Property=Height, Factor= 1, Constant= 5}"
+                    />
+                </RelativeLayout>
+
+            </Frame>
+
+            <Button
+                Command="{Binding SwapCards}"
+                WidthRequest      ="65"
+                HeightRequest     ="65"
+                CornerRadius      ="40"
+                HorizontalOptions ="Center"
+                Margin            ="0,50,0,0"
+                BackgroundColor   ="{StaticResource Mango}"
+                ImageSource="{local:ImageResource Smart_Currency_Converter.Resources.Images.swap-icon.png}"
+            />
+
+            <Label 
+                Text="To:"
+                TextColor="{StaticResource DarkBlue}"
+                FontSize="18"
+                FontAttributes="Bold"
+                Margin="16,25,0,0"
+                HorizontalOptions="Start" 
+            />
+            
+            <!-- Second Card -->
+            <Frame
+                HasShadow="True"
+                CornerRadius="13"
+                HeightRequest="55"
+                Margin="15,0"
+                Padding="0,6"
+                BackgroundColor="{StaticResource LightOrchid}">
+                
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding CardClicked}"
+                        CommandParameter="FrameTwo"
+                    />
+                </Frame.GestureRecognizers>
+                
+                <RelativeLayout>
+                    <Frame
+                        HasShadow="False"
+                        CornerRadius="5"
+                        Padding="0"
+                        Margin="15,3,0,3"
+                        HeightRequest="50"
+                        WidthRequest="75">
+
+                        <Image
+                            Source="{Binding Flag}" 
+                            BindingContext="{Binding TargetCurrency}"
+                            Aspect="AspectFill"
+                        />
+                    </Frame>
+
+                    <Label
+                        x:Name="currencyNameLable2"
+                        Text="{Binding Name}"
+                        FontAttributes="Bold"
+                        BindingContext="{Binding TargetCurrency}"
+                        FontSize="21"
+                        TextColor="Black"
+                        HorizontalTextAlignment="Center"
+                        WidthRequest="220"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.3, Constant= 0}"  
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor= 0.04, Constant= 0}"
+                    />
+
+                    <Label
+                        Text="{Binding Acronym, StringFormat='\({0:N}\)'}"
+                        BindingContext="{Binding TargetCurrency}"
+                        FontSize="15"
+                        TextColor="Black"
+                        HorizontalTextAlignment="Center"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor= 0.49, Constant= 25}"  
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=currencyNameLable2 ,Property=Height, Factor= 1, Constant= 5}"
+                    />
+                </RelativeLayout>
+
+            </Frame>
+
+            <Label 
+                Text="{Binding ExchangeRate}"
+                TextColor="{StaticResource DarkBlue}"
+                FontSize="15"
+                Margin="0,110,0,0"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center"
+            />
+
+            <Button
+                Command="{Binding TakePhoto}"
+                Text="Take Photo"
+                TextColor="Black"
+                FontSize="18"
+                FontFamily="MontSemiBold"
+                WidthRequest="230"
+                HeightRequest="50"
+                CornerRadius="10"
+                BackgroundColor="{StaticResource Mango}"
+                VerticalOptions="End"
+                HorizontalOptions="Center" Margin="0,5,0,0"
+            />
+        
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
