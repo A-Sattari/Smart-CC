@@ -15,7 +15,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -100,7 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Smart_Currency_Converter\Smart_Currency_Converter.csproj">
-      <Project>{C28FE658-480E-42F4-B76D-54CE53709551}</Project>
+      <Project>{6B0172D8-D5B5-4CB0-BA57-8F68D63B176B}</Project>
       <Name>Smart_Currency_Converter</Name>
     </ProjectReference>
   </ItemGroup>
