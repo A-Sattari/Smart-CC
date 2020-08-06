@@ -74,6 +74,7 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\animation-analyze.json" />
     <AndroidAsset Include="Assets\animation-process.json" />
+    <AndroidAsset Include="Assets\animation-no-connection.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>

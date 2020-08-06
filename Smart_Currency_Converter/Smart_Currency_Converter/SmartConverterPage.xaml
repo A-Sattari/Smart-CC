@@ -4,16 +4,22 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:ViewModel.SmartConverter"
+             xmlns:error="clr-namespace:Smart_Currency_Converter"
              mc:Ignorable="d"
              Visual="Material"
+             IsVisible="{Binding IsPageVisible}"
              x:Class="Smart_Currency_Converter.SmartConverterPage">
 
     <!-- ⬇ I want to bind the ViewModel code of "SmartPage"with this XAML file ⬇ -->
     <ContentPage.BindingContext>
         <local:SmartConverterViewModel></local:SmartConverterViewModel>
     </ContentPage.BindingContext>
-    
+
+    <!--
+    <error:NoInternetConnection/>
+    -->
     <ContentPage.Content>
+
         <StackLayout>
 
             <Label 

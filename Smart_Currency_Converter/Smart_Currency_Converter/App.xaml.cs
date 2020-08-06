@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Analytics;
 using Model.Smart_Currency_Converter;
+using Smart_Currency_Converter.InformativeViews;
 
 namespace Smart_Currency_Converter
 {
@@ -19,15 +20,13 @@ namespace Smart_Currency_Converter
 
             MonkeyCache.SQLite.Barrel.ApplicationId = "SCC_Cache";
 
-            NavigationObj = new NavigationPage(new MainPage());
-            MainPage = NavigationObj;
+            OpenMainPage();
         }
 
         protected async override void OnStart()
         {
             AppCenterConfiguration();
 
-            // Internet is available
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
                 Action updateCacheData = Cache.Instance.UpdateCacheData;
@@ -41,6 +40,21 @@ namespace Smart_Currency_Converter
 
         protected override void OnResume()
         {
+            OpenMainPage();
+        }
+
+        private void OpenMainPage()
+        {
+            // Internet is available
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                NavigationObj = new NavigationPage(new MainPage());
+                MainPage = NavigationObj;
+            } else
+            {
+                NavigationObj = new NavigationPage(new NoInternetConnectionPage());
+                MainPage = NavigationObj;
+            }
         }
 
         private void AppCenterConfiguration()

@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:local="clr-namespace:ViewModel.HomePage"
+             xmlns:error="clr-namespace:Smart_Currency_Converter"
              x:Class="Smart_Currency_Converter.MainPage"
              Visual="Material">
 
@@ -12,6 +13,7 @@
     <ContentPage.BindingContext>
         <local:HomePageViewModel></local:HomePageViewModel>
     </ContentPage.BindingContext>
+
 
     <StackLayout>
 
