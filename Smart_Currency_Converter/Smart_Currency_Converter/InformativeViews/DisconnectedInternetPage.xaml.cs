@@ -10,7 +10,6 @@ namespace Smart_Currency_Converter.InformativeViews
 
         public static bool Visibility
         {
-            //get => errorNotification;
             set => errorNotification.IsVisible = value;
         }
 
@@ -20,10 +19,5 @@ namespace Smart_Currency_Converter.InformativeViews
             ErrorNotificationPanel.IsVisible = false;
             errorNotification = ErrorNotificationPanel;
         }
-
-        //public static void SetVisibility(bool isVisible)
-        //{
-        //    errorNotification.IsVisible = isVisible;
-        //}
     }
 }

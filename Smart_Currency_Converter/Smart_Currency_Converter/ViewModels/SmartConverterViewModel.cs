@@ -16,6 +16,7 @@ using Smart_Currency_Converter.Models;
 using ModalPages.Smart_Currency_Converter;
 using Smart_Currency_Converter.Exceptions;
 using Smart_Currency_Converter.InformativeViews;
+using Microsoft.AppCenter.Crashes;
 
 namespace ViewModel.SmartConverter
 {
@@ -104,23 +105,29 @@ namespace ViewModel.SmartConverter
 
             } catch (AnalysisApiException ex)
             {
+                Crashes.TrackError(ex);
+                ErrorPromptView.Display(ex.Message);
 
             } catch (InternetAccessException ex)
             {
-                DisconnectedInternetView.Visibility = true;
+                Crashes.TrackError(ex);
 
             } catch (CameraAccessException ex)
             {
+                Crashes.TrackError(ex);
+                ErrorPromptView.Display(ex.Message);
 
             } catch (Exception ex)
             {
+                Crashes.TrackError(ex);
+                ErrorPromptView.Display(ex.Message);
             }
         }
 
         [System.Diagnostics.Conditional("DEBUG")]
         void ExceptionThrower()
         {
-            throw new Exception("Random");
+            throw new AnalysisApiException();
         }
 
         private async Task TakePhotoButtonClickedAsync()
@@ -140,7 +147,6 @@ namespace ViewModel.SmartConverter
             List<KeyValuePair<string, decimal>> convertedPairs = await PerformConversionAsync(imageByteArray);
 
             OpenResultPageAsync(convertedPairs, GetImageSourceObj(imageByteArray));
-
             File.Delete(photo.Path);
         }
 

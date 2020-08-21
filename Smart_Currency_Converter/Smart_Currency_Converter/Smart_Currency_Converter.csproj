@@ -138,6 +138,9 @@
     <Compile Update="HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="InformativeViews\DisconnectedInternetPage.xaml.cs">
+      <DependentUpon>DisconnectedInternetPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="ManualConverterPage.xaml.cs">
       <DependentUpon>ManualConverterPage.xaml</DependentUpon>
     </Compile>
@@ -150,10 +153,10 @@
     <EmbeddedResource Update="ImagePopUp.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="InformativeViews\DisconnectedInternetView.xaml">
+    <EmbeddedResource Update="InformativeViews\DisconnectedInternetPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="InformativeViews\GenericExceptionView.xaml">
+    <EmbeddedResource Update="InformativeViews\ErrorPromptView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="InformativeViews\NoInternetConnectionPage.xaml">
