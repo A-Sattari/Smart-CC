@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using Model.Smart_Currency_Converter;
 using Smart_Currency_Converter.Models;
 using ModalPages.Smart_Currency_Converter;
+using Smart_Currency_Converter.Exceptions;
+using Smart_Currency_Converter.InformativeViews;
 
 namespace ViewModel.SmartConverter
 {
@@ -21,7 +23,7 @@ namespace ViewModel.SmartConverter
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public static INavigation ModalNavigation;
-        private readonly ImageProcessingHelper imageProcessing;
+        private readonly ImageProcessingService imageProcessing;
         private readonly Converter converter;
         public bool isFirstCardSelected = false;
         private Currency baseCurrency;
@@ -67,12 +69,12 @@ namespace ViewModel.SmartConverter
         public SmartConverterViewModel()
         {
             CurrencySymbolMapper symbolMapper = new CurrencySymbolMapper();
-            imageProcessing = new ImageProcessingHelper();
+            imageProcessing = new ImageProcessingService();
             converter = new Converter();
 
             CardClicked = new Command<string>(OpenCurrencyListPageAsync);
             SwapCards = new Command(SwapCard);
-            TakePhoto = new Command(CameraButtonClickedAsync);
+            TakePhoto = new Command(TakePhotoAction);
 
             baseCurrency = new Currency()
             {
@@ -94,10 +96,37 @@ namespace ViewModel.SmartConverter
             GenerateExchangeRateMessage();
         }
 
-        private async void CameraButtonClickedAsync()
+        private async void TakePhotoAction()
+        {
+            try
+            {
+                await TakePhotoButtonClickedAsync();
+
+            } catch (AnalysisApiException ex)
+            {
+
+            } catch (InternetAccessException ex)
+            {
+                DisconnectedInternetView.Visibility = true;
+
+            } catch (CameraAccessException ex)
+            {
+
+            } catch (Exception ex)
+            {
+            }
+        }
+
+        [System.Diagnostics.Conditional("DEBUG")]
+        void ExceptionThrower()
+        {
+            throw new Exception("Random");
+        }
+
+        private async Task TakePhotoButtonClickedAsync()
         {
             if (!CrossMedia.Current.IsCameraAvailable)
-                throw new Exception("Camera Unavailable");
+                throw new CameraAccessException();
 
             MediaFile photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
             {
@@ -146,20 +175,15 @@ namespace ViewModel.SmartConverter
         {
             byte[] imageArray = null;
 
-            try {
-                using (MemoryStream memory = new MemoryStream()) {
+            using (MemoryStream memory = new MemoryStream()) {
 
-                    Stream stream = photo.GetStream();
-                    stream.CopyTo(memory);
-                    imageArray = memory.ToArray();
-                }
-
-            } catch (OutOfMemoryException ex) {
-                Console.Error.WriteLine(ex);
+                Stream stream = photo.GetStream();
+                stream.CopyTo(memory);
+                imageArray = memory.ToArray();
             }
 
             if (imageArray == null || imageArray.Length == 0)
-                throw new NullReferenceException(nameof(imageArray));
+                throw new NullReferenceException("Unable to convert the image to byte array");
 
             return imageArray;
         }

@@ -6,14 +6,13 @@ using System.Collections.Generic;
 
 namespace Model.Smart_Currency_Converter
 {
-    public sealed class CurrencyInfo
+    public sealed class CurrencyInfoService
     {
-        private static readonly CurrencyInfo instance = new CurrencyInfo();
         private const string CURRENCY_RATE_URL = "https://api.exchangeratesapi.io/latest";
-        
-        public static CurrencyInfo Instance { get => instance; }
 
-        private CurrencyInfo() { }
+        public static CurrencyInfoService Instance { get; } = new CurrencyInfoService();
+
+        private CurrencyInfoService() { }
 
         public async Task<decimal> GetCurrencyRateAsync(string currencyAcronym)
         {

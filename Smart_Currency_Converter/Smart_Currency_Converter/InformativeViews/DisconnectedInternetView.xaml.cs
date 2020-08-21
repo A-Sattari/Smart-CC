@@ -6,18 +6,24 @@ namespace Smart_Currency_Converter.InformativeViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DisconnectedInternetView : StackLayout
     {
-        private static StackLayout noficationScatckLayout;
+        private static StackLayout errorNotification;
+
+        public static bool Visibility
+        {
+            //get => errorNotification;
+            set => errorNotification.IsVisible = value;
+        }
 
         public DisconnectedInternetView()
         {
-            //NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
-            noficationScatckLayout = NotificationPanel;
+            ErrorNotificationPanel.IsVisible = false;
+            errorNotification = ErrorNotificationPanel;
         }
 
-        public static void SetVisibility(bool isVisible)
-        {
-            noficationScatckLayout.IsVisible = isVisible;
-        }
+        //public static void SetVisibility(bool isVisible)
+        //{
+        //    errorNotification.IsVisible = isVisible;
+        //}
     }
 }

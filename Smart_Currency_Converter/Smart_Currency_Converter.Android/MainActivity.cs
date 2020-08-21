@@ -2,7 +2,7 @@
 using Android.OS;
 using Android.App;
 using Android.Content.PM;
-using Smart_Currency_Converter.Exceptions;
+using System.Threading.Tasks;
 
 namespace Smart_Currency_Converter.Droid
 {
@@ -12,32 +12,29 @@ namespace Smart_Currency_Converter.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            try
-            {
-                TabLayoutResource = Resource.Layout.Tabbar;
-                ToolbarResource = Resource.Layout.Toolbar;
+            TabLayoutResource = Resource.Layout.Tabbar;
+            ToolbarResource = Resource.Layout.Toolbar;
 
-                base.OnCreate(savedInstanceState);
+            base.OnCreate(savedInstanceState);
 
-                Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-                global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-                global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
-                LoadApplication(new App());
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
 
-            } catch (AnalysisApiException ex)
-            {
+            LoadApplication(new App());
+        }
 
-            } catch (InternetAccessException ex)
-            {
+        private static void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs unobservedTaskExceptionEventArgs)
+        {
+            //var newExc = new Exception("TaskSchedulerOnUnobservedTaskException", unobservedTaskExceptionEventArgs.Exception);
+        }
 
-            } catch (CameraAccessException ex)
-            {
-
-            } catch (Exception ex)
-            {
-
-            }
+        private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
+        {
+            //var newExc = new Exception("CurrentDomainOnUnhandledException", unhandledExceptionEventArgs.ExceptionObject as Exception);
         }
     }
 }

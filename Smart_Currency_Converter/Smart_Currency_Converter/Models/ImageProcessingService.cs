@@ -5,10 +5,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Smart_Currency_Converter.Exceptions;
 
 namespace Model.Smart_Currency_Converter
 {
-    public class ImageProcessingHelper
+    public class ImageProcessingService
     {
         public async Task<List<KeyValuePair<string, decimal>>> AnalyzeTakenPhotoAsync(byte[] imageByteArray)
         {
@@ -42,13 +43,16 @@ namespace Model.Smart_Currency_Converter
             using HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.PostAsync(azureFunctionUrl, multipartFormData);
 
+            if (!response.IsSuccessStatusCode)
+                throw new AnalysisApiException();
+
             return await response.Content.ReadAsStringAsync();
         }
 
         private List<KeyValuePair<string, decimal>> PurifyImageContent(List<Lines> itemsAndPrices)
         {
             var itemPricePairs = new List<KeyValuePair<string, decimal>>();
-            StringBuilder item = new StringBuilder();
+            var item = new StringBuilder();
             Regex decimalNumberRegEx = new Regex(@"(\d+\.\d+)|(\d+\,\d+)|\d+");
             Match matchedNumber;
 

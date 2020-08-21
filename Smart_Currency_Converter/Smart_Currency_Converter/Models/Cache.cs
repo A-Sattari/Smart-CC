@@ -7,15 +7,14 @@ namespace Model.Smart_Currency_Converter
 {
     public sealed class Cache
     {
-        private static readonly Cache instance = new Cache();
         private const string DIC_KEY = "CurrenciesRateDicKey";
         private const string VERSION_KEY = "RatesDateKey";
         private const string UPDATE_KEY = "DataUpToDateKey";
         private const string Acronyms_Key = "CurrenciesAcronymKey";
         private const short TWENTY_DAYS = 20;
-        
-        public static Cache Instance { get => instance; }
-        
+
+        public static Cache Instance { get; } = new Cache();
+
         public bool CacheIsUpToDate
         {
             get => Barrel.Current.Get<bool>(UPDATE_KEY);
@@ -96,7 +95,7 @@ namespace Model.Smart_Currency_Converter
 
         private async void CacheDataAsync()
         {
-            JObject responseObject = await CurrencyInfo.Instance.GetAllCurrenciesRateAsync();
+            JObject responseObject = await CurrencyInfoService.Instance.GetAllCurrenciesRateAsync();
 
             JToken currencies = responseObject.GetValue("rates");
 

@@ -2,11 +2,11 @@
 <StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Smart_Currency_Converter.InformativeViews.DisconnectedInternetView"
-             x:Name="NotificationPanel"
+             x:Name="ErrorNotificationPanel"
              IsVisible="{Binding IsNotConnected}" 
              BackgroundColor="OrangeRed">
 
-    <Label Text="Oops, looks like you don't have internet connection :("
+    <Label Text="Oops,ddg looks like you don't have internet connection :("
                    TextColor="White"
                    HorizontalOptions="CenterAndExpand"
                    Margin="20"/>

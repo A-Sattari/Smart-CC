@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:ViewModel.SmartConverter"
-             xmlns:error="clr-namespace:Smart_Currency_Converter"
+             xmlns:error="clr-namespace:Smart_Currency_Converter.InformativeViews"
              mc:Ignorable="d"
              Visual="Material"
              IsVisible="{Binding IsPageVisible}"
@@ -16,11 +16,12 @@
     </ContentPage.BindingContext>
 
     <!--
-    <error:NoInternetConnection/>
     -->
     <ContentPage.Content>
 
         <StackLayout>
+        
+            <error:DisconnectedInternetView/>
 
             <Label 
                 Text="From:"

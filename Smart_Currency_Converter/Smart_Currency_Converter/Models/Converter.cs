@@ -31,8 +31,8 @@ namespace Model.Smart_Currency_Converter
 
         private async Task<decimal> GetCurrencyRate(string baseCurrency, string targetCurrency)
         {
-            decimal baseRatePerCAD = await CurrencyInfo.Instance.GetCurrencyRateAsync(baseCurrency);
-            decimal targetRatePerCAD = await CurrencyInfo.Instance.GetCurrencyRateAsync(targetCurrency);
+            decimal baseRatePerCAD = await CurrencyInfoService.Instance.GetCurrencyRateAsync(baseCurrency);
+            decimal targetRatePerCAD = await CurrencyInfoService.Instance.GetCurrencyRateAsync(targetCurrency);
 
             if (baseRatePerCAD.Equals(0))
                 throw new DivideByZeroException(nameof(baseRatePerCAD));
