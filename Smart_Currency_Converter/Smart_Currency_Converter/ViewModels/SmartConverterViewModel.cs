@@ -110,7 +110,9 @@ namespace ViewModel.SmartConverter
 
             } catch (InternetAccessException ex)
             {
+                await App.NavigationObj.PopToRootAsync();
                 Crashes.TrackError(ex);
+                ErrorPromptView.Display(ex.Message);
 
             } catch (CameraAccessException ex)
             {
@@ -119,15 +121,10 @@ namespace ViewModel.SmartConverter
 
             } catch (Exception ex)
             {
+                const string ErrorMessage = "Something Went Wrong!\nPlease Restart the App";
                 Crashes.TrackError(ex);
-                ErrorPromptView.Display(ex.Message);
+                ErrorPromptView.Display(ErrorMessage);
             }
-        }
-
-        [System.Diagnostics.Conditional("DEBUG")]
-        void ExceptionThrower()
-        {
-            throw new AnalysisApiException();
         }
 
         private async Task TakePhotoButtonClickedAsync()
@@ -135,12 +132,15 @@ namespace ViewModel.SmartConverter
             if (!CrossMedia.Current.IsCameraAvailable)
                 throw new CameraAccessException();
 
+            if (!CheckFullInternetConnectivity())
+                throw new InternetAccessException();
+
             MediaFile photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
             {
                 Name = $"Smart-CC_{DateTime.Now:yy-MMdd-Hmms}"
             });
 
-            OpenLoadingPageAsync();
+            await OpenLoadingPageAsync();
 
             byte[] imageByteArray = ConvertImageToByte(photo);
 
@@ -203,6 +203,26 @@ namespace ViewModel.SmartConverter
             }
         }
 
+        private bool CheckFullInternetConnectivity()
+        {
+            Uri website = new Uri("http://google.com/generate_204");
+            
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                try
+                {
+                    using (var client = new System.Net.WebClient())
+                    using (client.OpenRead(website))
+                        return true;
+                } catch
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
     #region Interacting With Pages
 
         private async void OpenCurrencyListPageAsync(string selectedCard)
@@ -219,7 +239,13 @@ namespace ViewModel.SmartConverter
             await ModalNavigation.PushModalAsync(new CurrencyListModalPage(this));
         }
 
-        private async void OpenLoadingPageAsync() => await ModalNavigation.PushModalAsync(new LoadingPage());
+        private async Task OpenLoadingPageAsync()
+        {
+            if (!CheckFullInternetConnectivity())
+                throw new InternetAccessException();
+
+            await ModalNavigation.PushModalAsync(new LoadingPage());
+        }
         
         private async void CloseLoadingPageAsync() => await ModalNavigation.PopModalAsync();
 

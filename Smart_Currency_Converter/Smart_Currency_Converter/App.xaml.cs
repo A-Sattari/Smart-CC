@@ -20,7 +20,15 @@ namespace Smart_Currency_Converter
 
             MonkeyCache.SQLite.Barrel.ApplicationId = "SCC_Cache";
 
-            OpenMainPage();
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                NavigationObj = new NavigationPage(new MainPage());
+                MainPage = NavigationObj;
+            } else
+            {
+                NavigationObj = new NavigationPage(new NoInternetConnectionPage());
+                MainPage = NavigationObj;
+            }
         }
 
         protected async override void OnStart()
@@ -40,17 +48,7 @@ namespace Smart_Currency_Converter
 
         protected override void OnResume()
         {
-            OpenMainPage();
-        }
-
-        private void OpenMainPage()
-        {
-            // Internet is available
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
-            {
-                NavigationObj = new NavigationPage(new MainPage());
-                MainPage = NavigationObj;
-            } else
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
                 NavigationObj = new NavigationPage(new NoInternetConnectionPage());
                 MainPage = NavigationObj;

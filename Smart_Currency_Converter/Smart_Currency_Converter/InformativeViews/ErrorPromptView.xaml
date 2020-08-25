@@ -4,7 +4,7 @@
              x:Class="Smart_Currency_Converter.InformativeViews.ErrorPromptView"
              x:Name="ErrorPromptPanel"
              HeightRequest="70"
-             Margin="5,15,5,-70"
+             Margin="5,15,5,-85"
              BackgroundColor="OrangeRed" >
 
     <Label

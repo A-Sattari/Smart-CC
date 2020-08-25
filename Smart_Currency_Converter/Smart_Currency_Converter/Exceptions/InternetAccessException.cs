@@ -4,7 +4,9 @@ namespace Smart_Currency_Converter.Exceptions
 {
     public class InternetAccessException : Exception
     {
-        public InternetAccessException() { }
+        private const string DEFAULT_EXCEPTION_MESSAGE = "Internet Connection is Not Available";
+
+        public InternetAccessException() : this(DEFAULT_EXCEPTION_MESSAGE) { }
 
         public InternetAccessException(string message) : base(message) { }
 

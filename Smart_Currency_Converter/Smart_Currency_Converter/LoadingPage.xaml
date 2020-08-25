@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
              mc:Ignorable="d"
+             Visual="Material"
              x:Class="Smart_Currency_Converter.LoadingPage">
     
     <ContentPage.Content>
@@ -20,10 +21,10 @@
 
             <Label
                 x:Name="LoadingStatus"
-                FontSize="19"
+                FontSize="20"
                 FontFamily="MontBoldItalic"
                 TextColor="{StaticResource DarkBlue}"
-                Margin="0,-130,0,150"
+                Margin="0,-150,0,190"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" 
             />
