@@ -2,7 +2,7 @@
 using Xamarin.Forms.Xaml;
 using ViewModel.SmartConverter;
 
-namespace Smart_Currency_Converter
+namespace Views.Smart_Currency_Converter
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage

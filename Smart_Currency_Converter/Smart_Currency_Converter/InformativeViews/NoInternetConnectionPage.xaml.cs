@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Smart_Currency_Converter.InformativeViews
+namespace InformativeViews.Smart_Currency_Converter
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NoInternetConnectionPage : ContentPage

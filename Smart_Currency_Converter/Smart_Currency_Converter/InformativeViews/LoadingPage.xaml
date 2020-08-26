@@ -6,7 +6,7 @@
              xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
              mc:Ignorable="d"
              Visual="Material"
-             x:Class="Smart_Currency_Converter.LoadingPage">
+             x:Class="InformativeViews.Smart_Currency_Converter.LoadingPage">
     
     <ContentPage.Content>
         <StackLayout>

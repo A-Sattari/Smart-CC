@@ -3,7 +3,7 @@ using Xamarin.Forms.Xaml;
 using ViewModel.SmartConverter;
 using ViewModel.CurrencyListModal;
 
-namespace ModalPages.Smart_Currency_Converter
+namespace Views.Smart_Currency_Converter
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CurrencyListModalPage : ContentPage

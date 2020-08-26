@@ -135,13 +135,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="MainPage.xaml.cs">
+    <Compile Update="Views\CurrencyListPage.xaml.cs">
+      <DependentUpon>CurrencyListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="ImagePopUp.xaml">
+    <EmbeddedResource Update="Views\ImagePopUp.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="InformativeViews\ErrorPromptView.xaml">
@@ -150,13 +153,13 @@
     <EmbeddedResource Update="InformativeViews\NoInternetConnectionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="LoadingPage.xaml">
+    <EmbeddedResource Update="InformativeViews\LoadingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ModalPages\CurrencyListModalPage.xaml">
+    <EmbeddedResource Update="Views\CurrencyListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainPage.xaml">
+    <EmbeddedResource Update="Views\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

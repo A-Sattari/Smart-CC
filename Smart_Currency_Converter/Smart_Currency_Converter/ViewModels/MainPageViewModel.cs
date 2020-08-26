@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 using Smart_Currency_Converter;
 using Plugin.Media.Abstractions;
 using System.Collections.Generic;
-using Model.Smart_Currency_Converter;
-using Smart_Currency_Converter.Models;
-using ModalPages.Smart_Currency_Converter;
-using Smart_Currency_Converter.Exceptions;
-using Smart_Currency_Converter.InformativeViews;
 using Microsoft.AppCenter.Crashes;
+using Model.Smart_Currency_Converter;
+using Views.Smart_Currency_Converter;
+using Smart_Currency_Converter.Models;
+using Smart_Currency_Converter.Exceptions;
+using InformativeViews.Smart_Currency_Converter;
 
 namespace ViewModel.SmartConverter
 {

@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Smart_Currency_Converter.ImagePopUp">
+             x:Class="Views.Smart_Currency_Converter.ImagePopUp">
     
     <ContentPage.Content>
         <AbsoluteLayout Margin="10">

@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              Visual="Material"
              xmlns:local="clr-namespace:ViewModel.Result"
-             x:Class="Smart_Currency_Converter.ResultPage">
+             x:Class="Views.Smart_Currency_Converter.ResultPage">
 
     <!-- ⬇ I want to bind the ViewModel code of "ResultPage" with this XAML file ⬇ -->
     <ContentPage.BindingContext>

@@ -5,6 +5,7 @@ using Xamarin.Forms.Xaml;
 using System.Threading.Tasks;
 using Smart_Currency_Converter;
 using System.Collections.Generic;
+using Views.Smart_Currency_Converter;
 
 namespace ViewModel.Result
 {
