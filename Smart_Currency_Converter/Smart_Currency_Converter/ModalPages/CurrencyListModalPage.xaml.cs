@@ -8,7 +8,7 @@ namespace ModalPages.Smart_Currency_Converter
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CurrencyListModalPage : ContentPage
     {
-        public CurrencyListModalPage(SmartConverterViewModel smPageViewModel)
+        public CurrencyListModalPage(MainPageViewModel smPageViewModel)
         {
             CurrencyListPageViewModel.ModalNavigation = Navigation;
             CurrencyListPageViewModel.SmartPageVideModel = smPageViewModel;

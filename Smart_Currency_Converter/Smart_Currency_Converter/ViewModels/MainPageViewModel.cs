@@ -20,7 +20,7 @@ using Microsoft.AppCenter.Crashes;
 
 namespace ViewModel.SmartConverter
 {
-    public class SmartConverterViewModel : INotifyPropertyChanged
+    public class MainPageViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public static INavigation ModalNavigation;
@@ -67,7 +67,7 @@ namespace ViewModel.SmartConverter
         public ICommand SwapCards { get; }
         public ICommand TakePhoto { get; }
 
-        public SmartConverterViewModel()
+        public MainPageViewModel()
         {
             CurrencySymbolMapper symbolMapper = new CurrencySymbolMapper();
             imageProcessing = new ImageProcessingService();

@@ -7,16 +7,13 @@
              xmlns:error="clr-namespace:Smart_Currency_Converter.InformativeViews"
              mc:Ignorable="d"
              Visual="Material"
-             x:Class="Smart_Currency_Converter.SmartConverterPage">
+             x:Class="Smart_Currency_Converter.MainPage">
 
     <!-- ⬇ I want to bind the ViewModel code of "SmartPage"with this XAML file ⬇ -->
     <ContentPage.BindingContext>
-        <local:SmartConverterViewModel></local:SmartConverterViewModel>
+        <local:MainPageViewModel></local:MainPageViewModel>
     </ContentPage.BindingContext>
 
-    <!--
-            <error:DisconnectedInternetView/>
-    -->
     <ContentPage.Content>
 
         <StackLayout>
