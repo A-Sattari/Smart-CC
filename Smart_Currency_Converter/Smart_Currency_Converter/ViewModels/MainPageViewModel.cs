@@ -105,25 +105,33 @@ namespace ViewModel.SmartConverter
 
             } catch (AnalysisApiException ex)
             {
-                Crashes.TrackError(ex);
+                await ModalNavigation.PopModalAsync();
+                await App.NavigationObj.PopToRootAsync();
+
                 ErrorPromptView.Display(ex.Message);
+                Crashes.TrackError(ex);
 
             } catch (InternetAccessException ex)
             {
+                await ModalNavigation.PopModalAsync();
                 await App.NavigationObj.PopToRootAsync();
-                Crashes.TrackError(ex);
+
                 ErrorPromptView.Display(ex.Message);
+                Crashes.TrackError(ex);
 
             } catch (CameraAccessException ex)
             {
-                Crashes.TrackError(ex);
                 ErrorPromptView.Display(ex.Message);
+                Crashes.TrackError(ex);
 
             } catch (Exception ex)
             {
+                await ModalNavigation.PopModalAsync();
+                await App.NavigationObj.PopToRootAsync();
+
                 const string ErrorMessage = "Something Went Wrong!\nPlease Restart the App";
-                Crashes.TrackError(ex);
                 ErrorPromptView.Display(ErrorMessage);
+                Crashes.TrackError(ex);
             }
         }
 
@@ -140,14 +148,17 @@ namespace ViewModel.SmartConverter
                 Name = $"Smart-CC_{DateTime.Now:yy-MMdd-Hmms}"
             });
 
-            await OpenLoadingPageAsync();
+            if (photo != null)
+            {
+                await OpenLoadingPageAsync();
 
-            byte[] imageByteArray = ConvertImageToByte(photo);
+                byte[] imageByteArray = ConvertImageToByte(photo);
 
-            List<KeyValuePair<string, decimal>> convertedPairs = await PerformConversionAsync(imageByteArray);
+                List<KeyValuePair<string, decimal>> convertedPairs = await PerformConversionAsync(imageByteArray);
 
-            OpenResultPageAsync(convertedPairs, GetImageSourceObj(imageByteArray));
-            File.Delete(photo.Path);
+                OpenResultPageAsync(convertedPairs, GetImageSourceObj(imageByteArray));
+                File.Delete(photo.Path);
+            }
         }
 
         private void SwapCard()
