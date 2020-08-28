@@ -18,7 +18,7 @@ namespace InformativeViews.Smart_Currency_Converter
 
             LoadingAnimationView.Animation = PROCESSSING_ANIMATION;
             LoadingStatus.Text = "Processing ...";
-            Device.StartTimer(TimeSpan.FromSeconds(5), ChangeAnimation);
+            Device.StartTimer(TimeSpan.FromSeconds(4), ChangeAnimation);
         }
 
         protected override bool OnBackButtonPressed() => false;

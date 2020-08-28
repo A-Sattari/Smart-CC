@@ -14,9 +14,6 @@ namespace Smart_Currency_Converter.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            TabLayoutResource = Resource.Layout.Tabbar;
-            ToolbarResource = Resource.Layout.Toolbar;
-
             base.OnCreate(savedInstanceState);
 
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionListener;
@@ -25,6 +22,8 @@ namespace Smart_Currency_Converter.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
+
+            Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#c6aed4"));
 
             LoadApplication(new App());
         }
