@@ -15,7 +15,7 @@ namespace Model.Smart_Currency_Converter
 
             foreach (KeyValuePair<string, decimal> pair in pairs)
             {
-                decimal convertedAmount = Math.Round((pair.Value * baseRate), decimals: 2);
+                decimal convertedAmount = Math.Round((pair.Value * baseRate), decimals: 4);
 
                 convertedPairs.Add(new KeyValuePair<string, decimal>(pair.Key, convertedAmount));
             }
@@ -26,7 +26,7 @@ namespace Model.Smart_Currency_Converter
         public async Task<decimal> Convert(decimal amount, Currency baseCurrency, Currency targetCurrency)
         {
             decimal baseRate = await GetCurrencyRate(baseCurrency.Acronym, targetCurrency.Acronym);
-            return Math.Round(amount * baseRate, 2);
+            return Math.Round(amount * baseRate, 4);
         }
 
         private async Task<decimal> GetCurrencyRate(string baseCurrency, string targetCurrency)
