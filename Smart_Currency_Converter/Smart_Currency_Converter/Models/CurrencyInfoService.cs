@@ -9,6 +9,7 @@ namespace Model.Smart_Currency_Converter
     public sealed class CurrencyInfoService
     {
         private const string CURRENCY_RATE_URL = "https://api.exchangeratesapi.io/latest";
+        private const string DEFAULT_BASE_CURRENCY = "CAD";
 
         public static CurrencyInfoService Instance { get; } = new CurrencyInfoService();
 
@@ -30,9 +31,15 @@ namespace Model.Smart_Currency_Converter
             
             } else
             {
-                JObject responseObject = await GetSpecificCurrencyRate(currencyAcronym);
-                JToken currencies = responseObject.GetValue("rates");
-                rate = currencies.Value<decimal>(currencyAcronym);
+                if (currencyAcronym.Equals(DEFAULT_BASE_CURRENCY))
+                {
+                    rate = decimal.One;
+                } else
+                {
+                    JObject responseObject = await GetSpecificCurrencyRate(currencyAcronym);
+                    JToken currencies = responseObject.GetValue("rates");
+                    rate = currencies.Value<decimal>(currencyAcronym);
+                }
 
                 Action updateCacheData = Cache.Instance.UpdateCacheData;
                 await Task.Run(updateCacheData);
@@ -41,7 +48,7 @@ namespace Model.Smart_Currency_Converter
             return rate;
         }
 
-        public async Task<JObject> GetAllCurrenciesRateAsync(string baseCurrency = "CAD")
+        public async Task<JObject> GetAllCurrenciesRateAsync(string baseCurrency = DEFAULT_BASE_CURRENCY)
         {
             string parameter = $"base={baseCurrency}";
             return await GetRatesAsync(parameter);

@@ -73,10 +73,6 @@ namespace ViewModel.SmartConverter
             imageProcessing = new ImageProcessingService();
             converter = new Converter();
 
-            CardClicked = new Command<string>(OpenCurrencyListPageAsync);
-            SwapCards = new Command(SwapCard);
-            TakePhoto = new Command(TakePhotoAction);
-
             baseCurrency = new Currency()
             {
                 Name = symbolMapper.GetCurrencyNameInEnglish("CAD"),
@@ -93,8 +89,11 @@ namespace ViewModel.SmartConverter
                 Flag = symbolMapper.GetCurrencyCountryFlag("MXN")
             };
 
-            EnsureCacheIsUpToDate();
             GenerateExchangeRateMessage();
+
+            CardClicked = new Command<string>(OpenCurrencyListPageAsync);
+            SwapCards = new Command(SwapCard);
+            TakePhoto = new Command(TakePhotoAction);
         }
 
         private async void TakePhotoAction()
@@ -175,10 +174,7 @@ namespace ViewModel.SmartConverter
             decimal rate = await converter.Convert(decimal.One, baseCurrency, targetCurrency);
             string message = $"1 {baseCurrency.Acronym} ≈ {rate} {targetCurrency.Acronym}";
 
-            if (string.IsNullOrEmpty(exchangeRateMessage))
-                exchangeRateMessage = message;
-            else
-                ExchangeRate = message;
+            ExchangeRate = message;
         }
 
         private async Task<List<KeyValuePair<string, decimal>>> PerformConversionAsync(byte[] imageByteArray)
@@ -204,15 +200,6 @@ namespace ViewModel.SmartConverter
                 throw new NullReferenceException("Unable to convert the image to byte array");
 
             return imageArray;
-        }
-
-        private async void EnsureCacheIsUpToDate()
-        {
-            if (!Cache.Instance.CacheIsUpToDate && Connectivity.NetworkAccess == NetworkAccess.Internet)
-            {
-                Action updateCacheData = Cache.Instance.UpdateCacheData;
-                await Task.Run(updateCacheData);
-            }
         }
 
         private bool CheckFullInternetConnectivity()
