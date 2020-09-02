@@ -7,7 +7,7 @@ using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Analytics;
 using Model.Smart_Currency_Converter;
 using Views.Smart_Currency_Converter;
-using InformativeViews.Smart_Currency_Converter;
+using Smart_Currency_Converter.InformativeViews;
 
 namespace Smart_Currency_Converter
 {

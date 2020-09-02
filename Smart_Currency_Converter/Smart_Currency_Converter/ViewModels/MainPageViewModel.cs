@@ -16,7 +16,7 @@ using Model.Smart_Currency_Converter;
 using Views.Smart_Currency_Converter;
 using Smart_Currency_Converter.Models;
 using Smart_Currency_Converter.Exceptions;
-using InformativeViews.Smart_Currency_Converter;
+using Smart_Currency_Converter.InformativeViews;
 
 namespace ViewModel.SmartConverter
 {
