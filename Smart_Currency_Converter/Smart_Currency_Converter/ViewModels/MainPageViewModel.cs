@@ -104,19 +104,13 @@ namespace ViewModel.SmartConverter
 
             } catch (AnalysisApiException ex)
             {
-                //await ModalNavigation.PopModalAsync();
-                //await App.NavigationObj.PopToRootAsync();
                 ResetAllPagesAsync();
-
                 ErrorPromptView.Display(ex.Message);
                 Crashes.TrackError(ex);
 
             } catch (InternetAccessException ex)
             {
-                //await ModalNavigation.PopModalAsync();
-                //await App.NavigationObj.PopToRootAsync();
                 ResetAllPagesAsync();
-
                 ErrorPromptView.Display(ex.Message);
                 Crashes.TrackError(ex);
 
@@ -127,8 +121,6 @@ namespace ViewModel.SmartConverter
 
             } catch (Exception ex)
             {
-                //await ModalNavigation.PopModalAsync();
-                //await App.NavigationObj.PopToRootAsync();
                 ResetAllPagesAsync();
 
                 const string ErrorMessage = "Something Went Wrong!\nPlease Restart the App";
