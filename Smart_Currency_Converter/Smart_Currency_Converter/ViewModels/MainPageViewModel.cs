@@ -104,16 +104,18 @@ namespace ViewModel.SmartConverter
 
             } catch (AnalysisApiException ex)
             {
-                await ModalNavigation.PopModalAsync();
-                await App.NavigationObj.PopToRootAsync();
+                //await ModalNavigation.PopModalAsync();
+                //await App.NavigationObj.PopToRootAsync();
+                ResetAllPagesAsync();
 
                 ErrorPromptView.Display(ex.Message);
                 Crashes.TrackError(ex);
 
             } catch (InternetAccessException ex)
             {
-                await ModalNavigation.PopModalAsync();
-                await App.NavigationObj.PopToRootAsync();
+                //await ModalNavigation.PopModalAsync();
+                //await App.NavigationObj.PopToRootAsync();
+                ResetAllPagesAsync();
 
                 ErrorPromptView.Display(ex.Message);
                 Crashes.TrackError(ex);
@@ -125,8 +127,9 @@ namespace ViewModel.SmartConverter
 
             } catch (Exception ex)
             {
-                await ModalNavigation.PopModalAsync();
-                await App.NavigationObj.PopToRootAsync();
+                //await ModalNavigation.PopModalAsync();
+                //await App.NavigationObj.PopToRootAsync();
+                ResetAllPagesAsync();
 
                 const string ErrorMessage = "Something Went Wrong!\nPlease Restart the App";
                 ErrorPromptView.Display(ErrorMessage);
@@ -205,6 +208,19 @@ namespace ViewModel.SmartConverter
             return imageArray;
         }
 
+        private async void ResetAllPagesAsync()
+        {
+            try
+            {
+                await ModalNavigation.PopModalAsync();
+            } catch (Exception) {}
+
+            try
+            {
+                await App.NavigationObj.PopToRootAsync();
+            } catch (Exception) {}
+        }
+
         private bool CheckFullInternetConnectivity()
         {
             Uri website = new Uri("http://google.com/generate_204");
@@ -214,8 +230,7 @@ namespace ViewModel.SmartConverter
                 try
                 {
                     using (var client = new System.Net.WebClient())
-                    using (client.OpenRead(website))
-                        return true;
+                    using (client.OpenRead(website)) { return true; }
                 } catch
                 {
                     return false;
