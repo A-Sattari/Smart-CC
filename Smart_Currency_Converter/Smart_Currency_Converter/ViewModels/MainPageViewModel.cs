@@ -174,7 +174,10 @@ namespace ViewModel.SmartConverter
             decimal rate = await converter.Convert(decimal.One, baseCurrency, targetCurrency);
             string message = $"1 {baseCurrency.Acronym} ≈ {rate} {targetCurrency.Acronym}";
 
-            ExchangeRate = message;
+            if (string.IsNullOrEmpty(exchangeRateMessage))
+                exchangeRateMessage = message;
+            else
+                ExchangeRate = message;
         }
 
         private async Task<List<KeyValuePair<string, decimal>>> PerformConversionAsync(byte[] imageByteArray)

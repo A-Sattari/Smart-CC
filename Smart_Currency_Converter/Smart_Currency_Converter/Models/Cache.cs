@@ -37,7 +37,9 @@ namespace Model.Smart_Currency_Converter
         public void UpdateCacheData()
         {
             if (IsEmpty() || !CacheIsUpToDate)
+            {
                 CacheDataAsync();
+            }
         }
 
         public Dictionary<string, decimal> GetData()
