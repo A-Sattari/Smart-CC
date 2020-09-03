@@ -2,14 +2,14 @@
 using Xamarin.Forms.Xaml;
 using ViewModel.SmartConverter;
 
-namespace Smart_Currency_Converter
+namespace Views.Smart_Currency_Converter
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SmartConverterPage : ContentPage
+    public partial class MainPage : ContentPage
     {
-        public SmartConverterPage()
+        public MainPage()
         {
-            SmartConverterViewModel.ModalNavigation = Navigation;
+            MainPageViewModel.ModalNavigation = Navigation;
 
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();

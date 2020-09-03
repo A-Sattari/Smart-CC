@@ -5,29 +5,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
              mc:Ignorable="d"
-             x:Class="Smart_Currency_Converter.LoadingPage">
-    
+             Visual="Material"
+             x:Class="Smart_Currency_Converter.InformativeViews.NoInternetConnectionPage">
+
     <ContentPage.Content>
         <StackLayout>
 
             <forms:AnimationView
-	            x:Name="LoadingAnimationView"
-	            Loop="True"
+                Animation="animation-no-connection.json"
+	            Loop="False"
 	            AutoPlay="True"
 	            VerticalOptions="FillAndExpand" 
 	            HorizontalOptions="FillAndExpand"
+                Margin="70,130,70,0"
             />
 
             <Label
-                x:Name="LoadingStatus"
-                FontSize="19"
-                FontFamily="MontBoldItalic"
-                TextColor="{StaticResource DarkBlue}"
-                Margin="0,-130,0,150"
-                VerticalOptions="Center" 
+                Text="No Internet Connection"
+                FontSize="23"
+                FontFamily="MontBold"
+                TextColor="Black"
+                VerticalOptions="StartAndExpand" 
                 HorizontalOptions="Center" 
             />
-            
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

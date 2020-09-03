@@ -14,7 +14,7 @@ namespace ViewModel.CurrencyListModal
         public static INavigation ModalNavigation;
 
         public ICommand SelectedCurrencyChanged { get; }
-        public static SmartConverterViewModel SmartPageVideModel { private get; set; }
+        public static MainPageViewModel SmartPageVideModel { private get; set; }
         public List<Currency> CurrenciesList { get; private set; } = new List<Currency>();
 
         public CurrencyListPageViewModel()

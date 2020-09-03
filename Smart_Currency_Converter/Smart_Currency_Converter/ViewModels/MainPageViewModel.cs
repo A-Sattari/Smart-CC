@@ -11,17 +11,20 @@ using System.Threading.Tasks;
 using Smart_Currency_Converter;
 using Plugin.Media.Abstractions;
 using System.Collections.Generic;
+using Microsoft.AppCenter.Crashes;
 using Model.Smart_Currency_Converter;
+using Views.Smart_Currency_Converter;
 using Smart_Currency_Converter.Models;
-using ModalPages.Smart_Currency_Converter;
+using Smart_Currency_Converter.Exceptions;
+using Smart_Currency_Converter.InformativeViews;
 
 namespace ViewModel.SmartConverter
 {
-    public class SmartConverterViewModel : INotifyPropertyChanged
+    public class MainPageViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public static INavigation ModalNavigation;
-        private readonly ImageProcessingHelper imageProcessing;
+        private readonly ImageProcessingService imageProcessing;
         private readonly Converter converter;
         public bool isFirstCardSelected = false;
         private Currency baseCurrency;
@@ -64,15 +67,11 @@ namespace ViewModel.SmartConverter
         public ICommand SwapCards { get; }
         public ICommand TakePhoto { get; }
 
-        public SmartConverterViewModel()
+        public MainPageViewModel()
         {
             CurrencySymbolMapper symbolMapper = new CurrencySymbolMapper();
-            imageProcessing = new ImageProcessingHelper();
+            imageProcessing = new ImageProcessingService();
             converter = new Converter();
-
-            CardClicked = new Command<string>(OpenCurrencyListPageAsync);
-            SwapCards = new Command(SwapCard);
-            TakePhoto = new Command(CameraButtonClickedAsync);
 
             baseCurrency = new Currency()
             {
@@ -90,29 +89,71 @@ namespace ViewModel.SmartConverter
                 Flag = symbolMapper.GetCurrencyCountryFlag("MXN")
             };
 
-            EnsureCacheIsUpToDate();
             GenerateExchangeRateMessage();
+
+            CardClicked = new Command<string>(OpenCurrencyListPageAsync);
+            SwapCards = new Command(SwapCard);
+            TakePhoto = new Command(TakePhotoAction);
         }
 
-        private async void CameraButtonClickedAsync()
+        private async void TakePhotoAction()
+        {
+            try
+            {
+                await TakePhotoButtonClickedAsync();
+
+            } catch (AnalysisApiException ex)
+            {
+                ResetAllPagesAsync();
+                ErrorPromptView.Display(ex.Message);
+                Crashes.TrackError(ex);
+
+            } catch (InternetAccessException ex)
+            {
+                ResetAllPagesAsync();
+                ErrorPromptView.Display(ex.Message);
+                Crashes.TrackError(ex);
+
+            } catch (CameraAccessException ex)
+            {
+                ErrorPromptView.Display(ex.Message);
+                Crashes.TrackError(ex);
+
+            } catch (Exception ex)
+            {
+                ResetAllPagesAsync();
+
+                const string ErrorMessage = "Something Went Wrong!\nPlease Restart the App";
+                ErrorPromptView.Display(ErrorMessage);
+                Crashes.TrackError(ex);
+            }
+        }
+
+        private async Task TakePhotoButtonClickedAsync()
         {
             if (!CrossMedia.Current.IsCameraAvailable)
-                throw new Exception("Camera Unavailable");
+                throw new CameraAccessException();
+
+            if (!CheckFullInternetConnectivity())
+                throw new InternetAccessException();
 
             MediaFile photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
             {
-                Name = $"Smart-CC_{DateTime.Now:yy-MMdd-Hmms}"
+                Name = $"Smart-CC_{DateTime.Now:yy-MMdd-Hmms}",
+                PhotoSize = PhotoSize.Medium
             });
 
-            OpenLoadingPageAsync();
+            if (photo != null)
+            {
+                await OpenLoadingPageAsync();
 
-            byte[] imageByteArray = ConvertImageToByte(photo);
+                byte[] imageByteArray = ConvertImageToByte(photo);
 
-            List<KeyValuePair<string, decimal>> convertedPairs = await PerformConversionAsync(imageByteArray);
+                List<KeyValuePair<string, decimal>> convertedPairs = await PerformConversionAsync(imageByteArray);
 
-            OpenResultPageAsync(convertedPairs, GetImageSourceObj(imageByteArray));
-
-            File.Delete(photo.Path);
+                OpenResultPageAsync(convertedPairs, GetImageSourceObj(imageByteArray));
+                File.Delete(photo.Path);
+            }
         }
 
         private void SwapCard()
@@ -146,31 +187,49 @@ namespace ViewModel.SmartConverter
         {
             byte[] imageArray = null;
 
-            try {
-                using (MemoryStream memory = new MemoryStream()) {
+            using (MemoryStream memory = new MemoryStream()) {
 
-                    Stream stream = photo.GetStream();
-                    stream.CopyTo(memory);
-                    imageArray = memory.ToArray();
-                }
-
-            } catch (OutOfMemoryException ex) {
-                Console.Error.WriteLine(ex);
+                Stream stream = photo.GetStream();
+                stream.CopyTo(memory);
+                imageArray = memory.ToArray();
             }
 
             if (imageArray == null || imageArray.Length == 0)
-                throw new NullReferenceException(nameof(imageArray));
+                throw new NullReferenceException("Unable to convert the image to byte array");
 
             return imageArray;
         }
 
-        private async void EnsureCacheIsUpToDate()
+        private async void ResetAllPagesAsync()
         {
-            if (!Cache.Instance.CacheIsUpToDate && Connectivity.NetworkAccess == NetworkAccess.Internet)
+            try
             {
-                Action updateCacheData = Cache.Instance.UpdateCacheData;
-                await Task.Run(updateCacheData);
+                await ModalNavigation.PopModalAsync();
+            } catch (Exception) {}
+
+            try
+            {
+                await App.NavigationObj.PopToRootAsync();
+            } catch (Exception) {}
+        }
+
+        private bool CheckFullInternetConnectivity()
+        {
+            Uri website = new Uri("http://google.com/generate_204");
+            
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                try
+                {
+                    using (var client = new System.Net.WebClient())
+                    using (client.OpenRead(website)) { return true; }
+                } catch
+                {
+                    return false;
+                }
             }
+
+            return false;
         }
 
     #region Interacting With Pages
@@ -189,7 +248,13 @@ namespace ViewModel.SmartConverter
             await ModalNavigation.PushModalAsync(new CurrencyListModalPage(this));
         }
 
-        private async void OpenLoadingPageAsync() => await ModalNavigation.PushModalAsync(new LoadingPage());
+        private async Task OpenLoadingPageAsync()
+        {
+            if (!CheckFullInternetConnectivity())
+                throw new InternetAccessException();
+
+            await ModalNavigation.PushModalAsync(new LoadingPage());
+        }
         
         private async void CloseLoadingPageAsync() => await ModalNavigation.PopModalAsync();
 

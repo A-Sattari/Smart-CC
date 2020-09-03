@@ -2,8 +2,10 @@
 using Xamarin.Forms;
 using System.Reflection;
 using Xamarin.Forms.Xaml;
+using System.Threading.Tasks;
 using Smart_Currency_Converter;
 using System.Collections.Generic;
+using Views.Smart_Currency_Converter;
 
 namespace ViewModel.Result
 {
@@ -19,11 +21,21 @@ namespace ViewModel.Result
 
         public ResultPageViewModel()
         {
-            ShowTakenPhoto = new Command(DisplayTakenPhoto);
+            ShowTakenPhoto = new Command(ShowTakenPhotoAction);
             RetakePhoto = new Command(OpenSmartConverterPage);
         }
 
-        private async void DisplayTakenPhoto() => await ModalNavigation.PushModalAsync(new ImagePopUp(Image));
+        private async void ShowTakenPhotoAction()
+        {
+            try
+            {
+                await DisplayTakenPhoto();
+            } catch (Exception ex)
+            {
+            }
+        }
+
+        private async Task DisplayTakenPhoto() => await ModalNavigation.PushModalAsync(new ImagePopUp(Image));
 
         private async void OpenSmartConverterPage() => await App.NavigationObj.PopAsync();
     }

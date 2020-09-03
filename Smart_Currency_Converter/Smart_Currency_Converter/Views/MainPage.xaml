@@ -4,17 +4,21 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:ViewModel.SmartConverter"
+             xmlns:error="clr-namespace:Smart_Currency_Converter.InformativeViews"
              mc:Ignorable="d"
              Visual="Material"
-             x:Class="Smart_Currency_Converter.SmartConverterPage">
+             x:Class="Views.Smart_Currency_Converter.MainPage">
 
     <!-- ⬇ I want to bind the ViewModel code of "SmartPage"with this XAML file ⬇ -->
     <ContentPage.BindingContext>
-        <local:SmartConverterViewModel></local:SmartConverterViewModel>
+        <local:MainPageViewModel></local:MainPageViewModel>
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
+
         <StackLayout>
+        
+            <error:ErrorPromptView/>
 
             <Label 
                 Text="From:"

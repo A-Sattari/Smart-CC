@@ -6,14 +6,14 @@ using System.Collections.Generic;
 
 namespace Model.Smart_Currency_Converter
 {
-    public sealed class CurrencyInfo
+    public sealed class CurrencyInfoService
     {
-        private static readonly CurrencyInfo instance = new CurrencyInfo();
         private const string CURRENCY_RATE_URL = "https://api.exchangeratesapi.io/latest";
-        
-        public static CurrencyInfo Instance { get => instance; }
+        private const string DEFAULT_BASE_CURRENCY = "CAD";
 
-        private CurrencyInfo() { }
+        public static CurrencyInfoService Instance { get; } = new CurrencyInfoService();
+
+        private CurrencyInfoService() { }
 
         public async Task<decimal> GetCurrencyRateAsync(string currencyAcronym)
         {
@@ -31,9 +31,15 @@ namespace Model.Smart_Currency_Converter
             
             } else
             {
-                JObject responseObject = await GetSpecificCurrencyRate(currencyAcronym);
-                JToken currencies = responseObject.GetValue("rates");
-                rate = currencies.Value<decimal>(currencyAcronym);
+                if (currencyAcronym.Equals(DEFAULT_BASE_CURRENCY))
+                {
+                    rate = decimal.One;
+                } else
+                {
+                    JObject responseObject = await GetSpecificCurrencyRate(currencyAcronym);
+                    JToken currencies = responseObject.GetValue("rates");
+                    rate = currencies.Value<decimal>(currencyAcronym);
+                }
 
                 Action updateCacheData = Cache.Instance.UpdateCacheData;
                 await Task.Run(updateCacheData);
@@ -42,7 +48,7 @@ namespace Model.Smart_Currency_Converter
             return rate;
         }
 
-        public async Task<JObject> GetAllCurrenciesRateAsync(string baseCurrency = "CAD")
+        public async Task<JObject> GetAllCurrenciesRateAsync(string baseCurrency = DEFAULT_BASE_CURRENCY)
         {
             string parameter = $"base={baseCurrency}";
             return await GetRatesAsync(parameter);
