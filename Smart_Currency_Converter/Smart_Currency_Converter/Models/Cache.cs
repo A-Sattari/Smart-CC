@@ -11,7 +11,7 @@ namespace Model.Smart_Currency_Converter
         private const string VERSION_KEY = "RatesDateKey";
         private const string UPDATE_KEY = "DataUpToDateKey";
         private const string Acronyms_Key = "CurrenciesAcronymKey";
-        private const short TWENTY_DAYS = 20;
+        private const short TWO_DAYS = 2;
 
         public static Cache Instance { get; } = new Cache();
 
@@ -30,7 +30,7 @@ namespace Model.Smart_Currency_Converter
 
                 // If Cache date is older than today
                 if (DateTime.Compare(cacheDate, DateTime.Today) < 0)
-                    Barrel.Current.Add(UPDATE_KEY, false, expireIn: TimeSpan.FromDays(TWENTY_DAYS));
+                    Barrel.Current.Add(UPDATE_KEY, false, expireIn: TimeSpan.FromDays(TWO_DAYS));
             }
         }
 
@@ -78,12 +78,12 @@ namespace Model.Smart_Currency_Converter
 
             if (!string.Equals(Barrel.Current.Get<string>(VERSION_KEY), entryDate))
             {
-                Barrel.Current.Add(DIC_KEY,     rates,      expireIn: TimeSpan.FromDays(TWENTY_DAYS));
-                Barrel.Current.Add(VERSION_KEY, entryDate,  expireIn: TimeSpan.FromDays(TWENTY_DAYS));
-                Barrel.Current.Add(UPDATE_KEY,  true,       expireIn: TimeSpan.FromDays(TWENTY_DAYS));
+                Barrel.Current.Add(DIC_KEY,     rates,      expireIn: TimeSpan.FromDays(TWO_DAYS));
+                Barrel.Current.Add(VERSION_KEY, entryDate,  expireIn: TimeSpan.FromDays(TWO_DAYS));
+                Barrel.Current.Add(UPDATE_KEY,  true,       expireIn: TimeSpan.FromDays(TWO_DAYS));
 
                 if (GetAcronyms() == null || GetAcronyms().Count != currenciesAcronym.Count)
-                    Barrel.Current.Add(Acronyms_Key, currenciesAcronym, expireIn: TimeSpan.FromDays(TWENTY_DAYS));
+                    Barrel.Current.Add(Acronyms_Key, currenciesAcronym, expireIn: TimeSpan.FromDays(TWO_DAYS));
             }
         }
 
