@@ -78,6 +78,15 @@ namespace Model.Smart_Currency_Converter
 
             if (!string.Equals(Barrel.Current.Get<string>(VERSION_KEY), entryDate))
             {
+                DateTime entryDateTime = DateTime.Parse(entryDate);
+
+                // The API is not up to date, so we consider this as the latest info available to us
+                if (DateTime.Compare(entryDateTime, DateTime.Today) < 0)
+                {
+                    entryDateTime = DateTime.Today;
+                    entryDate = entryDateTime.ToString();
+                }
+
                 Barrel.Current.Add(DIC_KEY,     rates,      expireIn: TimeSpan.FromDays(THREE_DAYS));
                 Barrel.Current.Add(VERSION_KEY, entryDate,  expireIn: TimeSpan.FromDays(THREE_DAYS));
                 Barrel.Current.Add(UPDATE_KEY,  true,       expireIn: TimeSpan.FromDays(THREE_DAYS));
