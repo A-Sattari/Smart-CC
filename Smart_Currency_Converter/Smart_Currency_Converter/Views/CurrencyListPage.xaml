@@ -20,6 +20,7 @@
             <CollectionView
                 x:Name="CurrenciesList"
                 SelectionMode="Single"
+                VerticalOptions="FillAndExpand"
                 ItemsSource="{Binding CurrenciesList}"
                 SelectionChangedCommand="{Binding SelectedCurrencyChanged}"
                 SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference CurrenciesList}}"

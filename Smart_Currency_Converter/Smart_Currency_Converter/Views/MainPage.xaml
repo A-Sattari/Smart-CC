@@ -93,7 +93,7 @@
                 Command="{Binding SwapCards}"
                 WidthRequest      ="65"
                 HeightRequest     ="65"
-                CornerRadius      ="40"
+                CornerRadius      ="35"
                 HorizontalOptions ="Center"
                 Margin            ="0,50,0,0"
                 BackgroundColor   ="{StaticResource Mango}"
