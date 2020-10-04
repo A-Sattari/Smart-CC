@@ -32,6 +32,7 @@ namespace ViewModel.Result
                 await DisplayTakenPhoto();
             } catch (Exception ex)
             {
+                Microsoft.AppCenter.Crashes.Crashes.TrackError(ex);
             }
         }
 
