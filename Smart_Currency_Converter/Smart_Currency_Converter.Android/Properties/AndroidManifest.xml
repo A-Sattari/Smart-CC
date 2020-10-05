@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="Beta" package="com.baobab.smart_currency_converter" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.2" package="com.baobab.smart_currency_converter" android:installLocation="auto" android:versionCode="2">
 	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="29" />
-	<application android:label="Smart CC" android:usesCleartextTraffic="true">
+	<application android:label="Smart CC">
 		<provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
 		</provider>
@@ -10,5 +10,3 @@
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.INTERNET" />
 </manifest>
-<!-- Regarding Camera & Storage permission: https://forums.xamarin.com/discussion/119942/mediaplugin-argument-exception-unable-to-get-file-location -->
-<!--TODO: Remove android:usesCleartextTraffic="true"-->
