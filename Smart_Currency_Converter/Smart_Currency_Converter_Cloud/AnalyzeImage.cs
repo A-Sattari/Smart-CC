@@ -1,4 +1,3 @@
-// https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/quickstarts/csharp-hand-text?tabs=version-2
 using System;
 using System.Linq;
 using Azure.Identity;
@@ -20,12 +19,12 @@ namespace Smart_Currency_Converter_Cloud
     {
         private const string SubscriptionSecretName = "Computer-Vision-SubscriptionKey";
         private const string EndpointSecretName = "Computer-Vision-Endpoint";
+        private const string KeyVaultVaribaleName = "VaultUri";
 
-        private static readonly string subscriptionKey = "2416c55d1d9342a5997a7c751cfc8b2f";
-        //private static readonly string subscriptionKey = GetAzureKeyVaultValue(SubscriptionSecretName);
-        private static readonly string endpoint = "https://scc-computervision.cognitiveservices.azure.com/";
-        //private static readonly string endpoint = GetAzureKeyVaultValue(EndpointSecretName);
-        private static readonly string uri = endpoint + "vision/v2.1/read/core/asyncBatchAnalyze";
+        private static readonly string keyVaultUri = Environment.GetEnvironmentVariable(KeyVaultVaribaleName);
+        private static readonly string subscriptionKey = GetAzureKeyVaultValue(SubscriptionSecretName);
+        private static readonly string analysisEndpoint = GetAzureKeyVaultValue(EndpointSecretName);
+        private static readonly string analysisUri = analysisEndpoint + "vision/v2.1/read/core/asyncBatchAnalyze";
 
         private static readonly HttpClient client = new HttpClient();
         private static HttpResponseMessage httpResponse;
@@ -73,7 +72,7 @@ namespace Smart_Currency_Converter_Cloud
             {
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                 // First REST API method, Batch Read, starts the async process to analyze the written text in the image
-                httpResponse = await client.PostAsync(uri, content);
+                httpResponse = await client.PostAsync(analysisUri, content);
             }
 
             if (httpResponse.IsSuccessStatusCode) {
@@ -93,7 +92,7 @@ namespace Smart_Currency_Converter_Cloud
             string secretValue = null;
 
             try {
-                SecretClient client = new SecretClient(vaultUri: new Uri("https://msft-ai-credentials.vault.azure.net/"), credential: new DefaultAzureCredential());
+                SecretClient client = new SecretClient(vaultUri: new Uri(keyVaultUri), credential: new DefaultAzureCredential());
 
                 KeyVaultSecret secretClient = client.GetSecret(secretName).Value;
                 secretValue = secretClient.Value;

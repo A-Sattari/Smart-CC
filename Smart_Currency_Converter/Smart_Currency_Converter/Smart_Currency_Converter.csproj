@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -11,13 +11,121 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.2.1" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.2.1" />
+    <None Remove="Resources\Fonts\Montserrat-Bold.ttf" />
+    <None Remove="Resources\Fonts\Montserrat-BoldItalic.ttf" />
+    <None Remove="Resources\Fonts\Montserrat-Medium.ttf" />
+    <None Remove="Resources\Fonts\Montserrat-Regular.ttf" />
+    <None Remove="Resources\Fonts\Montserrat-SemiBold.ttf" />
+    <None Remove="Resources\Images\CountryFlags\australia-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\brazil-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\bulgaria-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\canada-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\china-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\croatia-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\czech-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\denmark-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\egypt-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\emirates-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\euro-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\hong_kong-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\hungary-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\iceland-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\india-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\indonesia-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\iran-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\iraq-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\israel-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\japan-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\malaysia-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\mexico-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\morocco-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\new_zealand-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\norway-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\philippines-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\poland-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\qatar-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\romania-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\russia-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\saudi-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\singapore-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\south_africa-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\south_korea-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\sweden-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\switzerland-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\thailand-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\turkey-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\uk-flag.png" />
+    <None Remove="Resources\Images\CountryFlags\unknown.png" />
+    <None Remove="Resources\Images\CountryFlags\usa-flag.png" />
+    <None Remove="Resources\Images\image-icon.png" />
+    <None Remove="Resources\Images\redo-icon.png" />
+    <None Remove="Resources\Images\save-icon.png" />
+    <None Remove="Resources\Images\swap-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Fonts\Montserrat-Bold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Montserrat-Medium.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Montserrat-Regular.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Montserrat-SemiBold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Montserrat-BoldItalic.ttf" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\australia-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\brazil-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\bulgaria-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\canada-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\china-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\croatia-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\czech-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\denmark-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\egypt-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\emirates-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\euro-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\hong_kong-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\hungary-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\iceland-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\india-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\indonesia-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\iran-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\iraq-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\israel-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\japan-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\malaysia-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\mexico-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\morocco-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\new_zealand-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\norway-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\philippines-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\poland-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\qatar-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\romania-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\russia-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\saudi-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\singapore-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\south_africa-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\south_korea-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\sweden-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\switzerland-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\thailand-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\turkey-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\uk-flag.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\unknown.png" />
+    <EmbeddedResource Include="Resources\Images\CountryFlags\usa-flag.png" />
+    <EmbeddedResource Include="Resources\Images\redo-icon.png" />
+    <EmbeddedResource Include="Resources\Images\save-icon.png" />
+    <EmbeddedResource Include="Resources\Images\image-icon.png" />
+    <EmbeddedResource Include="Resources\Images\swap-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.4.3" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.4.3" />
     <PackageReference Include="MonkeyCache.SQLite" Version="1.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
-    <PackageReference Include="Xamarin.Forms" Version="4.6.0.772" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Xamarin.Forms.Visual.Material" Version="4.8.0.1451" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,22 +135,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="HomePage.xaml.cs">
-      <DependentUpon>HomePage.xaml</DependentUpon>
+    <Compile Update="Views\CurrencyListPage.xaml.cs">
+      <DependentUpon>CurrencyListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="ManualConverterPage.xaml.cs">
-      <DependentUpon>ManualConverterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="SmartConverterPage.xaml.cs">
-      <DependentUpon>SmartConverterPage.xaml</DependentUpon>
+    <Compile Update="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="ManualConverterPage.xaml">
+    <EmbeddedResource Update="Views\ImagePopUp.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="SmartConverterPage.xaml">
+    <EmbeddedResource Update="InformativeViews\ErrorPromptView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="InformativeViews\NoInternetConnectionPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="InformativeViews\LoadingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\CurrencyListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

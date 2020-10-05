@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Analytics;
 using Model.Smart_Currency_Converter;
+using Views.Smart_Currency_Converter;
+using Smart_Currency_Converter.InformativeViews;
 
 namespace Smart_Currency_Converter
 {
@@ -19,15 +21,21 @@ namespace Smart_Currency_Converter
 
             MonkeyCache.SQLite.Barrel.ApplicationId = "SCC_Cache";
 
-            NavigationObj = new NavigationPage(new MainPage());
-            MainPage = NavigationObj;
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                NavigationObj = new NavigationPage(new MainPage());
+                MainPage = NavigationObj;
+            } else
+            {
+                NavigationObj = new NavigationPage(new NoInternetConnectionPage());
+                MainPage = NavigationObj;
+            }
         }
 
         protected async override void OnStart()
         {
             AppCenterConfiguration();
 
-            // Internet is available
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
                 Action updateCacheData = Cache.Instance.UpdateCacheData;
@@ -41,11 +49,16 @@ namespace Smart_Currency_Converter
 
         protected override void OnResume()
         {
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                NavigationObj = new NavigationPage(new NoInternetConnectionPage());
+                MainPage = NavigationObj;
+            }
         }
 
         private void AppCenterConfiguration()
         {
-            AppCenter.Start("android=0b00a544-a123-4594-a121-05ed4b114df2;" +
+            AppCenter.Start("android=641bf5b3-3d87-41d9-b81b-33a9dfc2ce69" +
                     "ios=ae6ad1f3-9d18-46e3-875e-3b0a70dd1c87;",
                     typeof(Analytics), typeof(Crashes));
         }

@@ -13,7 +13,7 @@ namespace Smart_Currency_Converter.UnitTests
         public async void GetAllCurrenciesRate_HappyPath_ResponseObjectReturned()
         {
             // Act \\
-            JObject responseObject = await CurrencyInfo.Instance.GetAllCurrenciesRateAsync();
+            JObject responseObject = await CurrencyInfoService.Instance.GetAllCurrenciesRateAsync();
 
             // Assert \\
             Assert.True(responseObject != null);
@@ -27,7 +27,7 @@ namespace Smart_Currency_Converter.UnitTests
             const string RATES_KEY = "rates";
 
             // Act \\
-            JObject responseObject = await CurrencyInfo.Instance.GetAllCurrenciesRateAsync();
+            JObject responseObject = await CurrencyInfoService.Instance.GetAllCurrenciesRateAsync();
             JToken currencies = responseObject.GetValue(RATES_KEY);
 
             // Assert \\
@@ -42,7 +42,7 @@ namespace Smart_Currency_Converter.UnitTests
             const string DATE_KEY = "date";
 
             // Act \\
-            JObject responseObject = await CurrencyInfo.Instance.GetAllCurrenciesRateAsync();
+            JObject responseObject = await CurrencyInfoService.Instance.GetAllCurrenciesRateAsync();
             string date = responseObject.GetValue(DATE_KEY).ToString();
 
             // Assert \\
@@ -59,7 +59,7 @@ namespace Smart_Currency_Converter.UnitTests
             const string BASE_KEY = "base";
 
             // Act \\
-            JObject responseObject = await CurrencyInfo.Instance.GetAllCurrenciesRateAsync(null);
+            JObject responseObject = await CurrencyInfoService.Instance.GetAllCurrenciesRateAsync(null);
             string baseCurrency = responseObject.GetValue(BASE_KEY).ToString();
 
             // Assert \\
@@ -73,7 +73,7 @@ namespace Smart_Currency_Converter.UnitTests
             const string BASE_KEY = "random";
 
             // Act \\
-            var exception = await Assert.ThrowsAsync<HttpRequestException>(() => CurrencyInfo.Instance.GetAllCurrenciesRateAsync(BASE_KEY));
+            var exception = await Assert.ThrowsAsync<HttpRequestException>(() => CurrencyInfoService.Instance.GetAllCurrenciesRateAsync(BASE_KEY));
 
             // Assert \\
             Assert.Contains("BadRequest", exception.Message);

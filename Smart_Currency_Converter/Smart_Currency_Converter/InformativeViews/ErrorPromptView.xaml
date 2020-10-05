@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Smart_Currency_Converter.InformativeViews.ErrorPromptView"
+             x:Name="ErrorPromptPanel"
+             HeightRequest="70"
+             Margin="5,15,5,-85"
+             BackgroundColor="OrangeRed" >
+
+    <Label
+        x:Name="MessageLabel"
+        TextColor="White"
+        FontSize="Medium"
+        FontAttributes="Bold"
+        HorizontalTextAlignment="Center"
+        VerticalTextAlignment="Center"
+        HorizontalOptions="CenterAndExpand"
+        VerticalOptions="CenterAndExpand"
+    />
+
+</StackLayout>

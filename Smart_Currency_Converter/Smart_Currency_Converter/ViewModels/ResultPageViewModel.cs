@@ -1,27 +1,63 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
+using System.Reflection;
+using Xamarin.Forms.Xaml;
+using System.Threading.Tasks;
+using Smart_Currency_Converter;
 using System.Collections.Generic;
-using Model.Smart_Currency_Converter;
+using Views.Smart_Currency_Converter;
 
 namespace ViewModel.Result
 {
     public class ResultPageViewModel
     {
-        public Command Convert { get; }
+        public static INavigation ModalNavigation;
+        public static ImageSource Image;
+        public static string TargetSymbol;
+        public static List<KeyValuePair<string, decimal>> ItemPricePairs { get; set; }
+
+        public Command ShowTakenPhoto { get; }
+        public Command RetakePhoto { get; }
 
         public ResultPageViewModel()
         {
-            Convert = new Command(TempMethod);
+            ShowTakenPhoto = new Command(ShowTakenPhotoAction);
+            RetakePhoto = new Command(OpenSmartConverterPage);
         }
 
-        private async void TempMethod()
+        private async void ShowTakenPhotoAction()
         {
-            HashSet<string> set = Cache.Instance.GetAcronyms();
+            try
+            {
+                await DisplayTakenPhoto();
+            } catch (Exception ex)
+            {
+                Microsoft.AppCenter.Crashes.Crashes.TrackError(ex);
+            }
+        }
 
-            string baseCurrency = "AUD";
-            string targetCurrency = "USD";
+        private async Task DisplayTakenPhoto() => await ModalNavigation.PushModalAsync(new ImagePopUp(Image));
 
-            Converter converter = new Converter();
-            decimal r = await converter.Convert(25.45M, baseCurrency, targetCurrency);
+        private async void OpenSmartConverterPage() => await App.NavigationObj.PopAsync();
+    }
+
+
+    /// <summary>
+    /// This class enables the XAML components in ResultPage.xaml to use embedded images that are common for all platforms.
+    /// </summary>
+    [ContentProperty(nameof(Source))]
+    public class ImageResourceExtension : IMarkupExtension
+    {
+        public string Source { get; set; }
+
+        public object ProvideValue(IServiceProvider serviceProvider)
+        {
+            if (Source == null)
+                return null;
+
+            ImageSource imageSource = ImageSource.FromResource(Source, typeof(ImageResourceExtension).GetTypeInfo().Assembly);
+
+            return imageSource;
         }
     }
 }

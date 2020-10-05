@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Class="Smart_Currency_Converter.InformativeViews.LoadingPage"
+             xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             mc:Ignorable="d"
+             Visual="Material">
+    
+    <ContentPage.Content>
+        <StackLayout>
+
+            <forms:AnimationView
+	            x:Name="LoadingAnimationView"
+	            Loop="True"
+	            AutoPlay="True"
+	            VerticalOptions="FillAndExpand" 
+	            HorizontalOptions="FillAndExpand"
+            />
+
+            <Label
+                x:Name="LoadingStatus"
+                FontSize="20"
+                FontFamily="MontBoldItalic"
+                TextColor="{StaticResource DarkBlue}"
+                Margin="0,-150,0,190"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" 
+            />
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
