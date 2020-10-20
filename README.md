@@ -1,11 +1,16 @@
-# Smart CC
-#### The Lit One </br>
+# Smart Currency Converter
 
+Smart CC lets you quickly convert a list of items with price to a different currency by just taking a photo. 
 
-Android: [![Build status](https://build.appcenter.ms/v0.1/apps/1cdcc028-52f3-47ba-b6b6-b903d59cd7ec/branches/master/badge)](https://appcenter.ms)
+<a href='https://play.google.com/store/apps/details?id=com.baobab.smart_currency_converter&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+  <img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="250" height="100"/>
+</a>
 
-IOS: [![Build status](https://build.appcenter.ms/v0.1/apps/986dad84-8972-4473-8872-dd715621dcc6/branches/Develop/badge)](https://appcenter.ms)
+<img alt='Get it on App Store' src='https://www.designpieces.com/wp-content/uploads/2016/02/download-on-the-app-store.png' width="200" height="60"/>
+
 </br></br>
-[![forthebadge](https://forthebadge.com/images/badges/made-with-c-sharp.svg)](https://forthebadge.com) **&** 
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+___
+Android - Master branch: [![Build status](https://build.appcenter.ms/v0.1/apps/68fab910-7589-402f-96cb-e907f8544242/branches/master/badge)](https://appcenter.ms)
+</br></br>
+[![forthebadge](https://forthebadge.com/images/badges/made-with-c-sharp.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/for-you.svg)](https://forthebadge.com)
