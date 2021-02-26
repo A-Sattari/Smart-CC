@@ -6,7 +6,7 @@ Smart CC lets you quickly convert a list of items with price to a different curr
   <img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="250" height="100"/>
 </a>
 <br>
-Notes: Due to hardware limitation and restrictions made by Apple, I won't be releasing the IOS version.
+Note: Due to hardware limitation and restrictions made by Apple, I won't be releasing the IOS version.
 
 </br></br>
 ___
