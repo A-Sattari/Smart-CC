@@ -1,0 +1,29 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/Smart_Currency_Converter/Smart_Currency_Converter"
+  schedule:
+    interval: weekly
+    time: "11:00"
+    timezone: America/Vancouver
+  open-pull-requests-limit: 10
+  target-branch: Develop
+  assignees:
+  - a-sattari
+  ignore:
+  - dependency-name: Newtonsoft.Json
+    versions:
+    - 13.0.1
+  - dependency-name: Microsoft.AppCenter.Analytics
+    versions:
+    - 4.1.0
+    - 4.2.0
+  - dependency-name: MonkeyCache.SQLite
+    versions:
+    - 1.5.2
+  - dependency-name: Xamarin.Essentials
+    versions:
+    - 1.6.1
+  - dependency-name: Microsoft.AppCenter.Crashes
+    versions:
+    - 4.1.0
